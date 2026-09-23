@@ -1,5 +1,7 @@
 {{- define "main" }}
 {{- $icon := .Params.icon | default "grid" -}}
+{{- /* 产品 → 下载平台：cu 运行在 Mac App 里，跟随 mac */ -}}
+{{- $dl := index (dict "macos" "mac" "android" "android" "chrome" "chrome" "cu" "mac") .File.ContentBaseName | default "mac" -}}
 <article>
   <header class="page-hero">
     <div class="container-wide page-hero__inner">
@@ -8,13 +10,14 @@
       <h1 class="display-2">{{ .Title }}</h1>
       {{- with .Params.tagline }}<p class="body-large text-tertiary">{{ . }}</p>{{ end }}
       <div class="btn-row" style="margin-top:8px">
-        <a class="btn btn--primary" href="{{ site.Params.downloadMacOS | default "#" }}">
+        <a class="btn btn--primary" href="{{ partial "dl/url.html" $dl }}"{{ if eq $dl "chrome" }} target="_blank" rel="noopener noreferrer"{{ end }}>
           {{ partial "icon.html" "download" }}<span>{{ i18n "cta.download" }}</span>
         </a>
         <a class="btn btn--secondary" href="{{ "" | relLangURL }}#products">
           <span>{{ i18n "product.backToProducts" }}</span>
         </a>
       </div>
+      {{ partial "dl/version-line.html" $dl }}
     </div>
   </header>
 
@@ -84,10 +87,10 @@
           <p class="body-large text-tertiary">{{ .Params.description }}</p>
         </div>
         <div class="cta__actions">
-          <a class="btn btn--primary" href="{{ site.Params.downloadMacOS | default "#" }}">
+          <a class="btn btn--primary" href="{{ partial "dl/url.html" "mac" }}">
             {{ partial "icon.html" "apple" }}<span>{{ i18n "footer.downloadMac" }}</span>
           </a>
-          <a class="btn btn--secondary" href="{{ site.Params.downloadAndroid | default "#" }}">
+          <a class="btn btn--secondary" href="{{ partial "dl/url.html" "android" }}">
             {{ partial "icon.html" "android" }}<span>{{ i18n "footer.downloadAndroid" }}</span>
           </a>
         </div>

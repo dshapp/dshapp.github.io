@@ -449,3 +449,34 @@
 .repo-card--soon { opacity: .72; }
 .repo-card--soon:hover { opacity: 1; }
 
+
+/* ---------------------------------------------------------------- 下载页 */
+.dl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+@media (max-width: 1000px) { .dl-grid { grid-template-columns: minmax(0, 1fr); max-width: 640px; margin-inline: auto; } }
+.dl-card { gap: 18px; padding: 24px; scroll-margin-top: calc(var(--header-height) + 24px); }
+.dl-card:target { border-color: var(--color-border-translucent-strong); box-shadow: var(--shadow-medium); }
+.dl-card__head { display: flex; align-items: center; gap: 12px; }
+.dl-card__name { font-size: 18px; flex: 1; }
+.dl-card__btn { align-self: stretch; justify-content: center; }
+.dl-card__btn[aria-disabled="true"] { opacity: .55; pointer-events: none; }
+.dl-meta { display: grid; gap: 8px; margin: 0; font-size: 13px; }
+.dl-meta > div { display: flex; justify-content: space-between; gap: 16px; }
+.dl-meta dt { color: var(--color-text-quaternary); flex-shrink: 0; }
+.dl-meta dd { margin: 0; color: var(--color-text-secondary); text-align: right; font-variant-numeric: tabular-nums; }
+.dl-sha { display: grid; gap: 4px; padding: 10px 12px; border-radius: var(--radius-8); background: var(--color-bg-level-0); border: 1px solid var(--color-border-translucent); }
+.dl-sha__label { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--color-text-quaternary); }
+.dl-sha__value { font-family: var(--font-monospace); font-size: 11.5px; line-height: 1.5; color: var(--color-text-tertiary); word-break: break-all; user-select: all; }
+.dl-steps { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--color-border-translucent); }
+.dl-steps__title { font-size: 13px; font-weight: var(--font-weight-semibold); color: var(--color-text-secondary); }
+.dl-steps ol { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13px; line-height: 1.6; color: var(--color-text-tertiary); }
+.dl-steps .card__more { margin-top: 4px; }
+.dl-foot { margin-top: 28px; text-align: center; }
+.dl-foot a { display: inline-flex; align-items: center; gap: 4px; color: var(--color-text-tertiary); }
+.dl-foot a:hover { color: var(--color-text-primary); }
+.dl-foot svg { width: 12px; height: 12px; }
+
+/* 下载按钮下方的一行版本信息（首页 hero、产品页） */
+.dl-version { font-size: 13px; color: var(--color-text-quaternary); font-variant-numeric: tabular-nums; }
+.dl-version a { color: var(--color-text-tertiary); text-decoration: underline; text-decoration-color: var(--color-border-primary); text-underline-offset: 3px; }
+.dl-version a:hover { color: var(--color-text-primary); }
+.hero__actions + .dl-version { margin-top: 14px; text-align: center; }

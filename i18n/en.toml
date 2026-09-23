@@ -161,3 +161,12 @@ other = "All documentation"
 [docs.updatedOn]
 other = "Last updated"
 
+
+[download.latest]
+other = "Latest"
+
+[download.allPlatforms]
+other = "All platforms & install notes"
+
+[nav.download]
+other = "Download"

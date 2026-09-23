@@ -1,0 +1,6 @@
+{{- /* dl/version-line.html —— 下载按钮下方一行：当前最新版本 + 大小 + 去下载页的链接 */ -}}
+{{- $meta := partial "dl/meta.html" . -}}
+<p class="dl-version">
+  {{- with $meta }}{{ i18n "download.latest" }} {{ . }} · {{ end -}}
+  <a href="{{ "download/" | relLangURL }}#{{ . }}">{{ i18n "download.allPlatforms" }}</a>
+</p>

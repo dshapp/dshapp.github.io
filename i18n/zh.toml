@@ -161,3 +161,12 @@ other = "全部文档"
 [docs.updatedOn]
 other = "最后更新"
 
+
+[download.latest]
+other = "最新版本"
+
+[download.allPlatforms]
+other = "全部平台与安装说明"
+
+[nav.download]
+other = "下载"

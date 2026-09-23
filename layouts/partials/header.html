@@ -40,7 +40,7 @@
         {{ partial "icon.html" "github" }}
       </a>
       {{ partial "lang-switch.html" . }}
-      <a class="btn btn--primary btn--sm header-cta" href="{{ site.Params.downloadMacOS | default "#" }}"
+      <a class="btn btn--primary btn--sm header-cta" href="{{ "download/" | relLangURL }}"
          aria-label="{{ i18n "cta.download" }}">
         {{ partial "icon.html" "download" }}<span class="header-cta__label">{{ i18n "cta.download" }}</span>
       </a>

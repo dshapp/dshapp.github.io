@@ -16,13 +16,14 @@
       <p class="body-large hero__sub">{{ $h.subtitle }}</p>
 
       <div class="btn-row btn-row--center hero__actions">
-        <a class="btn btn--primary" href="{{ with $h.ctaPrimaryHref }}{{ . }}{{ else }}{{ site.Params.downloadMacOS | default "#" }}{{ end }}">
+        <a class="btn btn--primary" href="{{ with $h.ctaPrimaryHref }}{{ . }}{{ else }}{{ partial "dl/url.html" "mac" }}{{ end }}">
           {{ partial "icon.html" "apple" }}<span>{{ $h.ctaPrimary }}</span>
         </a>
         <a class="btn btn--secondary" href="{{ $h.ctaSecondaryHref }}">
           <span>{{ $h.ctaSecondary }}</span>{{ partial "icon.html" "arrow-right" }}
         </a>
       </div>
+      {{ partial "dl/version-line.html" "mac" }}
 
       <div class="hero__meta">
         {{- range $h.platforms }}

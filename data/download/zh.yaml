@@ -1,0 +1,39 @@
+latest: 最新版本
+published: 发布于
+size: 大小
+requirements: 系统要求
+checksum: SHA-256
+soon: 即将推出
+soonBody: 首个版本正在构建中，发布后这里会自动出现下载按钮。
+allReleases: 全部历史版本
+installTitle: 安装步骤
+platforms:
+  - key: mac
+    icon: apple
+    name: macOS App
+    button: 下载 .dmg
+    requirements: macOS 14 或更高 · Apple Silicon（M1 及以上）
+    docs: docs/install-macos/
+    steps:
+      - 打开下载的 .dmg，把 App 拖进「应用程序」文件夹。
+      - 当前为 ad-hoc 签名、尚未经 Apple 公证：首次打开请在 Finder 中按住 Control 点按 App，选「打开」；或到「系统设置 → 隐私与安全性」点「仍要打开」。
+      - 之后的新版本直接下载覆盖即可，会话与设置都会保留。
+  - key: android
+    icon: android
+    name: Android App
+    button: 下载 .apk
+    requirements: Android 8.0 或更高
+    docs: docs/install-android/
+    steps:
+      - 用手机浏览器打开本页并下载 .apk（或在电脑下载后传到手机）。
+      - 首次安装时按提示允许浏览器或文件管理器「安装未知应用」。
+      - 装过本地调试版的设备签名不同，需要先卸载旧版再安装。
+  - key: chrome
+    icon: chrome
+    name: Chrome 扩展
+    button: 前往 Chrome 应用商店
+    requirements: Chrome 120 或更高
+    docs: docs/install-chrome/
+    steps:
+      - 在 Chrome 应用商店点「添加至 Chrome」。
+      - 固定扩展图标，打开侧边栏即可连接本机 DSH。

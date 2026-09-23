@@ -1,0 +1,73 @@
+{{- define "main" }}
+{{- /* download.html —— 下载页：每个平台一张卡片，版本信息来自构建时生成的 data/releases.json */ -}}
+{{- $d := index hugo.Data.download site.Language.Lang -}}
+{{- $rel := hugo.Data.releases | default dict -}}
+<article class="download-page">
+  <header class="page-hero">
+    <div class="container-wide page-hero__inner">
+      <span class="page-hero__icon" aria-hidden="true">{{ partial "icon.html" "download" }}</span>
+      <h1 class="display-2">{{ .Title }}</h1>
+      {{- with .Params.tagline }}<p class="body-large text-tertiary text-balance">{{ . }}</p>{{ end }}
+    </div>
+  </header>
+
+  <section class="section container-wide">
+    <div class="dl-grid">
+      {{- range $d.platforms }}
+      {{- $p := . }}
+      {{- $r := index $rel $p.key }}
+      {{- $live := or $r (eq $p.key "chrome") }}
+      <section class="card dl-card reveal" id="{{ $p.key }}" aria-labelledby="dl-{{ $p.key }}">
+        <div class="dl-card__head">
+          <span class="card__icon" aria-hidden="true">{{ partial "icon.html" $p.icon }}</span>
+          <h2 class="card__title dl-card__name" id="dl-{{ $p.key }}">{{ $p.name }}</h2>
+          {{- with $r }}
+            <span class="badge badge--accent" title="{{ $d.latest }}">v{{ .version }}</span>
+          {{- else }}{{ if not $live }}
+            <span class="badge">{{ $d.soon }}</span>
+          {{- end }}{{ end }}
+        </div>
+
+        <dl class="dl-meta">
+          <div><dt>{{ $d.requirements }}</dt><dd>{{ $p.requirements }}</dd></div>
+          {{- with $r }}
+          <div><dt>{{ $d.published }}</dt><dd><time datetime="{{ .published }}">{{ (time.AsTime .published).Local | time.Format "2006-01-02 15:04" }}</time></dd></div>
+          <div><dt>{{ $d.size }}</dt><dd>{{ printf "%.1f MB" (div (float .size) 1048576) }}</dd></div>
+          {{- end }}
+        </dl>
+
+        {{- if $live }}
+          <a class="btn btn--primary dl-card__btn" href="{{ partial "dl/url.html" $p.key }}"
+             {{- if eq $p.key "chrome" }} target="_blank" rel="noopener noreferrer"{{ end }}>
+            {{ partial "icon.html" (cond (eq $p.key "chrome") "arrow-up-right" "download") }}<span>{{ $p.button }}</span>
+          </a>
+        {{- else }}
+          <p class="body-small text-tertiary">{{ $d.soonBody }}</p>
+          <span class="btn btn--secondary dl-card__btn" aria-disabled="true">{{ $d.soon }}</span>
+        {{- end }}
+
+        {{- with $r }}
+        <div class="dl-sha">
+          <span class="dl-sha__label">{{ $d.checksum }}</span>
+          <code class="dl-sha__value">{{ .sha256 }}</code>
+        </div>
+        {{- end }}
+
+        <div class="dl-steps">
+          <h3 class="dl-steps__title">{{ $d.installTitle }}</h3>
+          <ol>
+            {{- range $p.steps }}<li>{{ . }}</li>{{ end }}
+          </ol>
+          <a class="card__more" href="{{ $p.docs | relLangURL }}">{{ i18n "nav.docs" }}{{ partial "icon.html" "arrow-right" }}</a>
+        </div>
+      </section>
+      {{- end }}
+    </div>
+
+    <p class="body-small text-quaternary dl-foot reveal">
+      <a href="https://github.com/dshapp/dshapp.github.io/releases" target="_blank" rel="noopener noreferrer">{{ $d.allReleases }}{{ partial "icon.html" "arrow-up-right" }}</a>
+      · <a href="{{ "downloads/latest.json" | relURL }}">latest.json</a>
+    </p>
+  </section>
+</article>
+{{- end }}

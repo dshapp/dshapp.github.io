@@ -6,3 +6,7 @@ resources/_gen/
 .DS_Store
 
 .hugo_build.lock
+
+# 由 scripts/fetch-releases.py 在构建时生成（安装包不入库）
+static/downloads/
+data/releases.json

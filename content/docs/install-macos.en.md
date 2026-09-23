@@ -18,7 +18,7 @@ The macOS client is where DSH lives: it is both the interface and the host of yo
 
 ## Install
 
-1. Get the `.dmg` from the [download page](/en/products/macos/).
+1. Get the `.dmg` from the [download page](/en/download/#mac).
 2. Open the disk image and drag **DSH** into Applications.
 3. If Gatekeeper blocks the first launch, go to System Settings → Privacy & Security and choose Open Anyway.
 4. Follow the setup wizard; the service starts with the app.

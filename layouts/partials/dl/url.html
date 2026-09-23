@@ -1,0 +1,10 @@
+{{- /* dl/url.html —— 入参平台 key（mac / android / chrome），返回下载地址。
+       mac、android 取自构建时生成的 data/releases.json（scripts/fetch-releases.py）；
+       还没有发布版本时退回到 /download/ 页，不会出现死链。 */ -}}
+{{- $url := "download/" | relLangURL -}}
+{{- if eq . "chrome" -}}
+  {{- $url = site.Params.chromeWebStore | default $url -}}
+{{- else -}}
+  {{- with index (hugo.Data.releases | default dict) . -}}{{- $url = .path | relURL -}}{{- end -}}
+{{- end -}}
+{{- return $url -}}

@@ -4,7 +4,9 @@ name: Deploy Hugo site to GitHub Pages
 on:
   push:
     branches: [main]
-  workflow_dispatch:        # 也可在 Actions 页面手动触发重新部署
+  workflow_dispatch:        # 也可在 Actions 页面手动触发重新部署；build-apps.yml 发布新安装包后也走这里
+  release:
+    types: [published]      # 手动在网页上发布 Release 时同样刷新下载页
 
 permissions:
   contents: read
@@ -42,6 +44,12 @@ jobs:
         id: pages
         uses: actions/configure-pages@v6
 
+      - name: Fetch latest app installers
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
+        run: python3 scripts/fetch-releases.py
+
       - name: Build
         run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
 
@@ -54,6 +62,8 @@ jobs:
           echo "- commit: \`${GITHUB_SHA::7}\`" >> "$GITHUB_STEP_SUMMARY"
           echo "- html pages: $(find public -name '*.html' | wc -l)" >> "$GITHUB_STEP_SUMMARY"
           echo "- size: $(du -sh public | cut -f1)" >> "$GITHUB_STEP_SUMMARY"
+          echo "- installers:" >> "$GITHUB_STEP_SUMMARY"
+          jq -r 'to_entries[] | "  - \(.key): \(.value.version) (\(.value.file))"' data/releases.json >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5

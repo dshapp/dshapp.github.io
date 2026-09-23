@@ -1,0 +1,265 @@
+# 构建 macOS / Android 安装包，发布为本仓库的 GitHub Release，再触发 Pages 重新部署，
+# 让 https://dshapp.github.io/download/ 上的下载按钮和版本号指向最新版本。
+#
+# 源码在私有仓库 dshapp/dsh-macapp、dshapp/dsh-androidapp；本仓库公开，runner 免费。
+# 触发方式：
+#   - repository_dispatch(app-updated)：两个 App 仓库 push 到 main 时由 notify-site.yml 发出
+#   - schedule：每 30 分钟轮询一次两个仓库的 main，发现新提交才构建（dispatch 没到时兜底）
+#   - workflow_dispatch：手动触发，可指定平台并强制重建
+#
+# 需要的 secrets（Settings → Secrets and variables → Actions）：
+#   APP_SOURCE_TOKEN          fine-grained PAT，仓库选 dsh-macapp + dsh-androidapp，Contents: Read-only
+#   ANDROID_KEYSTORE_BASE64   release keystore（base64）
+#   ANDROID_KEYSTORE_PASSWORD / ANDROID_KEY_ALIAS / ANDROID_KEY_PASSWORD
+#
+# 注意：本仓库公开，构建日志对所有人可见。不要在构建步骤里打印 secret 或源码内容。
+name: Build & publish app installers
+
+on:
+  repository_dispatch:
+    types: [app-updated]
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+    inputs:
+      app:
+        description: 要构建的平台
+        type: choice
+        options: [all, mac, android]
+        default: all
+      force:
+        description: 源码没有新提交也重新构建
+        type: boolean
+        default: false
+
+permissions:
+  contents: write   # 创建 Release
+  actions: write    # 触发 pages.yml
+
+concurrency:
+  group: build-apps
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  MAC_REPO: dshapp/dsh-macapp
+  ANDROID_REPO: dshapp/dsh-androidapp
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      mac: ${{ steps.plan.outputs.mac }}
+      mac_sha: ${{ steps.plan.outputs.mac_sha }}
+      mac_version: ${{ steps.plan.outputs.mac_version }}
+      mac_build: ${{ steps.plan.outputs.mac_build }}
+      android: ${{ steps.plan.outputs.android }}
+      android_sha: ${{ steps.plan.outputs.android_sha }}
+      android_version: ${{ steps.plan.outputs.android_version }}
+      android_build: ${{ steps.plan.outputs.android_build }}
+    steps:
+      - name: Decide what to build
+        id: plan
+        env:
+          SRC_TOKEN: ${{ secrets.APP_SOURCE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          INPUT_APP: ${{ inputs.app || 'all' }}
+          FORCE: ${{ inputs.force || false }}
+        run: |
+          set -euo pipefail
+          if [ -z "$SRC_TOKEN" ]; then
+            echo "::warning::APP_SOURCE_TOKEN 未配置，无法读取 App 源码仓库，本次跳过构建。"
+            echo "mac=false" >> "$GITHUB_OUTPUT"; echo "android=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # 本仓库所有 Release 的 tag 与 body，用来找每个平台上次构建的源码提交和下一个版本号
+          gh api "repos/$GITHUB_REPOSITORY/releases?per_page=100" > releases.json
+
+          plan_app() {   # $1=key $2=source repo $3=tag prefix $4=version prefix $5=first build number
+            local key=$1 repo=$2 prefix=$3 vprefix=$4 floor=$5
+            local head last_sha last_n next
+            head=$(GH_TOKEN=$SRC_TOKEN gh api "repos/$repo/commits/main" --jq .sha)
+            last_sha=$(jq -r --arg p "$prefix" '[.[] | select(.tag_name | startswith($p))] | sort_by(.published_at) | last | .body // ""' releases.json \
+                       | sed -n 's/.*source-sha: *\([0-9a-f]\{40\}\).*/\1/p' | head -1)
+            last_n=$(jq -r --arg p "$prefix$vprefix" '[.[] | .tag_name | select(startswith($p)) | ltrimstr($p) | tonumber? ] | max // 0' releases.json)
+            next=$(( last_n + 1 )); (( next < floor )) && next=$floor
+
+            local build=true
+            if [ "$INPUT_APP" != all ] && [ "$INPUT_APP" != "$key" ]; then build=false
+            elif [ "$head" = "$last_sha" ] && [ "$FORCE" != true ]; then build=false
+            fi
+            echo "$key: main=${head::7} last=${last_sha::7} -> build=$build version=$vprefix$next"
+            {
+              echo "$key=$build"
+              echo "${key}_sha=$head"
+              echo "${key}_version=$vprefix$next"
+              echo "${key}_build=$next"
+            } >> "$GITHUB_OUTPUT"
+            echo "- **$key**: main \`${head::7}\`, 上次发布 \`${last_sha::7}\` → $([ $build = true ] && echo "构建 $vprefix$next" || echo 跳过)" >> "$GITHUB_STEP_SUMMARY"
+          }
+
+          # mac 版本号沿用 dsh-macapp 旧流水线的 0.1.<N>（已发布到 0.1.63）
+          plan_app mac     "$MAC_REPO"     mac-v     0.1. 64
+          plan_app android "$ANDROID_REPO" android-v 1.0. 1
+
+  build-mac:
+    needs: plan
+    if: needs.plan.outputs.mac == 'true'
+    runs-on: macos-26
+    timeout-minutes: 60
+    env:
+      VERSION: ${{ needs.plan.outputs.mac_version }}
+      BUILD: ${{ needs.plan.outputs.mac_build }}
+      SRC_SHA: ${{ needs.plan.outputs.mac_sha }}
+    steps:
+      - name: Check out dsh-macapp
+        uses: actions/checkout@v7
+        with:
+          repository: ${{ env.MAC_REPO }}
+          ref: ${{ env.SRC_SHA }}
+          token: ${{ secrets.APP_SOURCE_TOKEN }}
+          persist-credentials: false
+          path: src
+
+      - name: Verify localized UI
+        working-directory: src
+        run: python3 Scripts/verify-localized-ui.py
+
+      - name: Build Swift package
+        working-directory: src
+        run: swift build -c release
+
+      - name: Build DMG
+        working-directory: src
+        run: |
+          set -euo pipefail
+          Scripts/build-dmg-unsigned.sh \
+            --release-version "$VERSION" \
+            --marketing-version "$VERSION" \
+            --build-number "$BUILD" \
+            --output-dir "$GITHUB_WORKSPACE/out"
+
+      - name: Verify DMG
+        working-directory: out
+        run: |
+          set -euo pipefail
+          ls -l
+          shasum -a 256 -c ./*.sha256
+          hdiutil verify ./*.dmg
+
+      - name: Publish release mac-v${{ env.VERSION }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          dmg=$(ls out/*.dmg)
+          cat > notes.md <<EOF
+          DSH macOS App **$VERSION**（Apple Silicon）
+
+          下载：https://dshapp.github.io/download/
+
+          > 自动构建，ad-hoc 签名，**未经 Apple 公证**。首次打开请在 Finder 中按住 Control 点按 App → 打开，
+          > 或到「系统设置 → 隐私与安全性」中点「仍要打开」。
+
+          - SHA-256: \`$(shasum -a 256 "$dmg" | cut -d' ' -f1)\`
+          - source-sha: $SRC_SHA
+          EOF
+          gh release create "mac-v$VERSION" -R "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+            --title "DSH macOS $VERSION" --notes-file notes.md out/*.dmg out/*.sha256
+
+  build-android:
+    needs: plan
+    if: needs.plan.outputs.android == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      VERSION: ${{ needs.plan.outputs.android_version }}
+      BUILD: ${{ needs.plan.outputs.android_build }}
+      SRC_SHA: ${{ needs.plan.outputs.android_sha }}
+    steps:
+      - name: Check out dsh-androidapp
+        uses: actions/checkout@v7
+        with:
+          repository: ${{ env.ANDROID_REPO }}
+          ref: ${{ env.SRC_SHA }}
+          token: ${{ secrets.APP_SOURCE_TOKEN }}
+          persist-credentials: false
+          path: src
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+          cache-dependency-path: src/**/*.gradle.kts
+
+      - name: Use the official Gradle distribution
+        working-directory: src
+        # 仓库里的 wrapper 指向国内镜像，GitHub runner 上直连官方源更快更稳
+        run: sed -i 's#^distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-bin.zip#' gradle/wrapper/gradle-wrapper.properties
+
+      - name: Restore release keystore
+        env:
+          KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          set -euo pipefail
+          [ -n "$KEYSTORE_B64" ] || { echo "::error::ANDROID_KEYSTORE_BASE64 未配置"; exit 1; }
+          printf '%s' "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/release.jks"
+
+      - name: Build signed release APK
+        working-directory: src
+        env:
+          DSH_KEYSTORE_FILE: ${{ runner.temp }}/release.jks
+          DSH_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          DSH_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          DSH_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: ./gradlew assembleRelease -PversionCode="$BUILD" -PversionName="$VERSION" --no-daemon --console=plain
+
+      - name: Verify signature and collect APK
+        run: |
+          set -euo pipefail
+          apksigner=$(ls "$ANDROID_HOME"/build-tools/*/apksigner | sort -V | tail -1)
+          apk=src/app/build/outputs/apk/release/app-release.apk
+          "$apksigner" verify --print-certs "$apk" | grep 'SHA-256'
+          mkdir -p out
+          cp "$apk" "out/DSH-Android-$VERSION.apk"
+          (cd out && sha256sum "DSH-Android-$VERSION.apk" > "DSH-Android-$VERSION.sha256")
+
+      - name: Remove keystore
+        if: always()
+        run: rm -f "$RUNNER_TEMP/release.jks"
+
+      - name: Publish release android-v${{ env.VERSION }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          cat > notes.md <<EOF
+          DSH Android App **$VERSION**（versionCode $BUILD，Android 8.0+）
+
+          下载：https://dshapp.github.io/download/
+
+          > 需要在系统设置里允许浏览器「安装未知应用」。
+
+          - SHA-256: \`$(cut -d' ' -f1 out/*.sha256)\`
+          - source-sha: $SRC_SHA
+          EOF
+          gh release create "android-v$VERSION" -R "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+            --title "DSH Android $VERSION" --notes-file notes.md out/*.apk out/*.sha256
+
+  deploy-site:
+    needs: [build-mac, build-android]
+    if: always() && (needs.build-mac.result == 'success' || needs.build-android.result == 'success')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Redeploy Pages with the new installers
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml -R "$GITHUB_REPOSITORY" --ref main

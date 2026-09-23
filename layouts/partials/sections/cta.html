@@ -8,7 +8,7 @@
         <p class="body-large text-tertiary">{{ $h.ctaBody }}</p>
       </div>
       <div class="cta__actions">
-        <a class="btn btn--primary" href="{{ site.Params.downloadMacOS | default "#" }}">
+        <a class="btn btn--primary" href="{{ partial "dl/url.html" "mac" }}">
           {{ partial "icon.html" "apple" }}<span>{{ $h.ctaPrimary }}</span>
         </a>
         <a class="btn btn--secondary" href="{{ site.Params.github | default "#" }}">

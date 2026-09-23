@@ -1,0 +1,6 @@
+{{- /* dl/meta.html —— 入参平台 key，返回「v0.1.64 · 14.6 MB」这样的短版本信息；没有发布时返回空串 */ -}}
+{{- $s := "" -}}
+{{- with index (hugo.Data.releases | default dict) . -}}
+  {{- $s = printf "v%s · %.1f MB" .version (div (float .size) 1048576) -}}
+{{- end -}}
+{{- return $s -}}

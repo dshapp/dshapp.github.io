@@ -1,0 +1,39 @@
+latest: Latest
+published: Released
+size: Size
+requirements: Requirements
+checksum: SHA-256
+soon: Coming soon
+soonBody: The first build is on its way. The download button appears here automatically once it is published.
+allReleases: All releases
+installTitle: Install
+platforms:
+  - key: mac
+    icon: apple
+    name: macOS App
+    button: Download .dmg
+    requirements: macOS 14 or later · Apple Silicon (M1 and newer)
+    docs: docs/install-macos/
+    steps:
+      - Open the downloaded .dmg and drag the app into Applications.
+      - Builds are ad-hoc signed and not yet notarized by Apple. The first time, Control-click the app in Finder and choose Open, or click “Open Anyway” in System Settings → Privacy & Security.
+      - For later versions just download and replace the app; sessions and settings are kept.
+  - key: android
+    icon: android
+    name: Android App
+    button: Download .apk
+    requirements: Android 8.0 or later
+    docs: docs/install-android/
+    steps:
+      - Open this page in your phone’s browser and download the .apk (or copy it over from your computer).
+      - When prompted, allow your browser or file manager to install unknown apps.
+      - Devices with a locally built debug version have a different signature — uninstall it first.
+  - key: chrome
+    icon: chrome
+    name: Chrome extension
+    button: Open Chrome Web Store
+    requirements: Chrome 120 or later
+    docs: docs/install-chrome/
+    steps:
+      - Click “Add to Chrome” in the Chrome Web Store.
+      - Pin the extension and open the side panel to connect to your local DSH.

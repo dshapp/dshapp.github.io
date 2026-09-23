@@ -32,6 +32,33 @@ Hugo 版本要求：`0.166.0+extended`（Hugo Pipes 用于拼接、压缩和指�
 gh workflow run pages.yml -R dshapp/dshapp.github.io
 ```
 
+## 下载与安装包
+
+下载页 `/download/`（`content/download*.md` + `layouts/_default/download.html`，文案在 `data/download/{zh,en}.yaml`）和全站所有下载按钮都指向本站 `/downloads/` 下的安装包，并显示当前最新版本号。整条链路：
+
+```
+dsh-macapp / dsh-androidapp  push main
+  └─ notify-site.yml  ──repository_dispatch──▶  本仓库 build-apps.yml（另有每 30 分钟轮询兜底）
+        ├─ build-mac      macos-26：Scripts/build-dmg-unsigned.sh → Release  mac-v0.1.<N>
+        ├─ build-android  ubuntu：assembleRelease（release keystore 签名）→ Release  android-v1.0.<N>
+        └─ deploy-site    触发 pages.yml
+pages.yml
+  └─ scripts/fetch-releases.py：取各平台最新 Release → static/downloads/*.dmg|*.apk + data/releases.json
+       + /downloads/latest.json → hugo 构建 → Pages
+```
+
+- 源码 commit 没变就不会重复构建（Release 说明里记录了 `source-sha`）。手动重建：Actions → *Build & publish app installers* → Run workflow（可选平台、勾选 force）。
+- 模板通过 `partial "dl/url.html" "mac"` / `"android"` / `"chrome"` 取下载地址，`dl/meta.html` 取「v0.1.64 · 14.6 MB」，`dl/version-line.html` 渲染按钮下方的版本行。某平台还没有 Release 时，按钮自动退回到 `/download/`，页面显示「即将推出」。
+- 本地预览想看到真实版本：`GH_TOKEN=$(gh auth token -h github.com) python3 scripts/fetch-releases.py`，生成物已在 `.gitignore` 中。
+
+所需 secrets（本仓库 Settings → Secrets and variables → Actions）：
+
+| Secret | 所在仓库 | 内容 |
+| --- | --- | --- |
+| `APP_SOURCE_TOKEN` | dshapp.github.io | fine-grained PAT：仓库 dsh-macapp + dsh-androidapp，Contents: Read-only |
+| `ANDROID_KEYSTORE_BASE64` / `ANDROID_KEYSTORE_PASSWORD` / `ANDROID_KEY_ALIAS` / `ANDROID_KEY_PASSWORD` | dshapp.github.io | Android release 签名（本机备份在 `~/.dsh-keys/`，**丢失后已安装用户无法覆盖升级**） |
+| `SITE_DISPATCH_TOKEN` | dsh-macapp、dsh-androidapp | fine-grained PAT：仓库 dshapp.github.io，Contents: Read and write（可选，缺省时靠轮询） |
+
 ## 目录结构
 
 ```
@@ -183,7 +210,7 @@ layouts/index.html         首页编排（只调用 sections/* 分片）
 
 下载地址、仓库地址等都在两处：
 
-- `hugo.toml` 的 `[params]`：`downloadMacOS`、`downloadAndroid`、`chromeWebStore`、`github`。`chromeWebStore` 已填入正式的应用商店地址；`downloadMacOS`、`downloadAndroid` 仍是占位值 `#`。
+- `hugo.toml` 的 `[params]`：`chromeWebStore`、`github`。macOS / Android 的下载地址不用手填，见上文「下载与安装包」。
 - `data/opensource/{zh,en}.yaml` 的 `repos` 列表：`/opensource/` 详情页的 GitHub 仓库卡片，只改这一处。
 
 ### 仓库状态

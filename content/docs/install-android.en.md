@@ -18,7 +18,7 @@ The Android client is the phone side of the same sessions — and the scanning e
 
 ## Install
 
-1. Get the APK or install from the store (see the [download page](/en/products/android/)).
+1. Get the APK or install from the store (see the [download page](/en/download/#android)).
 2. Open the app and go to the pairing screen.
 3. Tap Add device on your Mac to show the QR code, then scan it.
 4. Once scanned, the device is on the allowlist and proves itself with its key — no verification codes.

@@ -45,8 +45,8 @@
 
       <div>
         <h2 class="footer-col__title">{{ i18n "footer.getStarted" }}</h2>
-        <a class="footer-link" href="{{ site.Params.downloadMacOS | default "#" }}">{{ i18n "footer.downloadMac" }}</a>
-        <a class="footer-link" href="{{ site.Params.downloadAndroid | default "#" }}">{{ i18n "footer.downloadAndroid" }}</a>
+        <a class="footer-link" href="{{ partial "dl/url.html" "mac" }}">{{ i18n "footer.downloadMac" }}</a>
+        <a class="footer-link" href="{{ partial "dl/url.html" "android" }}">{{ i18n "footer.downloadAndroid" }}</a>
         <a class="footer-link" href="{{ site.Params.chromeWebStore | default "#" }}">{{ i18n "footer.chromeWebStore" }}</a>
         <a class="footer-link" href="{{ site.Params.github | default "#" }}">{{ i18n "footer.github" }}</a>
       </div>
