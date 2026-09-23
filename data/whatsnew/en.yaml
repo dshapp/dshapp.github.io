@@ -1,0 +1,42 @@
+all: All
+upcoming: Upcoming
+released: Released
+download: Download this version
+current: Available now
+empty: No versions recorded for this module yet.
+source: Source
+types:
+  new: New
+  improved: Improved
+  fixed: Fixed
+# Module order = tab order; key maps to data/changelog/<key>.yaml
+modules:
+  - key: mac
+    name: macOS App
+    icon: apple
+    product: products/macos/
+    download: mac
+  - key: android
+    name: Android App
+    icon: android
+    product: products/android/
+    download: android
+  - key: chrome
+    name: Chrome extension
+    icon: chrome
+    product: products/chrome/
+  - key: browser
+    name: Browser control
+    icon: globe
+    product: products/chrome/
+    repo: https://github.com/dshapp/dsh-chrome-control
+  - key: bridge
+    name: Remote access
+    icon: smartphone
+    product: docs/pairing/
+    repo: https://github.com/dshapp/dsh-mobile-bridge
+  - key: cu
+    name: Computer use
+    icon: cu
+    product: products/cu/
+    repo: https://github.com/dshapp/dsh-kimi-computer-use

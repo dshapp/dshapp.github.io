@@ -87,6 +87,58 @@
     });
   });
 
+  /* ---- 更新日志：按模块筛选（#mac 这类 hash 可直达某个模块，#mac-0-1-64 直达某个版本） ---- */
+  var wn = doc.querySelector("[data-whatsnew]");
+  if (wn) {
+    var tabs = [].slice.call(wn.querySelectorAll("[data-wn-tab]"));
+    var entries = [].slice.call(wn.querySelectorAll("[data-wn-module]"));
+    var infos = [].slice.call(wn.querySelectorAll("[data-wn-module-info]"));
+    var empty = wn.querySelector("[data-wn-empty]");
+    var keys = tabs.map(function (t) { return t.getAttribute("data-wn-tab"); });
+    var select = function (key, push) {
+      if (keys.indexOf(key) < 0) key = "all";
+      tabs.forEach(function (t) {
+        var on = t.getAttribute("data-wn-tab") === key;
+        t.setAttribute("aria-selected", on ? "true" : "false");
+        t.tabIndex = on ? 0 : -1;
+      });
+      var shown = 0;
+      entries.forEach(function (el) {
+        var on = key === "all" || el.getAttribute("data-wn-module") === key;
+        el.hidden = !on;
+        if (on) { shown++; el.classList.add("is-visible"); }
+      });
+      infos.forEach(function (el) { el.hidden = el.getAttribute("data-wn-module-info") !== key; });
+      if (empty) empty.hidden = shown > 0;
+      if (push && history.replaceState) {
+        history.replaceState(null, "", key === "all" ? location.pathname : "#" + key);
+      }
+    };
+    tabs.forEach(function (t, i) {
+      t.addEventListener("click", function () { select(t.getAttribute("data-wn-tab"), true); });
+      t.addEventListener("keydown", function (e) {
+        var d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        var next = tabs[(i + d + tabs.length) % tabs.length];
+        next.focus();
+        select(next.getAttribute("data-wn-tab"), true);
+      });
+    });
+    var fromHash = function () {
+      var h = decodeURIComponent(location.hash.slice(1));
+      if (!h) return select("all");
+      if (keys.indexOf(h) >= 0) return select(h);
+      var target = doc.getElementById(h);   // 版本锚点：选中其所属模块再滚动过去
+      if (target && target.hasAttribute("data-wn-module")) {
+        select(target.getAttribute("data-wn-module"));
+        target.scrollIntoView();
+      } else select("all");
+    };
+    window.addEventListener("hashchange", fromHash);
+    fromHash();
+  }
+
   /* ---- 键盘提示：⌘/Ctrl 修饰符本地化 ---- */
   if (!/Mac|iPhone|iPad/.test(navigator.platform || "")) {
     doc.querySelectorAll("[data-mod-mac]").forEach(function (el) {

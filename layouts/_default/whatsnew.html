@@ -1,0 +1,98 @@
+{{- define "main" }}
+{{- /* whatsnew.html —— 更新日志：data/changelog/<module>.yaml 汇总成一条时间线，顶部标签按模块筛选（assets/js/main.js）。
+       条目文案是 { zh, en } 两份，按当前语言取值，缺英文时回退中文。 */ -}}
+{{- $lang := site.Language.Lang -}}
+{{- $d := index hugo.Data.whatsnew $lang -}}
+{{- $logs := hugo.Data.changelog | default dict -}}
+{{- $rel := hugo.Data.releases | default dict -}}
+
+{{- /* 拍平成一个列表：按日期倒序，同一天「即将发布」在前，再按模块顺序 */ -}}
+{{- $items := slice -}}
+{{- $counts := dict -}}
+{{- range $i, $m := $d.modules -}}
+  {{- $entries := slice -}}
+  {{- with index $logs $m.key }}{{ with .entries }}{{ $entries = . }}{{ end }}{{ end -}}
+  {{- $counts = merge $counts (dict $m.key (len $entries)) -}}
+  {{- range $entries -}}
+    {{- $key := printf "%s|%d|%02d" .date (cond (eq .status "upcoming") 1 0) (sub 99 $i) -}}
+    {{- $items = $items | append (dict "k" $key "m" $m "e" .) -}}
+  {{- end -}}
+{{- end -}}
+{{- $items = sort $items "k" "desc" -}}
+
+<article class="whatsnew-page" data-whatsnew>
+  <header class="page-hero">
+    <div class="container-wide page-hero__inner">
+      <span class="page-hero__icon" aria-hidden="true">{{ partial "icon.html" "sparkles" }}</span>
+      <h1 class="display-2">{{ .Title }}</h1>
+      {{- with .Params.tagline }}<p class="body-large text-tertiary text-balance">{{ . }}</p>{{ end }}
+    </div>
+  </header>
+
+  <section class="section container-wide wn">
+    <div class="wn-tabs" role="tablist" aria-label="{{ .Title }}">
+      <button class="wn-tab" type="button" role="tab" data-wn-tab="all" aria-selected="true">
+        <span>{{ $d.all }}</span><span class="wn-tab__count">{{ len $items }}</span>
+      </button>
+      {{- range $d.modules }}
+      {{- $n := index $counts .key }}
+      {{- if $n }}
+      <button class="wn-tab" type="button" role="tab" data-wn-tab="{{ .key }}" aria-selected="false">
+        {{ partial "icon.html" .icon }}<span>{{ .name }}</span><span class="wn-tab__count">{{ $n }}</span>
+      </button>
+      {{- end }}
+      {{- end }}
+    </div>
+
+    {{- /* 选中单个模块时显示的模块简介行 */}}
+    {{- range $d.modules }}
+    <div class="wn-module" data-wn-module-info="{{ .key }}" hidden>
+      <span class="wn-module__icon" aria-hidden="true">{{ partial "icon.html" .icon }}</span>
+      <a class="wn-module__name" href="{{ .product | relLangURL }}">{{ .name }}</a>
+      {{- with .download }}{{ with index $rel . }}
+        <span class="badge badge--accent">{{ $d.current }} v{{ .version }}</span>
+      {{- end }}{{ end }}
+      {{- with .repo }}
+        <a class="wn-module__link" href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ $d.source }}{{ partial "icon.html" "arrow-up-right" }}</a>
+      {{- end }}
+    </div>
+    {{- end }}
+
+    <ol class="wn-list">
+      {{- range $items }}
+      {{- $m := .m }}{{ $e := .e }}
+      {{- $title := index $e.title $lang | default $e.title.zh }}
+      {{- $dl := "" }}
+      {{- with $m.download }}{{ with index $rel . }}{{ if eq .version $e.version }}{{ $dl = .path | relURL }}{{ end }}{{ end }}{{ end }}
+      <li class="wn-entry reveal" data-wn-module="{{ $m.key }}" id="{{ $m.key }}-{{ $e.version | urlize }}">
+        <div class="wn-entry__aside">
+          <time class="wn-entry__date" datetime="{{ $e.date }}">{{ $e.date }}</time>
+          <span class="wn-entry__module">{{ partial "icon.html" $m.icon }}{{ $m.name }}</span>
+        </div>
+        <div class="wn-entry__card">
+          <div class="wn-entry__head">
+            <a class="wn-entry__version" href="#{{ $m.key }}-{{ $e.version | urlize }}">v{{ $e.version }}</a>
+            {{- if eq $e.status "upcoming" }}
+              <span class="badge badge--accent">{{ $d.upcoming }}</span>
+            {{- end }}
+            {{- with $dl }}
+              <a class="wn-entry__dl" href="{{ . }}">{{ partial "icon.html" "download" }}{{ $d.download }}</a>
+            {{- end }}
+          </div>
+          <h2 class="wn-entry__title">{{ $title }}</h2>
+          <ul class="wn-changes">
+            {{- range $e.changes }}
+            <li class="wn-change">
+              <span class="wn-chip wn-chip--{{ .type }}">{{ index $d.types .type }}</span>
+              <span class="wn-change__text">{{ index . $lang | default .zh }}</span>
+            </li>
+            {{- end }}
+          </ul>
+        </div>
+      </li>
+      {{- end }}
+    </ol>
+    <p class="body-small text-tertiary wn-empty" data-wn-empty hidden>{{ $d.empty }}</p>
+  </section>
+</article>
+{{- end }}

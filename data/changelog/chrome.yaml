@@ -1,0 +1,155 @@
+# Chrome 扩展 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
+entries:
+  - version: "0.3.6"
+    date: "2026-09-21"
+    status: upcoming
+    title:
+      zh: 圈选即批注，侧栏对齐 Mac
+      en: Annotate as you pick, Mac-style side panel
+    changes:
+      - type: new
+        zh: 圈选页面元素时会在点击处直接弹出批注框，写完即可提交或继续选下一个。
+        en: Picking a page element now opens an annotation box right where you clicked, so you can submit or move on to the next one.
+      - type: new
+        zh: 每轮对话末尾新增「本轮改动文件」卡片，可逐个文件查看改动对比。
+        en: A “Files changed this turn” card at the end of each turn lets you review the diff file by file.
+      - type: new
+        zh: 设置中的插件页改为「插件市场」与「内置插件」两栏，可直接安装、启停和卸载插件；预设页支持复制与删除。
+        en: The Plugins settings page now has “Marketplace” and “Built-in” tabs for installing, toggling and removing plugins, and presets can be duplicated or deleted.
+      - type: new
+        zh: 主题可强制设为浅色或深色，冷启动时不再先闪一下系统配色。
+        en: You can force a light or dark theme, and the panel no longer flashes the system theme on launch.
+      - type: new
+        zh: 本轮用量与用时改为可点击的药丸，点开即可查看详情。
+        en: Per-turn usage and duration are now clickable pills that open a details popover.
+      - type: improved
+        zh: 会话列表入口移到最左侧，改为与 Mac 端一致的左侧抽屉。
+        en: The session list now opens as a left-hand drawer from the far-left button, matching the Mac app.
+      - type: improved
+        zh: Agent 打开网页时会优先复用你已打开的同一页面，结束时也不再关掉你自己的标签页。
+        en: When the agent opens a page it now reuses a tab you already have open, and it no longer closes your own tabs when it finishes.
+      - type: improved
+        zh: 扩展更名为 Deepseek Harness APP，并换上新图标。
+        en: The extension is now called Deepseek Harness APP and has a new icon.
+      - type: improved
+        zh: 历史列表打开更快，圈选元素以清晰的键值卡片展示，并适配新版 DSH 的待发送队列。
+        en: The history list opens faster, picked elements show as tidy key-value cards, and the send queue works with the latest DSH.
+      - type: fixed
+        zh: 修复已结束的旧任务反复弹出「后台任务失败」通知，子代理完成后也会正常提醒。
+        en: Fixed stale “Background task failed” notifications popping up for old jobs, and subagents now notify you when they finish.
+      - type: fixed
+        zh: 修复长会话中图片占用内存不断增长、代码块偶尔吞掉正文、出错时只剩转圈等问题。
+        en: Fixed ever-growing image memory in long sessions, code blocks occasionally swallowing text, and errors leaving only a spinner.
+      - type: fixed
+        zh: macOS 上「停止生成」快捷键改为 ⌘Esc，不再被弹出层抢走；Agent 输入文字时也不再抢走标签页焦点。
+        en: On macOS “Stop generating” is now ⌘Esc so popovers can’t swallow it, and agent typing no longer steals focus from your tab.
+  - version: "0.3.1-build.21"
+    date: "2026-09-05"
+    status: released
+    title:
+      zh: 适配 DSH 0.1.2，会话更稳定
+      en: DSH 0.1.2 support and steadier sessions
+    changes:
+      - type: improved
+        zh: 扩展已适配 DSH 0.1.2。
+        en: The extension now works with DSH 0.1.2.
+      - type: fixed
+        zh: 切换会话时会清空附件，附件读取中暂不允许发送，移除附件也不再错位。
+        en: Attachments are cleared when you switch sessions, sending waits until they finish loading, and removing one no longer removes the wrong item.
+      - type: fixed
+        zh: 发送失败后「发送」按钮会恢复可用，新建会话失败也会给出提示。
+        en: The “Send” button re-enables after a failed prompt, and failed new sessions now show an error.
+      - type: fixed
+        zh: 切换会话或模型后，推理档位会作用到正确的模型上。
+        en: Reasoning level now applies to the right model after switching sessions or models.
+      - type: fixed
+        zh: 修复后台会话不再刷新、会话列表丢失实时变化以及对话内容出现缺口的问题。
+        en: Fixed background sessions not refreshing, the session list dropping live updates, and gaps in the transcript.
+      - type: fixed
+        zh: 附件校验错误提示已支持中英文。
+        en: Attachment validation errors are now localized.
+  - version: "0.3.1-build.18"
+    date: "2026-09-02"
+    status: released
+    title:
+      zh: Git 入口、插件管理与快捷键
+      en: Git control, plugin management and shortcuts
+    changes:
+      - type: new
+        zh: 聊天区右上角新增 Git 入口，可查看当前分支和改动量，并切换、新建分支或推送拉取。
+        en: A Git control in the chat header shows the branch and pending changes, and lets you switch or create branches and push or pull.
+      - type: new
+        zh: 设置里可直接安装、更新、卸载插件，也能一键重启或更新 DSH。
+        en: You can install, update and remove plugins, and restart or update DSH, straight from settings.
+      - type: new
+        zh: 底栏新增「携带当前页面上下文」开关，打开后下一条消息会让 Agent 知道你正在看的页面。
+        en: A new “Include current page” switch in the composer tells the agent which tab you’re viewing with your next message.
+      - type: new
+        zh: 会话列表支持按最近、状态或手动拖拽排序，每行显示运行中、已完成、出错的状态灯。
+        en: The session list can be sorted by recent, status or manual drag order, and each row shows a running, finished or error dot.
+      - type: new
+        zh: 设置新增「快捷键」页，并支持拖入图片作为附件、渲染数学公式与 Markdown 图片。
+        en: A new “Shortcuts” settings tab, plus drag-and-drop images, math formulas and Markdown images in chat.
+      - type: improved
+        zh: 移除容易误关的浏览器控制开关，连接状态显示更清楚；扩展图标也已更新。
+        en: The easy-to-forget browser control switch is gone in favor of a clearer connection status, and the icon has been refreshed.
+      - type: fixed
+        zh: 修复输入法选词时误提交消息或误打开会话的问题。
+        en: Fixed confirming an input-method candidate accidentally sending a message or opening a session.
+      - type: fixed
+        zh: 修复预设菜单无法切回上一个预设、推理档作用到旧模型等问题。
+        en: Fixed not being able to switch back to the previous preset and reasoning level applying to the old model.
+  - version: "0.3.1-build.13"
+    date: "2026-08-30"
+    status: released
+    title:
+      zh: 会话切换更顺畅
+      en: Smoother session switching
+    changes:
+      - type: improved
+        zh: 切换工作目录或打开会话时会显示加载动画，不再出现空白或残留旧内容。
+        en: Switching workspaces or opening a session now shows a loading animation instead of a blank or stale view.
+      - type: fixed
+        zh: 修复点击会话列表后聊天记录不切换的问题。
+        en: Fixed the transcript not changing after clicking a session in the list.
+  - version: "0.3.1-build.11"
+    date: "2026-08-30"
+    status: released
+    title:
+      zh: 子代理目录与工作目录筛选
+      en: Subagent catalog and workspace filtering
+    changes:
+      - type: new
+        zh: 侧栏顶部新增子代理目录，显示子代理数量，点击即可查看其只读会话。
+        en: A subagent catalog in the panel header shows how many subagents are running and opens each one read-only.
+      - type: new
+        zh: 工作目录可以直接在系统中打开。
+        en: You can now open the workspace folder in your system file browser.
+      - type: improved
+        zh: 选中某个工作目录时，历史列表只显示属于它的会话。
+        en: Selecting a workspace now filters the history list to that workspace’s sessions.
+      - type: fixed
+        zh: 修复搜索结果中目录名被截断、点击工作目录菜单时历史浮层误关闭的问题。
+        en: Fixed truncated folder names in search results and the history popover closing when using the workspace menu.
+  - version: "0.3.1-build.9"
+    date: "2026-08-30"
+    status: released
+    title:
+      zh: 侧栏更可靠，新增后台任务面板
+      en: A sturdier side panel with background jobs
+    changes:
+      - type: new
+        zh: 新增后台任务面板，并可查看和中断子代理。
+        en: A new background jobs panel, plus the ability to list and interrupt subagents.
+      - type: improved
+        zh: Agent 现在可以打开 file、about、data 等任意可访问的地址，不再仅限网页。
+        en: The agent can now open any navigable address, including file, about and data URLs, not just web pages.
+      - type: improved
+        zh: 断线后会自动重连，也可点击状态点手动重连，工具结果不会因断线而丢失。
+        en: The panel reconnects automatically after a drop, you can tap the status dot to reconnect, and tool results survive disconnects.
+      - type: improved
+        zh: 流式输出、会话列表与搜索更流畅，长列表也不再卡顿。
+        en: Streaming replies, the session list and search are smoother, even with long histories.
+      - type: fixed
+        zh: 快速切换会话时，迟到的结果不会再覆盖当前会话。
+        en: Late results no longer overwrite the current session when you switch quickly.

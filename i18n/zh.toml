@@ -170,3 +170,6 @@ other = "全部平台与安装说明"
 
 [nav.download]
 other = "下载"
+
+[nav.whatsnew]
+other = "更新日志"

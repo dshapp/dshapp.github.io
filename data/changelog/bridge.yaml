@@ -1,0 +1,85 @@
+# dsh-mobile-bridge 手机桥接 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
+entries:
+  - version: "0.3.4"
+    date: "2026-09-21"
+    status: released
+    title:
+      zh: 手机端更快、重连不重复执行
+      en: Faster phone calls, safe retries on reconnect
+    changes:
+      - type: improved
+        zh: 手机的所有请求改走同一条长连接，不再每次单独发起请求，经中继访问 Mac 时响应明显更快。
+        en: The phone now sends all its requests over a single long-lived connection instead of one request each, making access to your Mac through the relay noticeably faster.
+      - type: improved
+        zh: 网络断开重连后重试的操作不会被执行两次，已完成的请求会直接返回原结果。
+        en: Retrying after a dropped connection never runs an action twice; a request that already finished simply returns its original result.
+      - type: fixed
+        zh: 修复一处安全问题：手机发来的请求无法再借特殊地址格式指向其他主机，只能访问本机允许的接口。
+        en: Fixed a security issue so a phone’s request can no longer use a crafted address to point at another host; it can only reach the allowed endpoints on this Mac.
+  - version: "0.3.3"
+    date: "2026-09-21"
+    status: released
+    title:
+      zh: 移动访问页面换了新地址
+      en: New address for the Mobile Access page
+    changes:
+      - type: improved
+        zh: 浏览器中的移动访问页面改为 /mobileaccess，旧的 /mobile 地址已停用，请更新书签。
+        en: The Mobile Access page in the browser now lives at /mobileaccess; the old /mobile address is gone, so update any bookmarks.
+      - type: improved
+        zh: 页面上的中继操作移到状态行内，按钮文字精简为「断开」和「恢复」。
+        en: The relay control now sits inside the status line, with its buttons shortened to “Cut Off” and “Restore”.
+  - version: "0.3.2"
+    date: "2026-09-20"
+    status: released
+    title:
+      zh: 在浏览器里管理移动访问
+      en: Manage Mobile Access from a browser
+    changes:
+      - type: new
+        zh: 不用 Mac 应用也能在浏览器里打开移动访问页面，查看配对二维码和已配对设备。
+        en: You can now open the Mobile Access page in a browser, without the Mac app, to see the pairing QR code and your paired devices.
+      - type: new
+        zh: 可以为已配对的手机重命名，方便区分多台设备。
+        en: Paired phones can now be renamed so multiple devices are easy to tell apart.
+      - type: new
+        zh: 可以一键切断或恢复与中继的连接，临时停止所有手机访问而不必取消配对。
+        en: You can cut off or restore the relay link with one click, pausing all phone access without unpairing anything.
+  - version: "0.3.0"
+    date: "2026-09-19"
+    status: released
+    title:
+      zh: 手机可查看改动文件，加载更省流量
+      en: Changed files on the phone, lighter loading
+    changes:
+      - type: new
+        zh: 手机上可以查看每轮对话的改动文件卡片及其具体差异。
+        en: The phone can now open each turn’s changed-files card and view the actual diffs.
+      - type: improved
+        zh: 返回给手机的数据会自动压缩，会话列表只传手机需要的字段，弱网下加载更快、更省流量。
+        en: Responses to the phone are now compressed and the session list carries only the fields the phone needs, so it loads faster on weak networks and uses less data.
+  - version: "0.2.0"
+    date: "2026-09-17"
+    status: released
+    title:
+      zh: 首个版本：手机安全连上你的 Mac
+      en: "First release: reach your Mac from your phone"
+    changes:
+      - type: new
+        zh: 手机扫码配对后，即可通过公共中继远程使用 Mac 上的 DSH，全程端到端加密，Mac 无需开放任何端口。
+        en: After scanning a QR code, your phone can use DSH on your Mac through a public relay, end-to-end encrypted, without opening any port on the Mac.
+      - type: new
+        zh: 配对码 5 分钟内有效且只能使用一次，生成新码会让旧码作废；手机配对后 180 天内免重复配对。
+        en: Pairing codes are single-use and expire after 5 minutes, and a new code retires the old one; a paired phone stays trusted for 180 days.
+      - type: new
+        zh: 配对二维码自带这台 Mac 的名称，手机会自动用它作为连接名称。
+        en: The pairing QR code carries this Mac’s name, which the phone uses as the default label for the connection.
+      - type: new
+        zh: 设备列表会显示每台手机当前是否在线。
+        en: The device list shows whether each phone is currently online.
+      - type: improved
+        zh: 中继只转发加密数据，无法解密内容，也不在磁盘上保存任何信息。
+        en: The relay only forwards encrypted bytes; it cannot read your data and stores nothing on disk.
+      - type: improved
+        zh: 手机只能访问它需要的功能，无法配对新设备或移除设备；撤销某台手机后，它已有的连接也会被立即断开。
+        en: A phone can reach only what it needs and cannot pair or remove devices; revoking a phone also cuts its open connections immediately.

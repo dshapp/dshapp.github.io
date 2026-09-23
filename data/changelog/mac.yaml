@@ -1,0 +1,129 @@
+# macOS App 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
+entries:
+  - version: "0.1.64"
+    date: "2026-09-23"
+    status: upcoming
+    title:
+      zh: 置顶会话、变更文件卡片与新设置页
+      en: Pinned sessions, changed-file cards and new settings
+    changes:
+      - type: new
+        zh: 右键会话即可置顶，置顶的会话集中显示在侧栏最上方的「已置顶」分区。
+        en: Right-click a session to pin it; pinned sessions gather in a “Pinned” section at the top of the sidebar.
+      - type: new
+        zh: 每轮对话结束后新增变更文件卡片，列出改动的文件与增删行数，点开即可查看逐文件差异。
+        en: Each turn now ends with a changed-files card listing edited files with added/removed lines, and opens a per-file diff on click.
+      - type: new
+        zh: 设置新增「浏览器」分页，检测 Chrome 插件与扩展、一键安装并显示连接状态和具体失败原因。
+        en: A new “Browser” settings tab detects the Chrome plugin and extension, installs them in one click and shows connection status with specific failure reasons.
+      - type: new
+        zh: 设置新增「电脑操作」分页，可一键安装电脑操作插件、查看辅助功能与屏幕录制授权，并直达系统设置授权页。
+        en: A new “Computer use” settings tab installs the computer-use plugin in one click, shows Accessibility and Screen Recording permissions, and jumps straight to System Settings.
+      - type: new
+        zh: 插件移入设置，可在「插件市场」与「内置插件」间切换，并直接启用、停用或移除插件组合包。
+        en: Plugins now live in Settings with a “Marketplace” / “Built-in” switch, and plugin bundles can be enabled, disabled or removed in place.
+      - type: new
+        zh: 侧栏「移动端访问」会在浏览器中打开手机配对与设备管理页，扫码即可让手机连上这台 Mac。
+        en: “Mobile access” in the sidebar opens the phone pairing and device management page in your browser, so a phone can connect to this Mac by scanning a QR code.
+      - type: new
+        zh: 聊天记录左侧新增轮次导航条，可按轮次跳转并翻入更早的历史，查找也补齐了「下一个／上一个」快捷键。
+        en: A turn rail beside the transcript lets you jump between turns and page into earlier history, and find now has “Next” / “Previous” shortcuts.
+      - type: new
+        zh: 输入框新增回形针按钮添加附件，工作区外的文件也会真正上传；底部新增会话统计与 token 用量弹窗。
+        en: A paperclip button in the composer adds attachments, uploading files from outside the workspace, and new popovers show session stats and token usage.
+      - type: new
+        zh: 自己发出的消息里，网址、文件路径和会话引用都可点击跳转，圈选的网页元素会显示为易读的键值卡片。
+        en: URLs, file paths and session references in your own messages are now clickable, and picked page elements show as readable key-value cards.
+      - type: improved
+        zh: 上下文中的图片可用系统快速查看打开，交付卡片可「打开」或「在 Finder 中显示」，已归档会话也能在设置中恢复。
+        en: Images in context open in Quick Look, deliverable cards offer “Open” and “Show in Finder”, and archived sessions can be restored from Settings.
+      - type: improved
+        zh: 聊天记录回归原生滚动，流式输出和多行输入时不再上下跳动；同时适配新版 DSH，并直接使用终端里的 node 与 npm。
+        en: The transcript is back to native scrolling with no more jumping while replies stream or you type multiple lines, and the app supports newer DSH releases using the node and npm from your terminal.
+      - type: fixed
+        zh: 修复侧栏与输入框的多处崩溃，以及浅色模式弹窗发灰、历史会话模型显示错误、点击相对路径文件链接报错等问题。
+        en: Fixed several sidebar and composer crashes, greyed-out popovers in light mode, wrong models on past sessions, and errors when clicking relative file links.
+
+  - version: "0.1.63"
+    date: "2026-09-07"
+    status: released
+    title:
+      zh: 一键打开 Web 端
+      en: Open the web app in one step
+    changes:
+      - type: new
+        zh: 应用菜单新增「打开 Web 端」，按 ⇧⌘, 即可在浏览器中打开已登录的 Web 界面。
+        en: A new “Open Web App” menu item (⇧⌘,) opens the signed-in web interface in your browser.
+      - type: improved
+        zh: 计划卡片的修订备注输入框会随内容自动增高，最多显示五行。
+        en: The revision note box on plan cards now grows with your text, up to five lines.
+      - type: improved
+        zh: 提问卡片的标题和审批卡片的说明文字可以选中复制了。
+        en: Question card titles and approval card reasons can now be selected and copied.
+      - type: fixed
+        zh: 设置中的服务地址会带上一次性登录凭据，点开不再是未授权的空白页。
+        en: The server address in Settings now includes a one-time sign-in, so opening it no longer lands on an unauthorized page.
+      - type: fixed
+        zh: 发送消息时自动去掉首尾空行和空格，纯空白的草稿不再被发出。
+        en: Leading and trailing blank lines and spaces are now trimmed when sending, and whitespace-only drafts are no longer sent.
+
+  - version: "0.1.59"
+    date: "2026-09-07"
+    status: released
+    title:
+      zh: 显示 Chrome 扩展连接状态
+      en: Chrome extension status in Settings
+    changes:
+      - type: new
+        zh: 设置的服务页会显示 Chrome 扩展是否已连接、未连接或桥接未运行，并每隔几秒自动刷新。
+        en: The server page in Settings now shows whether the Chrome extension is connected, disconnected or its bridge is down, refreshing every few seconds.
+
+  - version: "0.1.58"
+    date: "2026-09-07"
+    status: released
+    title:
+      zh: 侧栏更稳定，新建会话不再卡住
+      en: Steadier sidebar and reliable new sessions
+    changes:
+      - type: fixed
+        zh: 修复在侧栏搜索、折叠分组或按住 ⌘ 时可能导致应用崩溃的问题。
+        en: Fixed a crash that could occur while searching the sidebar, collapsing groups or holding ⌘.
+      - type: fixed
+        zh: 新建会话不再复用已无法打开的空白会话，首条消息可以正常发出。
+        en: New sessions no longer reuse a blank session that can’t be opened, so your first message sends normally.
+      - type: fixed
+        zh: 会话连接失败时会显示错误提示，而不是一直停在“执行中”。
+        en: When a session fails to connect, an error is now shown instead of it staying stuck as running.
+
+  - version: "0.1.55"
+    date: "2026-09-07"
+    status: released
+    title:
+      zh: 发送消息时队列不再闪烁
+      en: No more queue flicker when sending
+    changes:
+      - type: fixed
+        zh: 在空闲会话中发送消息时，底部的排队栏不再一闪而过。
+        en: Sending a message to an idle session no longer briefly flashes the queue bar.
+
+  - version: "0.1.54"
+    date: "2026-09-07"
+    status: released
+    title:
+      zh: Dock 角标计数更准确
+      en: Accurate Dock badge count
+    changes:
+      - type: fixed
+        zh: 启动时会重新核对 Dock 角标，上次运行残留的未读计数会被清除。
+        en: The Dock badge is now reconciled at launch, clearing leftover unread counts from the previous run.
+
+  - version: "0.1.53"
+    date: "2026-09-07"
+    status: released
+    title:
+      zh: 回合过程折叠更干净
+      en: Cleaner folding of turn details
+    changes:
+      - type: improved
+        zh: 已结束回合折叠后，智能体指令、技能列表等上下文注入也一并收进摘要，聊天记录只留下回答。
+        en: When a finished turn is folded, context injections such as agent instructions and the skill list are tucked into the summary too, leaving just the answer.

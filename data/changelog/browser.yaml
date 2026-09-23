@@ -1,0 +1,101 @@
+# dsh-chrome 浏览器控制 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
+entries:
+  - version: "0.3.6"
+    date: "2026-09-14"
+    status: released
+    title:
+      zh: 扩展反复重连后不再失联
+      en: No more lost connection after repeated reconnects
+    changes:
+      - type: fixed
+        zh: 修复扩展每次断开都遗留一条连接的问题，长时间使用、多次重连后浏览器工具不再突然显示「扩展未连接」，也无需重启服务才能恢复。
+        en: Fixed a leak on every extension disconnect, so after long use and many reconnects the browser tools no longer suddenly report the extension as disconnected until a restart.
+      - type: fixed
+        zh: 连接存活检测改为逐条连接独立进行，响应稍慢的正常连接不会再被误判断开。
+        en: Connection health checks now run per connection, so a healthy but slightly slow connection is no longer dropped by mistake.
+      - type: fixed
+        zh: 修复扩展与本机服务的握手确认消息格式不匹配的问题，扩展版本信息能够正确显示。
+        en: Fixed a mismatched handshake reply between the extension and the local service, so the extension version is reported correctly again.
+  - version: "0.3.5"
+    date: "2026-09-08"
+    status: released
+    title:
+      zh: 后台输入不打扰，编辑快捷键可用
+      en: Background input and working editing shortcuts
+    changes:
+      - type: improved
+        zh: 真实鼠标和键盘输入一律在后台标签页执行，不再切换到目标标签页、打扰你正在看的页面。
+        en: Trusted mouse and keyboard input now always runs in a background tab without switching to it, so the page you are looking at is left alone.
+      - type: improved
+        zh: 全选、复制、剪切、粘贴、撤销、回车提交和删除等快捷键在普通输入框、多行文本框和富文本编辑器里都能生效，并会如实报告是否真的选中或触发了剪贴板。
+        en: Select-all, copy, cut, paste, undo, Enter-to-submit and Delete now work in inputs, text areas and rich editors, and report whether a selection or clipboard action actually happened.
+      - type: improved
+        zh: 对于 Chrome 自身拦截的浏览器级快捷键（如新建或关闭标签页），工具会直接拒绝并提示改用打开网址或关闭标签页，而不是看似成功却什么也没发生。
+        en: Browser-level shortcuts that Chrome swallows (like opening or closing tabs) are now refused with a pointer to the navigate or close-tab tools, instead of silently doing nothing.
+  - version: "0.3.4"
+    date: "2026-09-08"
+    status: released
+    title:
+      zh: 按系统选对快捷键
+      en: Picks the right shortcut for your OS
+    changes:
+      - type: new
+        zh: 读取页面结构时会同时报告 Chrome 所在的操作系统，agent 能分辨该用 ⌘ 还是 Ctrl 组合键，不再按错修饰键却以为操作成功。
+        en: Reading a page now also reports which operating system Chrome runs on, so the agent knows whether to use ⌘ or Ctrl and no longer sends a shortcut that silently does nothing.
+      - type: improved
+        zh: 键盘输入的结果通过回读页面来确认，页面拒收或改写了文字时能立即发现。
+        en: Keyboard input is verified by reading the page back, so text the page rejected or rewrote is caught right away.
+  - version: "0.3.3"
+    date: "2026-09-07"
+    status: released
+    title:
+      zh: 扩展侧栏可执行本机操作
+      en: Host actions from the extension sidebar
+    changes:
+      - type: new
+        zh: Chrome 扩展侧栏可以通过本机服务查看 Git 状态、管理插件，并一键重启或更新 DSH，仅限已授权的扩展在本机调用。
+        en: The Chrome extension sidebar can now show Git status, manage plugins, and restart or update DSH through the local service, available only to the authorized extension on this Mac.
+      - type: fixed
+        zh: 扩展后台意外休眠后能被及时识别并断开重连，浏览器工具不再每次都卡满 30 秒才超时。
+        en: A stalled extension is now detected and reconnected promptly, so browser tools no longer hang for the full 30-second timeout on every call.
+      - type: fixed
+        zh: 所有调用都超时时，错误提示会指向扩展连接本身，而不是笼统地归咎于页面繁忙。
+        en: When every call times out, the error now points at the extension connection instead of blaming a busy page.
+      - type: fixed
+        zh: 恢复 Windows 版本的发布，Windows 用户可以再次获得最新更新。
+        en: Windows builds ship again, so Windows users receive the latest updates.
+  - version: "0.3.2"
+    date: "2026-08-31"
+    status: released
+    title:
+      zh: 升级后自动换上新版服务
+      en: The service restarts itself after upgrades
+    changes:
+      - type: improved
+        zh: 浏览器控制服务独立于 DSH 运行，在终端按 Ctrl-C 等操作不会把它一起带走，扩展连接更稳定。
+        en: The browser-control service now runs independently of DSH, so pressing Ctrl-C in the terminal no longer takes it down with it.
+      - type: improved
+        zh: 安装新版本后会自动识别仍在运行的旧服务并重启为新版，不必手动结束进程；扩展会在 30 秒内自动重新连上。
+        en: After an upgrade, an old service still running is detected and replaced with the new one automatically; the extension reconnects on its own within 30 seconds.
+      - type: fixed
+        zh: 修复安装后找不到内置服务程序、导致扩展始终无法连接的问题。
+        en: Fixed the bundled service not being found after install, which left the extension unable to connect.
+  - version: "0.3.0"
+    date: "2026-08-30"
+    status: released
+    title:
+      zh: 全新独立服务，大页面不再卡顿
+      en: A new standalone service that stays responsive
+    changes:
+      - type: new
+        zh: "打开网址时支持任意浏览器能打开的地址，包括本地文件、about:、data: 和 chrome: 内部页面。"
+        en: "Opening a URL now accepts anything the browser can open, including local files, about:, data: and chrome: internal pages."
+      - type: improved
+        zh: 浏览器控制改由独立的原生后台服务承担，读取超大页面、完整结构或大段脚本结果时，DSH 界面不再卡死、CPU 不再飙升。
+        en: Browser control now runs in a standalone native service, so reading huge pages, full snapshots or large script results no longer freezes DSH or pegs the CPU.
+      - type: improved
+        zh: 超大的工具结果会被自动截断并标注，避免拖慢对话。
+        en: Oversized tool results are now trimmed and clearly marked so they don’t bog down the conversation.
+      - type: improved
+        zh: 安装包内置 Apple 芯片 Mac、Linux 和 Windows 的服务程序，装好即用，无需自行编译。
+        en: The package now ships ready-made service binaries for Apple silicon Macs, Linux and Windows, so it works right after install.

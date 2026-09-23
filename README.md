@@ -59,6 +59,14 @@ pages.yml
 | `ANDROID_KEYSTORE_BASE64` / `ANDROID_KEYSTORE_PASSWORD` / `ANDROID_KEY_ALIAS` / `ANDROID_KEY_PASSWORD` | dshapp.github.io | Android release 签名（本机备份在 `~/.dsh-keys/`，**丢失后已安装用户无法覆盖升级**） |
 | `SITE_DISPATCH_TOKEN` | dsh-macapp、dsh-androidapp | fine-grained PAT：仓库 dshapp.github.io，Contents: Read and write（可选，缺省时靠轮询） |
 
+## 更新日志（/whatsnew/）
+
+顶栏「更新日志 / What's new」进入 `/whatsnew/`，汇总各模块最近的版本更新，可按模块筛选（`#mac`、`#android` 等 hash 直达某个模块，`#mac-0-1-64` 直达某个版本）。
+
+- 数据：`data/changelog/<模块>.yaml`（mac / android / chrome / browser / bridge / cu），每个版本含 `version`、`date`、`status`（upcoming / released）、`title.{zh,en}`、`changes[].{type,zh,en}`，`type` 取 new / improved / fixed。内容由各仓库的 tag 与提交历史整理，只写用户可感知的变化。
+- 模块名、图标、顺序与标签文案：`data/whatsnew/{zh,en}.yaml`；新增模块时在这里加一项并放一个同名 yaml。
+- 模板 `layouts/_default/whatsnew.html`，筛选逻辑在 `assets/js/main.js`。某版本号与当前可下载的安装包一致时，会显示「下载此版本」。
+
 ## 目录结构
 
 ```

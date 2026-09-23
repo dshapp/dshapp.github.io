@@ -170,3 +170,6 @@ other = "All platforms & install notes"
 
 [nav.download]
 other = "Download"
+
+[nav.whatsnew]
+other = "What's new"

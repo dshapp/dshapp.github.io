@@ -1,0 +1,89 @@
+# Android App 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
+entries:
+  - version: "1.0.1"
+    date: "2026-09-23"
+    status: released
+    title:
+      zh: 首个正式版：查找、预览与归档
+      en: "First public release: find, previews and archive"
+    changes:
+      - type: new
+        zh: 会话内新增查找栏，匹配内容会在聊天记录中高亮显示。
+        en: A new find bar searches within a session and highlights matches in the transcript.
+      - type: new
+        zh: 点开消息里的文件链接可直接在手机上预览文件内容，图片交给系统图片查看器打开，会话里的图片以画廊形式展示。
+        en: File links in messages now open a preview right on your phone, images open in the system photo viewer, and images in a session appear as a gallery.
+      - type: new
+        zh: 会话列表底部新增「已归档会话」入口，可在独立页面中搜索、打开或取消归档。
+        en: An “Archived sessions” entry at the bottom of the session list opens a page where you can search, open or unarchive sessions.
+      - type: new
+        zh: 用户消息里的 @会话标题 可以点击跳转到被引用的会话。
+        en: "@session mentions in your messages now jump to the referenced session."
+      - type: new
+        zh: 新增全局连接提示条：重连时显示「连接中…」，真正连不上时才提示并可重试，错误文案也更易懂。
+        en: A slim connection banner shows “Connecting…” while reconnecting and only warns, with a retry button, when your computer is truly unreachable; error messages are friendlier too.
+      - type: improved
+        zh: 适配最新版 DSH：后台任务可在手机上直接停止，置顶会话与 Mac 同步，排队消息与插话功能恢复可用，并能查看每轮改动的文件。
+        en: "Updated for the latest DSH: stop background jobs from your phone, pinned sessions sync with your Mac, queued messages and steering work again, and each turn shows the files it changed."
+      - type: improved
+        zh: 会话搜索更流畅，主机不支持内容搜索时也能按标题和工作区名找到会话。
+        en: Session search is smoother and still finds sessions by title or workspace name when content search isn’t available on the host.
+      - type: improved
+        zh: 上下文面板和 Token 用量读数与 Mac 保持一致，数字与相对时间不再受设备区域设置影响。
+        en: Context and token usage readouts now match the Mac, and numbers and relative times no longer vary with your device region.
+      - type: fixed
+        zh: 修复任务失败时通知遗漏或被「已完成」覆盖的问题，失败通知会写明真实原因，后台会话的失败红点也能正常亮起。
+        en: Failed turns no longer miss their notification or get replaced by a “completed” one, failure notices show the real reason, and background sessions show their error dot again.
+      - type: fixed
+        zh: 修复新建会话后第一条消息发不出去，以及主机关闭预设选择时仍显示预设选择器的问题。
+        en: Fixed new sessions that couldn’t send their first message and a preset picker that appeared even when the host had it turned off.
+      - type: fixed
+        zh: 修复多处可能导致应用崩溃的问题，包括离开扫码页后相机未释放、异常数值和格式错误的工具参数。
+        en: Fixed several crashes, including the camera not being released after leaving the pairing screen and malformed readings or tool arguments.
+      - type: fixed
+        zh: 修复连接在切回前台或网络中断后不稳定、同名附件互相覆盖、工具结果重复显示以及目标条显示无效「暂停」按钮等问题。
+        en: Fixed unstable connections after returning to the foreground or a dropped network, same-name attachments overwriting each other, duplicate tool results, and a dead “Pause” button on the goal bar.
+  - version: "1.0.0"
+    date: "2026-09-17"
+    status: released
+    title:
+      zh: 后台运行、新建会话与外观设置
+      en: Background running, new sessions and appearance
+    changes:
+      - type: new
+        zh: 任务运行期间应用会在后台保持连接，锁屏或切到其他应用也不会中断。
+        en: The app keeps its connection alive in the background while a task runs, so locking the phone or switching apps won’t interrupt it.
+      - type: new
+        zh: 新增新建会话页面，可直接在手机上开始新的对话。
+        en: A new “New session” screen lets you start conversations right from your phone.
+      - type: new
+        zh: 设置页新增「外观」，可切换中英文界面和浅色 / 深色主题。
+        en: Settings gains an “Appearance” section for switching between English and Chinese and between light and dark themes.
+      - type: improved
+        zh: 智能体的多道提问改为逐题分页作答，支持上一题 / 下一题和自定义答案。
+        en: Multi-question prompts from the agent now go one question at a time, with previous/next and custom answers.
+      - type: improved
+        zh: 会话分组可长按拖动调整顺序，排队消息支持编辑、移除与插话发送。
+        en: Touch and hold to reorder session groups, and edit, remove or steer queued messages.
+  - version: "0.9"
+    date: "2026-09-16"
+    status: released
+    title:
+      zh: 首个预览版：扫码配对 Mac
+      en: "First preview: pair with your Mac by QR code"
+    changes:
+      - type: new
+        zh: 扫描电脑上 DSH 显示的二维码即可配对，手机与电脑之间全程端到端加密直连。
+        en: Pair by scanning the QR code shown by DSH on your computer; the phone talks to it over an end-to-end encrypted connection.
+      - type: new
+        zh: 在手机上浏览会话列表、查看实时聊天记录，并处理智能体的审批与提问。
+        en: Browse your sessions, follow transcripts live, and answer the agent’s approval requests and questions from your phone.
+      - type: new
+        zh: 支持发送附件，任务有进展时推送通知。
+        en: Send attachments and get notified when tasks need you or finish.
+      - type: new
+        zh: 可配对多台电脑，并在列表中切换、重命名或移除。
+        en: Pair multiple computers and switch between, rename or remove them.
+      - type: improved
+        zh: Markdown 渲染更完善，会话统计展示 Token 用量、轮次和模型速度。
+        en: Richer Markdown rendering, plus session statistics showing token usage, turns and model speed.

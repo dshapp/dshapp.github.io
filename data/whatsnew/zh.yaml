@@ -1,0 +1,42 @@
+all: 全部
+upcoming: 即将发布
+released: 已发布
+download: 下载此版本
+current: 当前可下载
+empty: 这个模块还没有版本记录。
+source: 源码仓库
+types:
+  new: 新增
+  improved: 改进
+  fixed: 修复
+# 模块顺序即标签顺序；key 对应 data/changelog/<key>.yaml
+modules:
+  - key: mac
+    name: macOS App
+    icon: apple
+    product: products/macos/
+    download: mac
+  - key: android
+    name: Android App
+    icon: android
+    product: products/android/
+    download: android
+  - key: chrome
+    name: Chrome 扩展
+    icon: chrome
+    product: products/chrome/
+  - key: browser
+    name: 浏览器控制
+    icon: globe
+    product: products/chrome/
+    repo: https://github.com/dshapp/dsh-chrome-control
+  - key: bridge
+    name: 远程连接
+    icon: smartphone
+    product: docs/pairing/
+    repo: https://github.com/dshapp/dsh-mobile-bridge
+  - key: cu
+    name: 计算机使用
+    icon: cu
+    product: products/cu/
+    repo: https://github.com/dshapp/dsh-kimi-computer-use
