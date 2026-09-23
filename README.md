@@ -21,6 +21,17 @@ hugo --gc --minify
 
 Hugo 版本要求：`0.166.0+extended`（Hugo Pipes 用于拼接、压缩和指纹化 CSS/JS）。
 
+## 部署
+
+线上地址：<https://dshapp.github.io/>（仓库 `dshapp/dshapp.github.io`）。
+
+`.github/workflows/pages.yml` 在每次 push 到 `main` 时自动执行：安装 Hugo extended → `hugo --gc --minify` → 校验产物 → 发布到 GitHub Pages。
+`public/` 不入库，线上版本完全由 CI 构建。需要重新部署但没有新提交时，在 Actions 页面对该 workflow 点 **Run workflow**，或：
+
+```bash
+gh workflow run pages.yml -R dshapp/dshapp.github.io
+```
+
 ## 目录结构
 
 ```

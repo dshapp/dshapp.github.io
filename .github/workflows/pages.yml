@@ -1,45 +1,72 @@
+# 每次 push 到 main 自动构建 Hugo 站点并发布到 GitHub Pages（https://dshapp.github.io/）
 name: Deploy Hugo site to GitHub Pages
 
 on:
   push:
     branches: [main]
-  workflow_dispatch:
+  workflow_dispatch:        # 也可在 Actions 页面手动触发重新部署
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# 同一时间只跑一次部署；新的 push 进来时排队，不中断正在发布的版本
 concurrency:
   group: pages
   cancel-in-progress: false
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       HUGO_VERSION: 0.166.0
+      HUGO_ENVIRONMENT: production
+      TZ: Asia/Shanghai
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v7
+
       - name: Install Hugo (extended)
         run: |
-          wget -q -O hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
-          sudo dpkg -i hugo.deb
+          wget -q -O "${RUNNER_TEMP}/hugo.deb" \
+            "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+          sudo dpkg -i "${RUNNER_TEMP}/hugo.deb"
           hugo version
-      - id: pages
-        uses: actions/configure-pages@v5
+
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v6
+
       - name: Build
         run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
-      - uses: actions/upload-pages-artifact@v3
+
+      - name: Sanity check
+        run: |
+          test -f public/index.html
+          test -f public/en/index.html
+          test -f public/404.html
+          echo "### Build OK" >> "$GITHUB_STEP_SUMMARY"
+          echo "- commit: \`${GITHUB_SHA::7}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- html pages: $(find public -name '*.html' | wc -l)" >> "$GITHUB_STEP_SUMMARY"
+          echo "- size: $(du -sh public | cut -f1)" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./public
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
