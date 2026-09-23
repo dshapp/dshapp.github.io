@@ -1,7 +1,7 @@
 # DSH 产品站 —— Linear 风格站点的 Hugo 配置
 # 参考视觉：https://linear.app/  设计 token 已按其 [data-theme=dark] 原值落地到 assets/css/tokens.css
 
-baseURL = "https://dshapp.github.io/dsh-site/"
+baseURL = "https://dshapp.github.io/"
 title = "DSH"
 enableRobotsTXT = true
 enableGitInfo = false
