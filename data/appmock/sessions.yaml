@@ -1,0 +1,176 @@
+sessions:
+- title: 在 Desktop 中使用 browser-control skill
+  time: 8天
+  pinned: true
+  transcript:
+  - role: user
+    text: 在 Desktop 中使用 browser-control skill 试一下。
+  - role: thinking
+    text: 先确认扩展是否连上，再决定用哪条路径。
+  - role: tool
+    text: Check Chrome bridge status
+  - role: text
+    text: 扩展连上了，直接开一个页面跑一遍。
+- title: Agent Runtime 适配 pi
+  time: 3天
+  pinned: true
+  transcript:
+  - role: user
+    text: Agent Runtime 适配 pi 需要改哪些？
+  - role: tool
+    text: Locate runtime adapter
+  - role: thinking
+    text: 适配层只有两处硬编码，换成可配置即可。
+- title: 速度埋点上报到 TraceLake
+  time: 4天
+  pinned: true
+  transcript:
+  - role: user
+    text: 把速度埋点上报到 TraceLake。
+  - role: tool
+    text: Add TraceLake reporter
+  - role: text
+    text: 埋点接好了，冷启动与长会话滚动各上报一次。
+- title: 在 desktop 项目中研究 BYC 实现方式
+  time: 2天
+  pinned: true
+  transcript:
+  - role: user
+    text: 在 desktop 项目中研究 BYC 的实现方式。
+  - role: thinking
+    text: 先读入口，再顺着调用链看。
+  - role: tool
+    text: Read BYC entry point
+- title: 参考这个站点 https://linear.app/
+  time: 17分钟
+  selected: true
+  transcript:
+  - role: thinking
+    text: 'No existing script. So the "random unique app id" pattern is something the agent does ad hoc: modify Info.plist bundle id and install to a temp location. That implies the harness has no built-in way to run more than one instance.'
+  - role: text
+    text: Now screenshot capture. Let me check what CU returns and the Chrome bridge state.
+  - role: tool
+    text: Inspect CU output shape and Chrome status
+  - role: tool
+    text: tools-ptc
+  - role: image
+    text: ''
+  - role: thinking
+    text: The CU screenshot works and the harness normalizes it to a path I can read. The image shows the DSH Mac app with the sidebar. Nice.
+  - role: text
+    text: CU works. Now I need pixel-perfect files — checking the best capture path.
+  - role: tool
+    text: Check tooling for window screenshot capture
+  - role: thinking
+    text: swift is available. Let me write a small Swift helper that lists windows (id, owner pid, name, bounds) using CGWindowListCopyWindowInfo, and prints JSON. Then I can pick the window and capture just that rect.
+  - role: tool
+    text: Build window lister to find window IDs
+  - role: thinking
+    text: The window lister works. Note the user's app (pid 67414) window id 49316 at 1280x800, and a test instance pid 91280 (new, launched recently — ids 49784, 49777).
+  - role: text
+    text: The window lister works. Capturing the Mac app window now.
+  - role: error
+    text: 'Error: code run failed (exception): ToolCallError: cannot read "/Users/user/dshapp/dsh-site/static/img/shots/macos-app.png"'
+  - role: thinking
+    text: '"could not create image from window" — Screen Recording permission may be missing for the process running bash, or window id changed. Let me check: the window list still shows the same id.'
+  - role: tool
+    text: Check CU attachment resolution
+  - role: thinking
+    text: 1229x768 JPEG. That's the CU output resolution. Usable but soft for a hero image.
+  - role: tool
+    text: Test screen capture permission
+  - role: thinking
+    text: Full-screen capture is blocked (TCC). So `screencapture` is unusable. I'll use CU's screenshots (which work) as the image source, via a Swift window-capture helper.
+- title: 在设置页中新加一个 tab
+  time: 23分钟
+  transcript:
+  - role: user
+    text: 在设置页中新加一个 tab。
+  - role: tool
+    text: Add settings tab
+  - role: text
+    text: tab 加好了，沿用系统控件。
+- title: 会话类搜索，搜索聊天记录
+  time: 52分钟
+  transcript:
+  - role: user
+    text: 会话类搜索，搜索聊天记录。
+  - role: tool
+    text: Index session transcripts
+  - role: thinking
+    text: 全文索引放在本地，不落盘到远端。
+- title: 设置页插件检测与安装引导
+  time: 52分钟
+  transcript:
+  - role: user
+    text: 设置页插件检测与安装引导。
+  - role: tool
+    text: Detect installed plugins
+  - role: text
+    text: 检测与引导串起来了，缺插件时给一键安装。
+- title: 会话列表的搜索有 bug，输入中文会断
+  time: 53分钟
+  transcript:
+  - role: user
+    text: 会话列表的搜索有 bug，输入中文会断。
+  - role: tool
+    text: Reproduce CJK search bug
+  - role: error
+    text: 'Error: assertion failed: expected 3 results, got 0'
+  - role: thinking
+    text: 按字节切分导致的，改成按字素簇切分。
+- title: 优化一下这个页面的展示方式
+  time: 54分钟
+  transcript:
+  - role: user
+    text: 优化一下这个页面的展示方式。
+  - role: thinking
+    text: 先看信息层级，再动间距。
+  - role: text
+    text: 层级收成两档，间距统一到 8 的倍数。
+- title: Initial greeting to the assistant
+  time: 1小时
+  transcript:
+  - role: user
+    text: Initial greeting to the assistant.
+  - role: text
+    text: 你好，我是 DSH，可以帮你读写文件、操作浏览器、跑命令。
+- title: Pro 最新的代码，看一下实现
+  time: 15小时
+  transcript:
+  - role: user
+    text: Pro 最新的代码，看一下实现。
+  - role: tool
+    text: Fetch upstream changes
+  - role: thinking
+    text: 改动集中在会话层。
+- title: 模型提供商支持 Claude 的接入
+  time: 16小时
+  transcript:
+  - role: user
+    text: 模型提供商支持 Claude 的接入。
+  - role: tool
+    text: Add provider adapter
+  - role: text
+    text: 接好了，模型列表会自动带上。
+- title: 'Reply with exactly: BYC'
+  time: 16小时
+  transcript:
+  - role: user
+    text: 'Reply with exactly: BYC'
+  - role: text
+    text: BYC
+- title: 'Reply with exactly: SHO'
+  time: 16小时
+  transcript:
+  - role: user
+    text: 'Reply with exactly: SHO'
+  - role: text
+    text: SHO
+- title: 'Reply with exactly: PRO'
+  time: 16小时
+  transcript:
+  - role: user
+    text: 'Reply with exactly: PRO'
+  - role: text
+    text: PRO

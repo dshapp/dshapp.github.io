@@ -1,0 +1,20 @@
+{{- /* sections/cta.html —— dict: h；版式镜像 linear.app 的 CTA 区 */ -}}
+{{- $h := .h -}}
+<section class="cta">
+  <div class="container-wide">
+    <div class="cta__grid">
+      <div class="stack stack-12">
+        <h2 class="display-2 cta__heading">{{ $h.ctaTitle }}</h2>
+        <p class="body-large text-tertiary">{{ $h.ctaBody }}</p>
+      </div>
+      <div class="cta__actions">
+        <a class="btn btn--primary" href="{{ site.Params.downloadMacOS | default "#" }}">
+          {{ partial "icon.html" "apple" }}<span>{{ $h.ctaPrimary }}</span>
+        </a>
+        <a class="btn btn--secondary" href="{{ site.Params.github | default "#" }}">
+          {{ partial "icon.html" "github" }}<span>{{ i18n "footer.github" }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

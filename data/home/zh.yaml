@@ -1,0 +1,135 @@
+title: 你的 Mac、你的浏览器、你的手机 —— 一个 DSH
+subtitle: 原生 macOS 与 Android 客户端、复用登录态的 Chrome 控制，以及不抢你鼠标的计算机使用能力。
+ctaPrimary: 下载 macOS App
+ctaPrimaryHref: ''
+ctaSecondary: 浏览全部能力
+ctaSecondaryHref: '#products'
+heroShot: /img/shots/macos-app.jpg
+heroShotAlt: DSH macOS 原生应用：侧边栏会话列表、对话轨迹与输入区
+heroCaption: DSH for macOS · 原生 SwiftUI，Apple Silicon 原生构建
+platformsTitle: 在你的设备上原生运行
+platforms:
+- icon: apple
+  label: macOS 14+ · Apple Silicon
+- icon: android
+  label: Android · Kotlin + Compose
+- icon: chrome
+  label: Chrome 120+ · Manifest V3
+- icon: terminal
+  label: 任意 DSH 实例
+productsTitle: 四件事，一个 DSH
+productsSub: 每一端都是原生实现，共享同一套会话、模型与工具能力。
+products:
+- path: /products/macos/
+  icon: apple
+  title: 原生 macOS App
+  body: SwiftUI 原生窗口，丝滑滚动、极速启动，全套 Mac 快捷键。
+  shot: /img/shots/macos-app.jpg
+  badge: 丝滑 · 极速
+- path: /products/android/
+  icon: android
+  title: 原生 Android App
+  body: Kotlin + Jetpack Compose，与 iOS 端 1:1 的功能与交互。
+  shot: /img/shots/android-app.png
+  badge: Material 3
+- path: /products/chrome/
+  icon: chrome
+  title: Chrome 扩展与控制
+  body: 复用你自己的 Chrome 登录态，在网页里圈选元素交给 Agent。
+  shot: /img/shots/chrome-picker.jpg
+  badge: 圈选元素
+- path: /products/cu/
+  icon: cu
+  title: CU 能力
+  body: 读得懂界面、点得准控件，后台操作不抢你的鼠标和前台。
+  shot: /img/shots/cu.jpg
+  badge: 计算机使用
+macos:
+  eyebrow: macOS 原生
+  title: 为 Mac 用户做的桌面端
+  body: 不是套壳网页。窗口、侧边栏、菜单栏、快捷键全部走 macOS 原生规范，滚动手感和系统一致。
+  bullets:
+  - <strong>丝滑</strong>：原生 SwiftUI 渲染与滚动，长会话轨迹也不掉帧。
+  - <strong>极速</strong>：Apple Silicon 原生构建，冷启动即用，长会话滚动依然稳。
+  - <strong>快捷键</strong>：新建会话、查找、会话切换、快捷键面板一应俱全，符合肌肉记忆。
+  - <strong>Mac 习惯</strong>：遵循系统外观与辅助功能设置，尊重「减少动态效果」与高对比度。
+chrome:
+  eyebrow: Chrome 扩展与控制
+  title: 复用你的 Chrome，帮你把网页上的活干完
+  body: Agent 直接操作你日常使用的那只 Chrome —— 同一个配置文件、同一批登录态、同一组已打开的标签页。不需要重新登录，也不需要另开一个干净浏览器。
+  bullets:
+  - <strong>复用登录态</strong>：后台管理系统、内部工具、需要登录的页面都能直接上手。
+  - <strong>圈选元素</strong>：在页面上框出目标元素，连同它的选择器、文本与结构一起交给 Agent，比描述位置可靠得多。
+  - <strong>真实输入</strong>：点击与键盘走的是受信任事件，页面无法区分是人还是 Agent。
+  - <strong>随时切断</strong>：扩展弹窗里的「允许 Agent 控制」开关一关，控制立即中断。
+  pickerTitle: 在网页中圈选元素
+  pickerBody: 按下圈选，鼠标划过页面即高亮候选元素，点一下就把元素摘要塞进输入框。
+  shot: /img/shots/chrome-picker.jpg
+  shotAlt: 在网页中圈选元素：高亮框与元素摘要气泡
+  shot2: /img/shots/chrome-sidepanel.jpg
+  shot2Alt: Chrome 侧边栏中的 DSH 面板
+  toolsNote: 扩展连上后，Agent 获得 27 个 mcp__chrome__* 工具。
+cu:
+  eyebrow: CU 能力
+  title: 看得懂界面，也点得准控件
+  body: 通过辅助功能树与截图理解当前界面，再用后台键鼠完成操作 —— 不需要把窗口抢到前台，也不碰你的鼠标指针。
+  bullets:
+  - <strong>看得懂</strong>：辅助功能树给出结构与文本，截图补齐视觉信息。
+  - <strong>点得准</strong>：按控件定位而不是硬编码坐标，窗口挪位置也不失效。
+  - <strong>不抢前台</strong>：操作在后台投递，你可以继续用电脑做别的事。
+  - <strong>危险动作先确认</strong>：发送、删除、购买、发布这类不可逆操作，先说明再做。
+  shot: /img/shots/cu.jpg
+  shotAlt: 通过计算机使用能力操作 macOS 应用
+  toolsNote: KimiCU 连接后注册为 mcp__cu__* 工具。
+matrixTitle: 能力对照
+matrixSub: 同一套账号与会话，在不同端上各取所长。
+matrixColumns:
+- macOS App
+- Android App
+- Chrome 扩展
+- CU
+matrix:
+- name: 会话与对话
+  cells:
+  - 完整
+  - 完整
+  - 侧边栏
+  - —
+- name: 模型与工具调用
+  cells:
+  - 完整
+  - 完整
+  - 完整
+  - —
+- name: 文件与附件
+  cells:
+  - 完整
+  - 完整
+  - 上传
+  - —
+- name: 浏览器控制
+  cells:
+  - 调用
+  - 调用
+  - 原生
+  - —
+- name: 网页圈选元素
+  cells:
+  - —
+  - —
+  - 原生
+  - —
+- name: 扫码配对
+  cells:
+  - 发起
+  - 扫码
+  - —
+  - —
+- name: 后台键鼠操作
+  cells:
+  - —
+  - —
+  - —
+  - 原生
+ctaTitle: 现在就把 DSH 装到你的 Mac 上
+ctaBody: 原生应用、Chrome 扩展、手机端，装好即用。

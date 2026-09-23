@@ -1,0 +1,163 @@
+[site.tagline]
+other = "原生客户端、浏览器控制与计算机使用"
+
+[a11y.skip]
+other = "跳到主要内容"
+
+[a11y.menu]
+other = "打开导航菜单"
+
+[a11y.primaryNav]
+other = "主导航"
+
+[a11y.language]
+other = "切换语言"
+
+[a11y.github]
+other = "在 GitHub 上查看这个组件的源码"
+
+[nav.macos]
+other = "macOS App"
+
+[nav.android]
+other = "Android App"
+
+[nav.chrome]
+other = "Chrome 扩展"
+
+[nav.opensource]
+other = "开源"
+
+[nav.cu]
+other = "CU 能力"
+
+[nav.docs]
+other = "文档"
+
+[cta.download]
+other = "下载"
+
+[cta.learnMore]
+other = "了解详情"
+
+[cta.allProducts]
+other = "全部产品"
+
+[product.overview]
+other = "概览"
+
+[product.capabilities]
+other = "具体能力"
+
+[product.related]
+other = "相关能力"
+
+[product.backHome]
+other = "返回首页"
+
+[product.backToProducts]
+other = "全部产品"
+
+[notfound.title]
+other = "页面不存在"
+
+[notfound.body]
+other = "这个地址没有对应内容，也许它被移动或重命名了。"
+
+[notfound.action]
+other = "回到首页"
+
+[footer.blurb]
+other = "原生 macOS 与 Android 客户端、Chrome 控制与计算机使用能力，一个 DSH 全部打通。"
+
+[footer.products]
+other = "产品"
+
+[footer.capabilities]
+other = "能力"
+
+[footer.security]
+other = "安全"
+
+[footer.getStarted]
+other = "获取"
+
+[footer.elementPicker]
+other = "网页圈选元素"
+
+[footer.chromeTools]
+other = "浏览器控制工具"
+
+[footer.shortcuts]
+other = "快捷键"
+
+[footer.pairing]
+other = "扫码配对"
+
+[footer.crypto]
+other = "端到端加密"
+
+[footer.permissions]
+other = "权限与开关"
+
+[footer.cuPermissions]
+other = "CU 权限"
+
+[footer.downloadMac]
+other = "下载 macOS App"
+
+[footer.downloadAndroid]
+other = "下载 Android App"
+
+[footer.chromeWebStore]
+other = "安装 Chrome 扩展"
+
+[footer.github]
+other = "源码仓库"
+
+[footer.docs]
+other = "使用文档"
+
+# ---------------------------------------------------------------- 文档
+[docs.title]
+other = "文档"
+
+[docs.tocLabel]
+other = "文档目录"
+
+[docs.onThisPage]
+other = "本页目录"
+
+[docs.group.start]
+other = "开始使用"
+
+[docs.group.use]
+other = "日常使用"
+
+[docs.group.browser]
+other = "浏览器"
+
+[docs.group.mobile]
+other = "手机与远程"
+
+[docs.group.cu]
+other = "计算机使用"
+
+[docs.group.security]
+other = "安全与权限"
+
+[docs.group.reference]
+other = "参考"
+
+[docs.prev]
+other = "上一页"
+
+[docs.next]
+other = "下一页"
+
+[docs.allDocs]
+other = "全部文档"
+
+[docs.updatedOn]
+other = "最后更新"
+

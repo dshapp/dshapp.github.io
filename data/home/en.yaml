@@ -1,0 +1,135 @@
+title: Your Mac, your browser, your phone — one DSH
+subtitle: Native macOS and Android clients, Chrome control that reuses your logins, and computer use that never grabs your mouse.
+ctaPrimary: Download for macOS
+ctaPrimaryHref: ''
+ctaSecondary: See all capabilities
+ctaSecondaryHref: '#products'
+heroShot: /img/shots/macos-app.jpg
+heroShotAlt: 'The native DSH macOS app: session list, trajectory, and composer'
+heroCaption: DSH for macOS · native SwiftUI, built for Apple Silicon
+platformsTitle: Native on every device you use
+platforms:
+- icon: apple
+  label: macOS 14+ · Apple Silicon
+- icon: android
+  label: Android · Kotlin + Compose
+- icon: chrome
+  label: Chrome 120+ · Manifest V3
+- icon: terminal
+  label: Any DSH instance
+productsTitle: Four things, one DSH
+productsSub: Every client is native and shares the same sessions, models, and tools.
+products:
+- path: /products/macos/
+  icon: apple
+  title: Native macOS app
+  body: 'A native SwiftUI window: smooth scrolling, instant launch, the full set of Mac shortcuts.'
+  shot: /img/shots/macos-app.jpg
+  badge: Smooth · Fast
+- path: /products/android/
+  icon: android
+  title: Native Android app
+  body: Kotlin and Jetpack Compose, feature-for-feature with the iOS client.
+  shot: /img/shots/android-app.png
+  badge: Material 3
+- path: /products/chrome/
+  icon: chrome
+  title: Chrome extension & control
+  body: Reuse your own Chrome session and pick elements on the page for the agent.
+  shot: /img/shots/chrome-picker.jpg
+  badge: Element picker
+- path: /products/cu/
+  icon: cu
+  title: Computer use
+  body: Reads the interface and hits the right control — in the background, without seizing your pointer.
+  shot: /img/shots/cu.jpg
+  badge: Computer use
+macos:
+  eyebrow: Native macOS
+  title: A desktop client built for Mac users
+  body: Not a wrapped web page. The window, sidebar, menus, and shortcuts all follow macOS conventions, and scrolling feels like the system.
+  bullets:
+  - '<strong>Smooth</strong>: native SwiftUI rendering and scrolling — long trajectories stay at frame rate.'
+  - '<strong>Fast</strong>: a native Apple Silicon build that is ready the moment it launches, and steady even on very long sessions.'
+  - '<strong>Shortcuts</strong>: new session, find, session switching, and a shortcut reference, all where your muscle memory expects them.'
+  - '<strong>Mac conventions</strong>: it follows your system appearance and accessibility settings, including Reduce Motion and Increase Contrast.'
+chrome:
+  eyebrow: Chrome extension & control
+  title: Reuse your Chrome and finish the work on the page
+  body: The agent drives the Chrome you already use — the same profile, the same logins, the same open tabs. No second sign-in, and no separate clean browser.
+  bullets:
+  - '<strong>Your logins</strong>: admin panels, internal tools, and anything behind a login work immediately.'
+  - '<strong>Element picker</strong>: box a target on the page and hand the agent its selector, text, and structure — far more reliable than describing where it is.'
+  - '<strong>Real input</strong>: clicks and keystrokes are trusted events; the page cannot tell them from yours.'
+  - '<strong>Cut it off</strong>: the “Allow agent control” switch in the extension popup severs control instantly.'
+  pickerTitle: Pick elements on the page
+  pickerBody: Start picking, hover to highlight candidates, and one click drops the element summary into the composer.
+  shot: /img/shots/chrome-picker.jpg
+  shotAlt: 'Picking an element on a web page: highlight box and element summary bubble'
+  shot2: /img/shots/chrome-sidepanel.jpg
+  shot2Alt: The DSH panel in Chrome's side panel
+  toolsNote: Once the extension connects, the agent gets 27 mcp__chrome__* tools.
+cu:
+  eyebrow: Computer use
+  title: It reads the interface and hits the right control
+  body: It understands the current screen through the accessibility tree and screenshots, then acts with background keyboard and mouse input — no window stealing, no touching your pointer.
+  bullets:
+  - '<strong>Understands</strong>: the accessibility tree supplies structure and text; screenshots fill in the visuals.'
+  - '<strong>Aims well</strong>: it targets controls rather than hard-coded coordinates, so moving a window does not break it.'
+  - '<strong>Stays in the background</strong>: input is delivered in the background, so you can keep using the machine.'
+  - '<strong>Asks first</strong>: irreversible actions — sending, deleting, purchasing, publishing — are stated before they happen.'
+  shot: /img/shots/cu.jpg
+  shotAlt: Operating a macOS app through computer use
+  toolsNote: With KimiCU connected, these register as mcp__cu__* tools.
+matrixTitle: Capability matrix
+matrixSub: One account and one set of sessions; each client plays to its strengths.
+matrixColumns:
+- macOS app
+- Android app
+- Chrome extension
+- CU
+matrix:
+- name: Sessions & chat
+  cells:
+  - Full
+  - Full
+  - Side panel
+  - —
+- name: Models & tool calls
+  cells:
+  - Full
+  - Full
+  - Full
+  - —
+- name: Files & attachments
+  cells:
+  - Full
+  - Full
+  - Upload
+  - —
+- name: Browser control
+  cells:
+  - Calls
+  - Calls
+  - Native
+  - —
+- name: Element picking
+  cells:
+  - —
+  - —
+  - Native
+  - —
+- name: QR pairing
+  cells:
+  - Issues
+  - Scans
+  - —
+  - —
+- name: Background input
+  cells:
+  - —
+  - —
+  - —
+  - Native
+ctaTitle: Put DSH on your Mac today
+ctaBody: Native app, Chrome extension, phone client — install and go.

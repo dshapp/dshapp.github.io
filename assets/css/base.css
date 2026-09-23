@@ -1,0 +1,174 @@
+/* ==========================================================================
+   base.css —— reset、排版、全局元素
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-height) + 16px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-regular);
+  font-size: 16px;
+  font-weight: var(--font-weight-normal);
+  line-height: 1.5;
+  font-feature-settings: "cv01", "ss03";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-selection-bg);
+  color: var(--color-selection-text);
+}
+
+h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: var(--font-weight-semibold); }
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+figure { margin: 0; }
+
+img, svg, video, canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: var(--focus-ring-outline);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-4);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+code, kbd, pre, samp { font-family: var(--font-monospace); }
+
+hr {
+  border: none;
+  border-top: 1px solid var(--color-border-translucent);
+  margin: 0;
+}
+
+/* ---- 标题尺度（Linear 的负字距只作用于拉丁字形；CJK 由 :lang 覆盖） ---- */
+.display-1 {
+  font-size: clamp(38px, 5.2vw, 64px);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.06;
+  letter-spacing: -.022em;
+}
+.display-2 {
+  font-size: clamp(32px, 3.6vw, 48px);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.1;
+  letter-spacing: -.022em;
+}
+.display-3 {
+  font-size: clamp(24px, 2.4vw, 32px);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.15;
+  letter-spacing: -.012em;
+}
+.heading-4 {
+  font-size: 18px;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.33;
+  letter-spacing: -.011em;
+}
+.body-large { font-size: 18px; line-height: 1.6; letter-spacing: -.011em; }
+.body-regular { font-size: 16px; line-height: 1.6; }
+.body-small { font-size: 15px; line-height: 1.6; }
+.caption { font-size: 13px; line-height: 1.4; color: var(--color-text-tertiary); }
+.micro { font-size: 12px; line-height: 1.4; letter-spacing: -.01em; }
+
+/* 中文：去掉负字距、放宽行高 */
+:lang(zh-CN) .display-1,
+:lang(zh-CN) .display-2,
+:lang(zh-CN) .display-3,
+:lang(zh-CN) .body-large,
+:lang(zh-CN) .heading-4 {
+  letter-spacing: 0;
+}
+:lang(zh-CN) .display-1 { line-height: 1.12; }
+:lang(zh-CN) .display-2 { line-height: 1.16; }
+:lang(zh-CN) p,
+:lang(zh-CN) li { line-height: 1.75; }
+
+.text-secondary { color: var(--color-text-secondary); }
+.text-tertiary { color: var(--color-text-tertiary); }
+.text-quaternary { color: var(--color-text-quaternary); }
+.text-balance { text-wrap: balance; }
+.text-pretty { text-wrap: pretty; }
+
+.prose { max-width: var(--prose-max-width); }
+
+/* ---- 滚动条（Linear 观感） ---- */
+@media (hover: hover) and (pointer: fine) {
+  ::-webkit-scrollbar { width: var(--scrollbar-size); height: var(--scrollbar-size); }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-color);
+    border-radius: var(--radius-rounded);
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-color-hover); }
+  ::-webkit-scrollbar-thumb:active { background: var(--scrollbar-color-active); }
+}
+
+/* ---- 跳转到主内容（无障碍） ---- */
+.skip-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: var(--layer-max);
+  transform: translateY(-200%);
+  padding: 8px 14px;
+  border-radius: var(--radius-8);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-tertiary);
+  font-size: 14px;
+}
+.skip-link:focus-visible { transform: translateY(0); }
+
+/* ---- 成长动画：默认可见，JS 可用时才隐藏，保证无 JS 可读 ---- */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity .5s var(--ease-out-quart),
+    transform .5s var(--ease-out-quart);
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal { opacity: 1; transform: none; }
+}

@@ -1,0 +1,20 @@
+chrome:
+  search: Search sessions…
+  settings: Settings
+  mobileAccess: Mobile access
+  newSession: New session
+  pinned: Pinned
+  sessionsHeader: Sessions
+  archived: Archived sessions
+  composerPlaceholder: Describe a task to generate a plan
+  accessMode: Full access
+  model: DeepSeek-V4.1-Flash
+  hideSidebar: Hide sidebar
+  showSidebar: Show sidebar
+  backgroundTask: 8 pending · 1 running
+  backgroundTaskTitle: Scaffold the Hugo site with bilingual content
+  stop: Stop generating
+  queueHint: Send the queued messages in order
+  send: Send
+  group: macOS app interface demo
+  planMode: Plan

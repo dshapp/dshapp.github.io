@@ -1,0 +1,11 @@
+{{- define "main" }}
+{{- /* index.html —— 首页编排。文案来自 data/home/<lang>.yaml */ -}}
+{{- $h := index hugo.Data.home site.Language.Lang -}}
+{{ partial "sections/hero.html" (dict "page" . "h" $h) }}
+{{ partial "sections/platforms.html" (dict "h" $h) }}
+{{ partial "sections/products.html" (dict "page" . "h" $h) }}
+{{ partial "sections/feature-macos.html" (dict "page" . "h" $h) }}
+{{ partial "sections/feature-chrome.html" (dict "h" $h) }}
+{{ partial "sections/feature-cu.html" (dict "h" $h) }}
+{{ partial "sections/cta.html" (dict "h" $h) }}
+{{- end }}

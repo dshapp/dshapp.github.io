@@ -1,0 +1,5 @@
+{{- /* 站内以 / 开头的链接补上 baseURL 子路径（GitHub Pages 项目站点部署在 /dsh-site/ 下） */ -}}
+{{- $href := .Destination -}}
+{{- if strings.HasPrefix $href "/" -}}{{- $href = strings.TrimPrefix "/" $href | relURL -}}{{- end -}}
+<a href="{{ $href | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>
+{{- /* */ -}}

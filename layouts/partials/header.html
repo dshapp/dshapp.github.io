@@ -1,0 +1,49 @@
+{{- /* header.html —— 吸顶导航：品牌 + 3 个产品入口 + 文档 + GitHub + 语言切换 + 下载 CTA */ -}}
+{{- $nav := slice
+  (dict "path" "/products/macos"   "key" "nav.macos")
+  (dict "path" "/products/android" "key" "nav.android")
+  (dict "path" "/products/chrome"  "key" "nav.chrome")
+  (dict "path" "/docs"             "key" "nav.docs")
+-}}
+<header class="site-header">
+  <div class="container-wide site-header__inner">
+    <a class="brand" href="{{ "" | relLangURL }}" aria-label="{{ site.Title }}">
+      {{ partial "brand-logo.html" 22 }}
+      <span>{{ site.Params.logoText | default site.Title }}</span>
+    </a>
+
+    <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false"
+            aria-controls="site-nav" aria-label="{{ i18n "a11y.menu" }}">
+      {{ partial "icon.html" "menu" }}
+    </button>
+
+    <nav class="site-nav" id="site-nav" data-nav aria-label="{{ i18n "a11y.primaryNav" }}">
+      {{- range $nav }}
+        {{- $item := . }}
+        {{- $href := strings.TrimPrefix "/" $item.path | relLangURL }}
+        {{- $current := false }}
+        {{- with site.GetPage $item.path }}
+          {{- $href = .RelPermalink }}
+          {{- /* 自身也算当前：IsDescendant 是严格后代，/docs/ 这类栏目首页会漏掉 */}}
+          {{- $current = or (eq $.RelPermalink .RelPermalink) ($.IsDescendant .) }}
+        {{- end }}
+        <a class="site-nav__link" href="{{ $href }}"{{ if $current }} aria-current="page"{{ end }}>{{ i18n $item.key }}</a>
+      {{- end }}
+    </nav>
+
+    {{- /* 右上角 GitHub：按当前页面切到对应仓库，没有声明就落到主仓库 */ -}}
+    {{- $repo := site.Params.github -}}
+    {{- with .Params.repo }}{{ $repo = . }}{{ end -}}
+    <div class="header-actions">
+      <a class="header-icon-btn" href="{{ $repo }}" target="_blank" rel="noopener noreferrer"
+         aria-label="{{ i18n "a11y.github" }}" title="{{ i18n "a11y.github" }}">
+        {{ partial "icon.html" "github" }}
+      </a>
+      {{ partial "lang-switch.html" . }}
+      <a class="btn btn--primary btn--sm header-cta" href="{{ site.Params.downloadMacOS | default "#" }}"
+         aria-label="{{ i18n "cta.download" }}">
+        {{ partial "icon.html" "download" }}<span class="header-cta__label">{{ i18n "cta.download" }}</span>
+      </a>
+    </div>
+  </div>
+</header>

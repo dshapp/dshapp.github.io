@@ -1,0 +1,43 @@
+{{- /* head.html：CSS 经 Hugo Pipes 打包、压缩、指纹化 */ -}}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{ if .IsHome }}{{ site.Title }} – {{ i18n "site.tagline" }}{{ else }}{{ .Title }} – {{ site.Title }}{{ end }}</title>
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description | default site.Params.tagline }}{{ end }}">
+<meta name="format-detection" content="telephone=no, address=no, email=no">
+<meta name="theme-color" content="#08090a">
+<meta name="color-scheme" content="dark">
+
+{{- /* 多语言备用链接 */ -}}
+{{- range .AllTranslations }}
+<link rel="alternate" hreflang="{{ .Language.Locale }}" href="{{ .Permalink }}">
+{{- end }}
+{{- range .AllTranslations }}
+{{- if eq .Language.Lang site.Language.Lang }}
+<link rel="alternate" hreflang="x-default" href="{{ .Permalink }}">
+{{- end }}
+{{- end }}
+
+{{- /* Open Graph / Twitter */ -}}
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }} – {{ i18n "site.tagline" }}{{ else }}{{ .Title }}{{ end }}">
+<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:image" content="{{ site.Params.ogImage | absURL }}">
+<meta property="og:locale" content="{{ site.Language.Locale }}">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="{{ "favicon.png" | relURL }}" type="image/png" sizes="64x64">
+<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
+
+{{- /* 预加载字体，避免标题闪烁 */ -}}
+<link rel="preload" href="{{ "fonts/InterVariable.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+
+{{- $parts := slice -}}
+{{- range slice "css/tokens.css" "css/base.css" "css/layout.css" "css/components.css" "css/sections.css" "css/docs.css" "css/app-mock.css" -}}
+  {{- $parts = $parts | append (resources.Get .) -}}
+{{- end -}}
+{{- $bundle := $parts | resources.Concat "css/site.css" | minify | fingerprint "sha384" -}}
+<link rel="stylesheet" href="{{ $bundle.RelPermalink }}" integrity="{{ $bundle.Data.Integrity }}" crossorigin="anonymous">
+
+{{ partial "schema.html" . }}

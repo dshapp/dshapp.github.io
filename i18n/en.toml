@@ -1,0 +1,163 @@
+[site.tagline]
+other = "native clients, browser control, and computer use"
+
+[a11y.skip]
+other = "Skip to main content"
+
+[a11y.menu]
+other = "Open navigation menu"
+
+[a11y.primaryNav]
+other = "Primary navigation"
+
+[a11y.language]
+other = "Switch language"
+
+[a11y.github]
+other = "View this component's source on GitHub"
+
+[nav.macos]
+other = "macOS App"
+
+[nav.android]
+other = "Android App"
+
+[nav.chrome]
+other = "Chrome Extension"
+
+[nav.opensource]
+other = "Open Source"
+
+[nav.cu]
+other = "Computer Use"
+
+[nav.docs]
+other = "Docs"
+
+[cta.download]
+other = "Download"
+
+[cta.learnMore]
+other = "Learn more"
+
+[cta.allProducts]
+other = "All products"
+
+[product.overview]
+other = "Overview"
+
+[product.capabilities]
+other = "Capabilities"
+
+[product.related]
+other = "Related capabilities"
+
+[product.backHome]
+other = "Back to home"
+
+[product.backToProducts]
+other = "All products"
+
+[notfound.title]
+other = "Page not found"
+
+[notfound.body]
+other = "Nothing lives at this address — it may have moved or been renamed."
+
+[notfound.action]
+other = "Back to home"
+
+[footer.blurb]
+other = "Native macOS and Android clients, browser control, and computer use — all in one DSH."
+
+[footer.products]
+other = "Products"
+
+[footer.capabilities]
+other = "Capabilities"
+
+[footer.security]
+other = "Security"
+
+[footer.getStarted]
+other = "Get started"
+
+[footer.elementPicker]
+other = "Element picking"
+
+[footer.chromeTools]
+other = "Browser control tools"
+
+[footer.shortcuts]
+other = "Keyboard shortcuts"
+
+[footer.pairing]
+other = "QR pairing"
+
+[footer.crypto]
+other = "End-to-end encryption"
+
+[footer.permissions]
+other = "Permissions & toggles"
+
+[footer.cuPermissions]
+other = "Computer use permissions"
+
+[footer.downloadMac]
+other = "Download for macOS"
+
+[footer.downloadAndroid]
+other = "Download for Android"
+
+[footer.chromeWebStore]
+other = "Install the Chrome extension"
+
+[footer.github]
+other = "Source repository"
+
+[footer.docs]
+other = "Documentation"
+
+# ---------------------------------------------------------------- Docs
+[docs.title]
+other = "Documentation"
+
+[docs.tocLabel]
+other = "Documentation menu"
+
+[docs.onThisPage]
+other = "On this page"
+
+[docs.group.start]
+other = "Get started"
+
+[docs.group.use]
+other = "Daily use"
+
+[docs.group.browser]
+other = "Browser"
+
+[docs.group.mobile]
+other = "Phone and remote"
+
+[docs.group.cu]
+other = "Computer use"
+
+[docs.group.security]
+other = "Security"
+
+[docs.group.reference]
+other = "Reference"
+
+[docs.prev]
+other = "Previous"
+
+[docs.next]
+other = "Next"
+
+[docs.allDocs]
+other = "All documentation"
+
+[docs.updatedOn]
+other = "Last updated"
+

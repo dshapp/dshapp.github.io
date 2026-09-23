@@ -1,0 +1,13 @@
+{{- define "main" }}
+<div class="notfound">
+  <div class="container stack stack-16" style="align-items:center">
+    <p class="notfound__code">404</p>
+    <h1 class="display-3">{{ i18n "notfound.title" }}</h1>
+    <p class="body-regular text-tertiary prose">{{ i18n "notfound.body" }}</p>
+    <div class="btn-row btn-row--center" style="margin-top:8px">
+      <a class="btn btn--primary" href="{{ "" | relLangURL }}">{{ i18n "notfound.action" }}</a>
+      <a class="btn btn--secondary" href="{{ "products/" | relLangURL }}">{{ i18n "cta.allProducts" }}</a>
+    </div>
+  </div>
+</div>
+{{- end }}

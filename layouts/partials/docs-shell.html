@@ -1,0 +1,55 @@
+{{- /* docs-shell.html —— 文档页外壳：左侧目录 + 正文 + 右侧本页目录 + 上下页。
+     list 与 single 都调用它，保证两种页面版式一致。 */ -}}
+{{- $root := site.GetPage "/docs" -}}
+{{- $pages := $root.RegularPages.ByWeight -}}
+{{- $cur := . -}}
+{{- $toc := .TableOfContents -}}
+<div class="container-wide docs-shell">
+  <aside class="docs-aside">
+    {{ partial "docs-nav.html" . }}
+  </aside>
+
+  <div class="docs-main">
+    <article class="docs-article">
+      <header class="docs-head">
+        {{- with .Params.group }}
+          <p class="docs-head__eyebrow">{{ i18n (printf "docs.group.%s" .) }}</p>
+        {{- end }}
+        <h1 class="docs-head__title">{{ .Title }}</h1>
+        {{- with .Description }}<p class="docs-head__desc">{{ . }}</p>{{ end }}
+      </header>
+
+      <div class="prose-content docs-prose">{{ .Content }}</div>
+
+      {{- if .IsPage }}
+        {{- $idx := -1 }}
+        {{- range $i, $p := $pages }}{{ if eq $p $cur }}{{ $idx = $i }}{{ end }}{{ end }}
+        {{- if ge $idx 0 }}
+          <nav class="docs-pager" aria-label="{{ i18n "docs.tocLabel" }}">
+            {{- if gt $idx 0 }}
+              {{- $prev := index $pages (sub $idx 1) }}
+              <a class="docs-pager__link docs-pager__link--prev" href="{{ $prev.RelPermalink }}">
+                <span class="docs-pager__dir">{{ i18n "docs.prev" }}</span>
+                <span class="docs-pager__title">{{ $prev.LinkTitle }}</span>
+              </a>
+            {{- else }}<span></span>{{ end }}
+            {{- if lt $idx (sub (len $pages) 1) }}
+              {{- $next := index $pages (add $idx 1) }}
+              <a class="docs-pager__link docs-pager__link--next" href="{{ $next.RelPermalink }}">
+                <span class="docs-pager__dir">{{ i18n "docs.next" }}</span>
+                <span class="docs-pager__title">{{ $next.LinkTitle }}</span>
+              </a>
+            {{- end }}
+          </nav>
+        {{- end }}
+      {{- end }}
+    </article>
+
+    {{- if $toc }}
+      <aside class="docs-toc">
+        <p class="docs-toc__title">{{ i18n "docs.onThisPage" }}</p>
+        {{ $toc }}
+      </aside>
+    {{- end }}
+  </div>
+</div>

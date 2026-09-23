@@ -1,0 +1,133 @@
+{{- /* app-mock.html —— 首页 macOS 版块里可交互的 App 界面复刻。
+     几何与配色全部取自 assets/img/shots/macos-app.jpg 的实测像素（1229×768 逻辑画布，
+     与该截图 1:1）；所有数值即截图坐标，便于逐像素比对。
+     数据：data/appmock/sessions.yaml（用户数据，中英一致）+ data/appmock/<lang>.yaml（界面文案）。
+     交互见 assets/js/app-mock.js；无 JS 时是一个完整的静态展示态。 */ -}}
+{{- $c := (index hugo.Data.appmock site.Language.Lang).chrome -}}
+{{- $sessions := hugo.Data.appmock.sessions.sessions -}}
+{{- $pinned := where $sessions "pinned" true -}}
+{{- $rest := where $sessions "pinned" "!=" true -}}
+{{- $sel := index (where $sessions "selected" true) 0 | default (index $sessions 0) -}}
+
+<div class="appmock" data-appmock role="group" aria-label="{{ $c.group }}">
+  <div class="appmock__stage">
+
+    {{- /* ---------- 侧栏（含标题栏左侧，macOS 一体式侧栏） ---------- */}}
+    <aside class="appmock__sidebar">
+      <span class="appmock__lights" aria-hidden="true"><i></i><i></i><i></i></span>
+      <button class="appmock__toggle" type="button" data-appmock-toggle
+              aria-expanded="true" aria-label="{{ $c.hideSidebar }}" title="{{ $c.hideSidebar }}">
+        {{ partial "icon.html" "panel-left" }}
+      </button>
+
+      <div class="appmock__search">{{ $c.search }}</div>
+
+      <nav class="appmock__nav">
+        <span class="appmock__navitem">{{ partial "icon.html" "settings" }}<span>{{ $c.settings }}</span></span>
+        <span class="appmock__navitem">{{ partial "icon.html" "smartphone" }}<span>{{ $c.mobileAccess }}</span></span>
+        <span class="appmock__navitem">{{ partial "icon.html" "square-pen" }}<span>{{ $c.newSession }}</span></span>
+      </nav>
+
+      <div class="appmock__list">
+        <p class="appmock__group">{{ $c.pinned }}<span class="appmock__grow"></span>{{ partial "icon.html" "pin" }}</p>
+        {{- range $pinned }}
+        <button class="appmock__row appmock__row--pinned{{ if .selected }} is-active{{ end }}" type="button"
+                data-appmock-row="{{ .title }}" data-appmock-label="{{ .title }}"
+                {{ if .selected }}aria-current="true"{{ end }}>
+          <span class="appmock__row-pin">{{ partial "icon.html" "pin" }}</span>
+          <span class="appmock__row-title">{{ .title }}</span>
+          <span class="appmock__row-time">{{ .time }}</span>
+        </button>
+        {{- end }}
+
+        <p class="appmock__group">{{ $c.sessionsHeader }}<span class="appmock__grow"></span>{{ partial "icon.html" "arrow-up-down" }}{{ partial "icon.html" "folder-plus" }}</p>
+        {{- range $rest }}
+        <button class="appmock__row{{ if .selected }} is-active{{ end }}" type="button"
+                data-appmock-row="{{ .title }}" data-appmock-label="{{ .title }}"
+                {{ if .selected }}aria-current="true"{{ end }}>
+          <span class="appmock__row-title">{{ .title }}</span>
+          <span class="appmock__row-time">{{ .time }}</span>
+        </button>
+        {{- end }}
+      </div>
+
+      <div class="appmock__archived">{{ partial "icon.html" "archive" }}<span>{{ $c.archived }}</span></div>
+    </aside>
+
+    {{- /* ---------- 工具栏（右侧） ---------- */}}
+    <header class="appmock__toolbar">
+      <span class="appmock__crumb">
+        <span class="appmock__crumb-repo">dsh-macapp</span>
+        <span class="appmock__crumb-sep">/</span>
+        <span class="appmock__crumb-title" data-appmock-title>{{ $sel.title }}</span>
+      </span>
+      <span class="appmock__tactions">
+        <span class="appmock__tbtn">{{ partial "icon.html" "terminal" }}</span>
+        <span class="appmock__tbranch">{{ partial "icon.html" "git-branch" }}<b>main</b></span>
+        <span class="appmock__tbtn">{{ partial "icon.html" "arrow-up-right" }}</span>
+      </span>
+    </header>
+
+    {{- /* ---------- 主区 ---------- */}}
+    <main class="appmock__main">
+      <div class="appmock__transcript" data-appmock-transcript>
+        {{- range $sessions }}
+        <div class="appmock__thread{{ if not .selected }} is-hidden{{ end }}" data-appmock-thread="{{ .title }}">
+          {{- range .transcript }}
+            {{- if eq .role "user" }}
+          <p class="appmock__p appmock__p--user">{{ .text }}</p>
+            {{- else if eq .role "text" }}
+          <p class="appmock__p">{{ .text }}</p>
+            {{- else if eq .role "thinking" }}
+          <p class="appmock__rail">{{ partial "icon.html" "message-square" }}<span>{{ .text }}</span></p>
+            {{- else if eq .role "tool" }}
+          <p class="appmock__rail appmock__rail--tool">{{ partial "icon.html" "code" }}<span>{{ .text }}</span></p>
+            {{- else if eq .role "error" }}
+          <p class="appmock__rail appmock__rail--error">{{ partial "icon.html" "square" }}<span>{{ .text }}</span></p>
+            {{- else if eq .role "image" }}
+          <div class="appmock__thumb" aria-hidden="true">
+            <span class="appmock__thumb-bar"><i></i><i></i><i></i></span>
+            <span class="appmock__thumb-side"><b></b><b></b><b></b><b></b><b></b><b></b></span>
+            <span class="appmock__thumb-body"><b></b><b></b><b></b><b></b><b></b></span>
+          </div>
+            {{- end }}
+          {{- end }}
+        </div>
+        {{- end }}
+      </div>
+
+      <div class="appmock__composer">
+        <div class="appmock__card">
+          <span class="appmock__card-lead">{{ partial "icon.html" "list" }}</span>
+          <span class="appmock__card-count"><b>{{ $c.backgroundTask }}</b></span>
+          <span class="appmock__card-text">{{ $c.backgroundTaskTitle }}</span>
+          <span class="appmock__grow"></span>
+          <span class="appmock__card-icon">{{ partial "icon.html" "chevron-up" }}</span>
+        </div>
+        <div class="appmock__card">
+          <span class="appmock__card-lead">{{ partial "icon.html" "list" }}</span>
+          <span class="appmock__card-text appmock__card-text--full">还要突出开源、安全和审核这个特性，把所有的 GitHub 仓库仓库链接贴上去</span>
+          <span class="appmock__grow"></span>
+          <span class="appmock__card-icon">{{ partial "icon.html" "trash-2" }}</span>
+          <button class="appmock__card-icon appmock__card-icon--send" type="button"
+                  data-appmock-send aria-label="{{ $c.send }}" title="{{ $c.send }}">{{ partial "icon.html" "send" }}</button>
+        </div>
+        <div class="appmock__input">
+          <textarea class="appmock__textarea" rows="1" data-appmock-input
+                    aria-label="{{ $c.composerPlaceholder }}"
+                    placeholder="{{ $c.queueHint }}"></textarea>
+          <div class="appmock__bar">
+            <span class="appmock__bicon">{{ partial "icon.html" "plus" }}</span>
+            <span class="appmock__bicon">{{ partial "icon.html" "paperclip" }}</span>
+            <span class="appmock__access">{{ $c.accessMode }}</span>
+            <span class="appmock__grow"></span>
+            <span class="appmock__model">{{ $c.model }}{{ partial "icon.html" "chevron-down" }}</span>
+            <span class="appmock__ring" aria-hidden="true"></span>
+            <span class="appmock__stop" title="{{ $c.stop }}" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+  </div>
+</div>

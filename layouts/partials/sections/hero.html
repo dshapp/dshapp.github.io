@@ -1,0 +1,54 @@
+{{- /* sections/hero.html —— dict: page, h */ -}}
+{{- $h := .h -}}
+{{- $page := .page -}}
+<section class="hero">
+  <div class="container-wide">
+    <div class="hero__inner">
+      {{- with $h.eyebrow }}
+        <a class="pill" href="{{ $h.eyebrowHref | relLangURL }}">
+          {{- with $h.eyebrowBadge }}<span class="pill__tag">{{ . }}</span>{{ end -}}
+          <span>{{ . }}</span>
+          {{ partial "icon.html" "arrow-right" }}
+        </a>
+      {{- end }}
+
+      <h1 class="display-1 hero__title">{{ $h.title }}</h1>
+      <p class="body-large hero__sub">{{ $h.subtitle }}</p>
+
+      <div class="btn-row btn-row--center hero__actions">
+        <a class="btn btn--primary" href="{{ with $h.ctaPrimaryHref }}{{ . }}{{ else }}{{ site.Params.downloadMacOS | default "#" }}{{ end }}">
+          {{ partial "icon.html" "apple" }}<span>{{ $h.ctaPrimary }}</span>
+        </a>
+        <a class="btn btn--secondary" href="{{ $h.ctaSecondaryHref }}">
+          <span>{{ $h.ctaSecondary }}</span>{{ partial "icon.html" "arrow-right" }}
+        </a>
+      </div>
+
+      <div class="hero__meta">
+        {{- range $h.platforms }}
+          <span>{{ partial "icon.html" .icon }}{{ .label }}</span>
+        {{- end }}
+      </div>
+    </div>
+  </div>
+
+  {{- /* 首屏展示的是可交互的 App 界面复刻，不是截图；窄屏才退回静态截图
+         （显隐规则见 assets/css/app-mock.css 末尾） */}}
+  <div class="hero__shot reveal">
+    <div class="hero__shot-inner">
+      <div class="hero__shot-glow" aria-hidden="true"></div>
+
+      <figure class="shot-frame shot-frame--appmock grain">
+        {{ partial "app-mock.html" $h }}
+      </figure>
+
+      {{- with $h.heroShot }}
+      <figure class="shot-frame shot-frame--radius-16 shot-frame--appshot grain">
+        {{ partial "shot-img.html" (dict "src" . "alt" $h.heroShotAlt "loading" "eager" "priority" "high") }}
+      </figure>
+      {{- end }}
+
+      {{- with $h.heroCaption }}<p class="shot-caption">{{ partial "icon.html" "check" }}{{ . }}</p>{{ end }}
+    </div>
+  </div>
+</section>

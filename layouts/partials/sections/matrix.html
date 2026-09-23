@@ -1,0 +1,31 @@
+{{- /* sections/matrix.html —— dict: h */ -}}
+{{- $h := .h -}}
+<section class="section container-wide section-bordered">
+  <div class="section-head section-head--center stack stack-12 reveal" style="margin-bottom:32px">
+    <h2 class="display-3">{{ $h.matrixTitle }}</h2>
+    <p class="body-regular text-tertiary">{{ $h.matrixSub }}</p>
+  </div>
+
+  <div class="matrix-wrap reveal">
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          {{- range $h.matrixColumns }}<th scope="col">{{ . }}</th>{{ end }}
+        </tr>
+      </thead>
+      <tbody>
+        {{- range $h.matrix }}
+          <tr>
+            <td class="table-heading">{{ .name }}</td>
+            {{- range .cells }}
+              {{- $cls := "" -}}
+              {{- if eq . "—" }}{{ $cls = "cell-no" }}{{ else if in (slice "完整" "Full" "原生" "Native") . }}{{ $cls = "cell-yes" }}{{ else }}{{ $cls = "cell-partial" }}{{ end -}}
+              <td class="{{ $cls }}">{{ . }}</td>
+            {{- end }}
+          </tr>
+        {{- end }}
+      </tbody>
+    </table>
+  </div>
+</section>

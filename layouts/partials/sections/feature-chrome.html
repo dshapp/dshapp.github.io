@@ -1,0 +1,33 @@
+{{- /* sections/feature-chrome.html —— dict: h */ -}}
+{{- $h := .h -}}
+{{- $c := $h.chrome -}}
+<section class="feature container-wide" id="element-picker">
+  <div class="split reverse">
+    <div class="feature__copy reveal">
+      <p class="eyebrow">{{ $c.eyebrow }}</p>
+      <h2 class="display-2">{{ $c.title }}</h2>
+      <p class="body-large text-tertiary">{{ $c.body }}</p>
+      <ul class="feature__list">
+        {{- range $c.bullets }}<li><span>{{ . | safeHTML }}</span></li>{{ end }}
+      </ul>
+    </div>
+
+    <div class="split-media stack stack-16 reveal">
+      <figure class="shot-frame grain">
+        {{ partial "shot-img.html" (dict "src" $c.shot "alt" $c.shotAlt) }}
+      </figure>
+      {{- with $c.shot2 }}
+      <figure class="shot-frame shot-frame--sm">
+        {{ partial "shot-img.html" (dict "src" . "alt" $c.shot2Alt) }}
+      </figure>
+      {{- end }}
+    </div>
+  </div>
+
+  <div id="tools" class="reveal feature__more">
+    <p class="body-large text-tertiary">{{ $c.toolsNote }}</p>
+    <a class="btn btn--secondary btn--sm" href="{{ "docs/browser-tools/" | relLangURL }}">
+      {{ i18n "docs.title" }}{{ partial "icon.html" "arrow-right" }}
+    </a>
+  </div>
+</section>

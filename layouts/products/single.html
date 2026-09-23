@@ -1,0 +1,98 @@
+{{- define "main" }}
+{{- $icon := .Params.icon | default "grid" -}}
+<article>
+  <header class="page-hero">
+    <div class="container-wide page-hero__inner">
+      <span class="page-hero__icon">{{ partial "icon.html" $icon }}</span>
+      {{- with .Params.badge }}<div><span class="badge badge--accent">{{ . }}</span></div>{{ end }}
+      <h1 class="display-2">{{ .Title }}</h1>
+      {{- with .Params.tagline }}<p class="body-large text-tertiary">{{ . }}</p>{{ end }}
+      <div class="btn-row" style="margin-top:8px">
+        <a class="btn btn--primary" href="{{ site.Params.downloadMacOS | default "#" }}">
+          {{ partial "icon.html" "download" }}<span>{{ i18n "cta.download" }}</span>
+        </a>
+        <a class="btn btn--secondary" href="{{ "" | relLangURL }}#products">
+          <span>{{ i18n "product.backToProducts" }}</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  {{- with .Params.shot }}
+  <section class="detail-shot">
+    <div class="container-wide">
+      <figure class="shot-frame shot-frame--radius-16 grain reveal">
+        {{ partial "shot-img.html" (dict "src" . "alt" $.Params.shotAlt "loading" "eager" "priority" "high") }}
+      </figure>
+    </div>
+  </section>
+  {{- end }}
+
+  {{- with .Params.features }}
+  <section class="section section-bordered">
+    <div class="container-wide">
+      <h2 class="display-3" style="margin-bottom:24px">{{ i18n "product.capabilities" }}</h2>
+      <div class="grid grid-3">
+        {{- range . }}
+          <div class="card reveal">
+            <h3 class="card__title">{{ .title }}</h3>
+            <p class="card__body">{{ .body }}</p>
+          </div>
+        {{- end }}
+      </div>
+    </div>
+  </section>
+  {{- end }}
+
+  <section class="section">
+    <div class="container-wide">
+      <div class="split" style="align-items:flex-start">
+        <div class="prose-content">
+          {{ .Content }}
+        </div>
+
+        <div class="stack stack-32" style="position:sticky;top:calc(var(--header-height) + 24px)">
+          {{- with .Params.shot2 }}
+          <figure class="shot-frame shot-frame--sm">
+            {{ partial "shot-img.html" (dict "src" . "alt" $.Params.shot2Alt) }}
+          </figure>
+          {{- end }}
+
+          {{- with .Params.related }}
+          <div>
+            <h2 class="heading-4" style="margin-bottom:12px">{{ i18n "product.related" }}</h2>
+            <div class="stack stack-8">
+              {{- range . }}
+                <a class="card" href="{{ strings.TrimPrefix "/" .path | relLangURL }}" style="padding:14px">
+                  <h3 class="card__title" style="font-size:14px">{{ .title }}</h3>
+                  <p class="card__body" style="font-size:13px">{{ .body }}</p>
+                </a>
+              {{- end }}
+            </div>
+          </div>
+          {{- end }}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container-wide">
+      <div class="cta__grid">
+        <div class="stack stack-12">
+          <h2 class="display-2 cta__heading">{{ i18n "cta.download" }} {{ site.Params.productName | default site.Title }}</h2>
+          <p class="body-large text-tertiary">{{ .Params.description }}</p>
+        </div>
+        <div class="cta__actions">
+          <a class="btn btn--primary" href="{{ site.Params.downloadMacOS | default "#" }}">
+            {{ partial "icon.html" "apple" }}<span>{{ i18n "footer.downloadMac" }}</span>
+          </a>
+          <a class="btn btn--secondary" href="{{ site.Params.downloadAndroid | default "#" }}">
+            {{ partial "icon.html" "android" }}<span>{{ i18n "footer.downloadAndroid" }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</article>
+{{- end }}

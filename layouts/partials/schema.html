@@ -1,0 +1,11 @@
+{{- /* schema.html —— 结构化数据 */ -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "{{ if .IsHome }}WebSite{{ else }}WebPage{{ end }}",
+  "name": {{ site.Title | jsonify }},
+  "url": {{ .Permalink | jsonify }},
+  "inLanguage": {{ site.Language.Locale | jsonify }},
+  "description": {{ with .Description }}{{ . | jsonify }}{{ else }}{{ site.Params.description | jsonify }}{{ end }}
+}
+</script>

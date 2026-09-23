@@ -1,0 +1,72 @@
+# DSH 产品站 —— Linear 风格站点的 Hugo 配置
+# 参考视觉：https://linear.app/  设计 token 已按其 [data-theme=dark] 原值落地到 assets/css/tokens.css
+
+baseURL = "https://dshapp.github.io/dsh-site/"
+title = "DSH"
+enableRobotsTXT = true
+enableGitInfo = false
+disableKinds = ["taxonomy", "term"]
+
+defaultContentLanguage = "zh"
+defaultContentLanguageInSubdir = false
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true          # 内容里允许内联 HTML（截图容器、图标）
+    [markup.goldmark.parser]
+      wrapStandAloneImageWithinParagraph = false
+  [markup.highlight]
+    noClasses = false
+    codeFences = true
+    lineNos = false
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+
+# ---------------------------------------------------------------- 语言
+[languages]
+  [languages.zh]
+    label = "中文"
+    locale = "zh-CN"
+    contentDir = "content"
+    weight = 1
+    title = "DSH"
+    [languages.zh.params]
+      tagline = "你的 Mac、你的浏览器、你的手机 —— 一个 DSH"
+      description = "原生 macOS 与 Android 客户端、Chrome 扩展与浏览器控制、远程连接、计算机使用能力。"
+
+  [languages.en]
+    label = "English"
+    locale = "en-US"
+    contentDir = "content"
+    weight = 2
+    title = "DSH"
+    [languages.en.params]
+      tagline = "Your Mac, your browser, your phone — one DSH"
+      description = "Native macOS and Android clients, Chrome extension and browser control, remote access, and computer use."
+
+# 主导航在 layouts/partials/header.html 里用 i18n 名称 + 固定 section 生成，
+# 因此中英文各自拿到本地化名称，无需在配置里维护两份菜单。
+
+# ------------------------------------------------------- 站点参数（改这里即可）
+[params]
+  logoText = "Deepseek Harness APP"
+  productName = "Deepseek Harness APP"
+  # 下载 / 仓库地址：目前为占位，上线前替换这几处即可（README 有说明）
+  downloadMacOS = "#"
+  downloadAndroid = "#"
+  chromeWebStore = "https://chromewebstore.google.com/detail/deepseek-harness-app/kgjjicancjnedmappjhefngdjaommpop"
+  github = "https://github.com/deepseek-ai/deepseek-harness"
+  ogImage = "/img/shots/macos-app.jpg"
+
+[outputs]
+  home = ["HTML"]
+  section = ["HTML"]
+  page = ["HTML"]
+
+[server]
+  [[server.headers]]
+    for = "/fonts/*"
+    [server.headers.values]
+      Cache-Control = "public, max-age=31536000, immutable"

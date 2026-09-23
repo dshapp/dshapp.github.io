@@ -1,0 +1,8 @@
+{{- /* brand-logo.html —— 品牌标志图（assets/img/logo-mark.png，Hugo Pipes 缩放 + 指纹）
+   用法：{{ partial "brand-logo.html" 22 }} */ -}}
+{{- $size := . | default 22 -}}
+{{- with resources.Get "img/logo-mark.png" -}}
+  {{- $px := mul $size 4 -}}
+  {{- $img := .Resize (printf "%dx%d Lanczos" $px $px) -}}
+  <img class="brand__mark" src="{{ $img.RelPermalink }}" width="{{ $size }}" height="{{ $size }}" alt="" decoding="async" fetchpriority="high">
+{{- end -}}

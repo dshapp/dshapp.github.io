@@ -1,0 +1,46 @@
+{{- /* docs-nav.html —— 文档左侧目录。
+     分组顺序在这里定义，具体条目来自 content/docs/*.md 的 group/weight，
+     组标题走 i18n 的 docs.group.<key>，所以中英文各拿各的。
+     窄屏用原生 <details> 折叠：默认展开（无 JS 也是可用的），
+     main.js 在 ≤900px 时收起，收起后 summary 显示当前页。 */ -}}
+{{- $root := site.GetPage "/docs" -}}
+{{- $groups := slice "start" "use" "browser" "mobile" "cu" "security" "reference" -}}
+{{- $pages := $root.RegularPages.ByWeight -}}
+{{- $cur := . -}}
+<details class="docs-disclosure" data-docs-nav open>
+  <summary class="docs-disclosure__summary">
+    <span class="docs-disclosure__label">{{ i18n "docs.tocLabel" }}</span>
+    <span class="docs-disclosure__current">{{ .LinkTitle }}</span>
+    <span class="docs-disclosure__chev">
+      <span class="docs-disclosure__chev-closed">{{ partial "icon.html" "chevron-down" }}</span>
+      <span class="docs-disclosure__chev-open">{{ partial "icon.html" "chevron-up" }}</span>
+    </span>
+  </summary>
+  <nav class="docs-nav" aria-label="{{ i18n "docs.tocLabel" }}">
+    {{- range $g := $groups }}
+      {{- $items := where $pages "Params.group" $g }}
+      {{- if or $items (eq $g "start") }}
+        <div class="docs-nav__group">
+          <p class="docs-nav__group-title">{{ i18n (printf "docs.group.%s" $g) }}</p>
+          <ul class="docs-nav__list">
+            {{- if eq $g "start" }}
+              {{- /* 概览只在 /docs/ 本页高亮；其它页都是它的后代，用 IsDescendant 会全亮 */}}
+              {{- $active := eq $cur.RelPermalink $root.RelPermalink }}
+              <li>
+                <a class="docs-nav__link{{ if $active }} is-active{{ end }}" href="{{ $root.RelPermalink }}"
+                   {{- if $active }} aria-current="page"{{ end }}>{{ $root.LinkTitle }}</a>
+              </li>
+            {{- end }}
+            {{- range $p := $items }}
+              {{- $active := eq $cur.RelPermalink $p.RelPermalink }}
+              <li>
+                <a class="docs-nav__link{{ if $active }} is-active{{ end }}" href="{{ $p.RelPermalink }}"
+                   {{- if $active }} aria-current="page"{{ end }}>{{ $p.LinkTitle }}</a>
+              </li>
+            {{- end }}
+          </ul>
+        </div>
+      {{- end }}
+    {{- end }}
+  </nav>
+</details>

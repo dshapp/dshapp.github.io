@@ -1,0 +1,12 @@
+{{- /* sections/platforms.html —— dict: h */ -}}
+{{- $h := .h -}}
+<section class="section-tight platforms section-bordered">
+  <div class="container-wide">
+    <p class="micro text-quaternary" style="text-align:center;margin-bottom:20px">{{ $h.platformsTitle }}</p>
+    <div class="platforms__row">
+      {{- range $h.platforms }}
+        <span class="platform-item">{{ partial "icon.html" .icon }}{{ .label }}</span>
+      {{- end }}
+    </div>
+  </div>
+</section>

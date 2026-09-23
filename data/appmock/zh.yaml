@@ -1,0 +1,20 @@
+chrome:
+  search: 搜索会话…
+  settings: 设置
+  mobileAccess: 移动端访问
+  newSession: 新会话
+  pinned: 已置顶
+  sessionsHeader: 会话
+  archived: 已归档会话
+  composerPlaceholder: 描述你的任务以生成计划
+  accessMode: 完全访问
+  model: DeepSeek-V4.1-Flash
+  hideSidebar: 隐藏边栏
+  showSidebar: 显示边栏
+  backgroundTask: 8 待处理 · 1 进行中
+  backgroundTaskTitle: 用双语文案搭建 Hugo 站点
+  stop: 停止生成
+  queueHint: 将排队的消息依次插话发送
+  send: 发送
+  group: macOS 应用界面演示
+  planMode: 计划

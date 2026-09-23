@@ -1,0 +1,451 @@
+/* ==========================================================================
+   sections.css —— 区块级版式（hero / 平台条 / 深潜 / CTA / 详情页）
+   ========================================================================== */
+
+/* ---------------------------------------------------------------- Hero */
+.hero {
+  position: relative;
+  padding-top: 96px;
+  padding-bottom: 64px;
+  text-align: center;
+  overflow: hidden;
+}
+.hero__inner { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.hero__title { max-width: 820px; text-wrap: balance; }
+.hero__sub { max-width: 640px; color: var(--color-text-tertiary); }
+.hero__actions { margin-top: 8px; }
+.hero__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--color-text-quaternary);
+}
+.hero__meta span { display: inline-flex; align-items: center; gap: 6px; }
+.hero__meta span + span::before {
+  content: "";
+  width: 3px;
+  height: 3px;
+  border-radius: var(--radius-circle);
+  background: var(--color-text-quaternary);
+  margin-right: 8px;
+}
+
+/* Hero 背后的柔光，对应 linear.app 顶部的辉光 */
+.hero::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -280px;
+  width: 1000px;
+  height: 560px;
+  transform: translateX(-50%);
+  background: radial-gradient(50% 50% at 50% 50%,
+    color-mix(in lch, var(--color-brand-bg), transparent 88%) 0%,
+    transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero > * { position: relative; z-index: 1; }
+
+.hero__shot {
+  position: relative;
+  margin-top: 40px;
+  padding-inline: var(--homepage-outer-padding);
+}
+/* 1180 → 1229：就是 App 界面复刻的设计画布宽度，让它以精确 1:1 呈现
+   （1229 仍在 --homepage-max-width 1344px 之内，不会顶到边） */
+.hero__shot-inner { position: relative; max-width: 1229px; margin-inline: auto; }
+.hero__shot-glow {
+  position: absolute;
+  inset: -10% -6% -20%;
+  background: radial-gradient(45% 55% at 50% 40%,
+    color-mix(in lch, var(--color-brand-bg), transparent 82%) 0%,
+    transparent 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ---------------------------------------------------------------- 平台 / 环境条 */
+.platforms { padding-block: 32px; }
+.platforms__row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 28px;
+  flex-wrap: wrap;
+}
+.platform-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-quaternary);
+  transition: color var(--speed-quickTransition) var(--ease-out-quad);
+}
+.platform-item:hover { color: var(--color-text-secondary); }
+.platform-item svg { width: 15px; height: 15px; }
+
+/* ---------------------------------------------------------------- 深潜区块 */
+.feature { padding-block: 96px; }
+.feature + .feature { border-top: 1px solid var(--color-border-translucent); }
+.feature__copy { display: flex; flex-direction: column; gap: 16px; }
+.feature__list { display: grid; gap: 10px; margin-top: 4px; }
+.feature__list li {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-tertiary);
+}
+.feature__list li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-top: 8px;
+  border-radius: var(--radius-circle);
+  background: var(--color-accent);
+  opacity: .8;
+}
+.feature__list strong { color: var(--color-text-primary); font-weight: var(--font-weight-medium); }
+
+/* 深挖段末尾指向文档的入口 */
+.feature__more {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: var(--prose-max-width);
+}
+.feature__more p { margin: 0; }
+.feature__more--tight { margin-top: 12px; max-width: none; }
+
+/* macOS 版块：首屏已经用可交互的 App 界面复刻展示了窗口本身，
+   这里只留一段居中的文案，不再重复放截图。 */
+.feature__copy--center {
+  align-items: center;
+  text-align: center;
+  max-width: var(--prose-max-width);
+  margin-inline: auto;
+}
+.feature__list--center li { text-align: left; }
+
+/* ---------------------------------------------------------------- CTA 区（镜像 Linear CTA.css） */
+.cta {
+  padding-block: 96px;
+  border-top: 1px solid var(--color-border-translucent);
+}
+.cta__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: end;
+}
+.cta__actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+@media (max-width: 640px) {
+  .cta { padding-block: 16px; }
+  .cta__grid { place-items: center; row-gap: 24px; grid-template-columns: minmax(0, 1fr); }
+  .cta__heading { text-align: center; }
+  .cta__actions { flex-direction: column; align-items: stretch; width: 100%; }
+}
+
+/* ---------------------------------------------------------------- 详情页 */
+.page-hero {
+  position: relative;
+  padding-top: 80px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--color-border-translucent);
+  overflow: hidden;
+}
+.page-hero::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -320px;
+  width: 820px;
+  height: 480px;
+  transform: translateX(-50%);
+  background: radial-gradient(50% 50% at 50% 50%,
+    color-mix(in lch, var(--color-brand-bg), transparent 90%) 0%,
+    transparent 100%);
+  pointer-events: none;
+}
+.page-hero__inner { position: relative; display: flex; flex-direction: column; gap: 16px; max-width: 720px; }
+.page-hero__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-8);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-translucent);
+  color: var(--color-text-secondary);
+}
+.page-hero__icon svg { width: 20px; height: 20px; }
+
+.detail-shot { padding-block: 48px; }
+
+/* 详情页正文（Markdown 渲染） */
+.prose-content { max-width: 760px; }
+.prose-content h2 {
+  margin-top: 48px;
+  margin-bottom: 12px;
+  font-size: 24px;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -.012em;
+}
+.prose-content h3 {
+  margin-top: 32px;
+  margin-bottom: 8px;
+  font-size: 18px;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -.011em;
+}
+.prose-content p { margin-bottom: 16px; font-size: 16px; line-height: 1.7; color: var(--color-text-secondary); }
+.prose-content ul { margin-bottom: 16px; }
+.prose-content ul li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-text-tertiary);
+}
+.prose-content ul li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 11px;
+  width: 5px;
+  height: 5px;
+  border-radius: var(--radius-circle);
+  background: var(--color-accent);
+}
+.prose-content code {
+  padding: 2px 6px;
+  border-radius: var(--radius-4);
+  background: var(--color-bg-tertiary);
+  font-size: .875em;
+  color: var(--color-text-secondary);
+}
+.prose-content pre {
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  border-radius: var(--radius-8);
+  background: var(--color-bg-level-2);
+  border: 1px solid var(--color-border-translucent);
+  overflow-x: auto;
+  font-size: 13px;
+}
+.prose-content pre code { padding: 0; background: none; }
+.prose-content a { color: var(--color-link-primary); }
+.prose-content a:hover { color: var(--color-link-hover); }
+.prose-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+.prose-content th, .prose-content td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border-translucent);
+}
+.prose-content th { color: var(--color-text-tertiary); font-weight: var(--font-weight-medium); font-size: 12px; }
+.prose-content td { color: var(--color-text-secondary); }
+
+/* ---------------------------------------------------------------- 404 */
+.notfound {
+  min-height: calc(100vh - var(--header-height));
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding-block: 96px;
+}
+.notfound__code {
+  font-family: var(--font-monospace);
+  font-size: 64px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-quaternary);
+  letter-spacing: -.022em;
+}
+
+/* ---------------------------------------------------------------- 响应式收敛 */
+@media (max-width: 1024px) {
+  .split { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .split.reverse > .split-media { order: 0; }
+  .cta__grid { grid-template-columns: minmax(0, 1fr); }
+  .cta__actions { justify-content: flex-start; }
+}
+@media (max-width: 768px) {
+  .hero { padding-top: 64px; }
+  .feature { padding-block: 64px; }
+  .grid-3, .grid-2 { grid-template-columns: minmax(0, 1fr); }
+  .hero__meta { flex-direction: column; gap: 6px; }
+  .hero__meta span + span::before { display: none; }
+}
+
+/* ── 开源 / 安全 / 可审核 ───────────────────────────────────────── */
+.feature__list--tight { margin-top: 14px; gap: 7px; }
+.feature__list--tight li { font-size: 13.5px; line-height: 1.5; }
+
+.repo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 18px;
+  border: 1px solid var(--color-border-translucent);
+  border-radius: var(--radius-8, 8px);
+  background: var(--color-bg-level-2);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color .15s var(--ease-out, ease), background-color .15s var(--ease-out, ease);
+}
+.repo-card:hover {
+  border-color: var(--color-border-primary);
+  background: var(--color-bg-level-3);
+}
+.repo-card__top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.repo-card__icon {
+  display: inline-flex;
+  color: var(--color-text-tertiary);
+  flex: none;
+}
+.repo-card__name {
+  font-family: var(--font-monospace);
+  font-size: 13.5px;
+  font-weight: 510;
+  color: var(--color-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.repo-card__tag {
+  margin-left: auto;
+  flex: none;
+  padding: 2px 8px;
+  border: 1px solid var(--color-border-translucent);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 510;
+  color: var(--color-text-tertiary);
+}
+
+@media (max-width: 768px) {
+  .repo-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+
+/* ── 安全评审列表 ─────────────────────────────────────────── */
+.audit-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--color-border-translucent);
+  border-radius: var(--radius-12, 12px);
+  overflow: hidden;
+}
+.audit-item {
+  padding: 16px 20px;
+  background: var(--color-bg-level-2);
+  border-bottom: 1px solid var(--color-border-translucent);
+}
+.audit-item:last-child { border-bottom: 0; }
+.audit-item__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.audit-item__id {
+  font-family: var(--font-monospace);
+  font-size: 11.5px;
+  font-weight: 590;
+  color: var(--color-text-quaternary);
+  flex: none;
+  min-width: 24px;
+}
+.audit-item__title {
+  font-size: 15px;
+  font-weight: 510;
+  letter-spacing: -.012em;
+  color: var(--color-text-primary);
+  margin: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.audit-item__sev {
+  flex: none;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 510;
+  border: 1px solid var(--color-border-translucent);
+  color: var(--color-text-tertiary);
+}
+.audit-item__sev--critical {
+  color: #ffb0b0;
+  border-color: #4a2326;
+  background: #2a1416;
+}
+.audit-item__sev--high {
+  color: #ffd2a8;
+  border-color: #4a3520;
+  background: #2a1e12;
+}
+.audit-item__status {
+  flex: none;
+  font-size: 11.5px;
+  font-weight: 510;
+  color: var(--color-accent);
+}
+.audit-item__fix {
+  margin: 8px 0 0;
+  max-width: 76ch;
+  line-height: 1.6;
+}
+
+/* ── 仓库卡片补充信息 ─────────────────────────────────────── */
+.repo-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+  font-size: 11.5px;
+  color: var(--color-text-quaternary);
+}
+.repo-card__lang { font-weight: 510; }
+.repo-card__state {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.repo-card__state::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: .5;
+}
+.repo-card__state--live::before { background: #4ade80; opacity: 1; }
+.repo-card--soon { opacity: .72; }
+.repo-card--soon:hover { opacity: 1; }
+

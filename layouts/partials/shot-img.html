@@ -1,0 +1,14 @@
+{{- /* Renders a screenshot from assets/img/shots with its real intrinsic size.
+       Hugo publishes the asset via its RelPermalink, so width/height always match the file.
+       params: src (site-relative path), alt, loading (default lazy), priority (optional) */ -}}
+{{- $src := .src -}}
+{{- $alt := .alt | default "" -}}
+{{- $loading := .loading | default "lazy" -}}
+{{- $priority := .priority | default "" -}}
+{{- with resources.Get (strings.TrimPrefix "/" $src) -}}
+<img src="{{ .RelPermalink }}" alt="{{ $alt }}" width="{{ .Width }}" height="{{ .Height }}"
+  {{- with $loading }} loading="{{ . }}"{{ end }}
+  {{- with $priority }} fetchpriority="{{ . }}"{{ end }} decoding="async">
+{{- else -}}
+<img src="{{ $src | relURL }}" alt="{{ $alt }}" loading="{{ $loading }}" decoding="async">
+{{- end -}}

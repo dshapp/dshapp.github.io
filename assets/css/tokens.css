@@ -1,0 +1,208 @@
+/* ==========================================================================
+   tokens.css —— 设计 token
+   数值直接取自 linear.app 的 [data-theme=dark]（见 README「设计来源」）。
+   站点仅深色：不提供 light / glass 分支。
+   ========================================================================== */
+
+@font-face {
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/InterVariable.woff2") format("woff2");
+}
+
+:root {
+  color-scheme: dark;
+
+  /* ---- 尺寸 / 栅格 ---- */
+  --header-height: 72px;
+  --header-blur: 20px;
+  --page-max-width: 1024px;
+  --prose-max-width: 624px;
+  --homepage-outer-padding: 46px;
+  --homepage-max-width: calc(1344px + var(--homepage-outer-padding) * 2);
+  --page-padding-inline: 24px;
+  --page-padding-block: 64px;
+  --grid-columns: 12;
+  --grid-gap: 16px;
+
+  /* ---- 圆角 ---- */
+  --radius-4: 4px;
+  --radius-6: 6px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-24: 24px;
+  --radius-32: 32px;
+  --radius-rounded: 9999px;
+  --radius-circle: 50%;
+
+  /* ---- 层级 ---- */
+  --layer-1: 1;
+  --layer-2: 2;
+  --layer-3: 3;
+  --layer-footer: 50;
+  --layer-scrollbar: 75;
+  --layer-header: 100;
+  --layer-popover: 600;
+  --layer-command-menu: 650;
+  --layer-dialog: 700;
+  --layer-toasts: 800;
+  --layer-tooltip: 1100;
+  --layer-context-menu: 1200;
+  --layer-max: 10000;
+
+  /* ---- 字体 ---- */
+  --font-regular: "Inter Variable", "SF Pro Display", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  --font-monospace: ui-monospace, "SF Mono", Menlo, "Berkeley Mono", monospace;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 510;
+  --font-weight-semibold: 590;
+  --font-weight-bold: 680;
+
+  /* ---- 动效 ---- */
+  --speed-highlightFadeIn: 0s;
+  --speed-highlightFadeOut: .15s;
+  --speed-quickTransition: .1s;
+  --speed-regularTransition: .25s;
+  --ease-in-quad: cubic-bezier(.55, .085, .68, .53);
+  --ease-in-cubic: cubic-bezier(.55, .055, .675, .19);
+  --ease-in-quart: cubic-bezier(.895, .03, .685, .22);
+  --ease-in-quint: cubic-bezier(.755, .05, .855, .06);
+  --ease-in-expo: cubic-bezier(.95, .05, .795, .035);
+  --ease-in-circ: cubic-bezier(.6, .04, .98, .335);
+  --ease-out-quad: cubic-bezier(.25, .46, .45, .94);
+  --ease-out-cubic: cubic-bezier(.215, .61, .355, 1);
+  --ease-out-quart: cubic-bezier(.165, .84, .44, 1);
+  --ease-out-quint: cubic-bezier(.23, 1, .32, 1);
+  --ease-out-expo: cubic-bezier(.19, 1, .22, 1);
+  --ease-out-circ: cubic-bezier(.075, .82, .165, 1);
+  --ease-in-out-quad: cubic-bezier(.455, .03, .515, .955);
+  --ease-in-out-cubic: cubic-bezier(.645, .045, .355, 1);
+  --ease-in-out-quart: cubic-bezier(.77, 0, .175, 1);
+  --ease-in-out-quint: cubic-bezier(.86, 0, .07, 1);
+  --ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+  --ease-in-out-circ: cubic-bezier(.785, .135, .15, .86);
+
+  /* ---- 颜色：品牌与状态 ---- */
+  --color-white: #fff;
+  --color-black: #000;
+  --color-blue: #4ea7fc;
+  --color-red: #eb5757;
+  --color-green: #27a644;
+  --color-orange: #fc7840;
+  --color-yellow: #f0bf00;
+  --color-indigo: #5e6ad2;
+  --color-teal: #00b8cc;
+
+  /* ---- 焦点 ---- */
+  --focus-ring-color: var(--color-indigo);
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --focus-ring-outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  --cursor-pointer: pointer;
+
+  --border-hairline: .5px;
+  --min-tap-size: 44px;
+  --scrollbar-color: #ffffff1a;
+  --scrollbar-color-hover: #fff3;
+  --scrollbar-color-active: #fff6;
+  --scrollbar-size: 6px;
+  --scrollbar-size-active: 10px;
+  --scrollbar-gap: 4px;
+}
+
+/* ==========================================================================
+   仅深色主题。Linear 的变量集合原样照搬。
+   ========================================================================== */
+:root {
+  --header-bg: #0b0b0bcc;
+  --header-border: #ffffff14;
+
+  --color-bg-primary: #08090a;
+  --color-bg-secondary: #1c1c1f;
+  --color-bg-tertiary: #232326;
+  --color-bg-quaternary: #28282c;
+  --color-bg-marketing: #010102;
+  --color-bg-translucent: #ffffff0d;
+  --color-bg-quinary: #282828;
+  --color-bg-panel: #0f1011;
+
+  --color-border-primary: #23252a;
+  --color-border-secondary: #34343a;
+  --color-border-tertiary: #3e3e44;
+  --color-border-translucent: #ffffff0d;
+  --color-border-translucent-strong: #ffffff14;
+
+  --color-text-primary: #f7f8f8;
+  --color-text-secondary: #d0d6e0;
+  --color-text-tertiary: #8a8f98;
+  --color-text-quaternary: #62666d;
+
+  --color-link-primary: #828fff;
+  --color-link-hover: #fff;
+
+  --color-brand-bg: #5e6ad2;
+  --color-brand-text: #fff;
+  --color-accent: #7170ff;
+  --color-accent-hover: #828fff;
+  --color-accent-tint: #18182f;
+
+  --color-button-invert-bg: #e5e5e6;
+  --color-button-invert-bg-hover: #fff;
+
+  --color-selection-text: var(--color-white);
+  --color-selection-bg: color-mix(in lch, var(--color-brand-bg), black 10%);
+  --color-selection-dim: color-mix(in lch, var(--color-brand-bg), transparent 80%);
+  --color-overlay-primary: #000000d9;
+
+  --shadow-low: 0px 2px 4px #0000001a;
+  --shadow-medium: 0px 4px 24px #0003;
+  --shadow-high: 0px 7px 32px #00000059;
+  --shadow-stack-low: 0px 8px 2px 0px #0000, 0px 5px 2px 0px #00000003, 0px 3px 2px 0px #0000000a,
+    0px 1px 1px 0px #00000012, 0px 0px 1px 0px #00000014;
+
+  --icon-grayscale-image-filter: grayscale(100%) brightness(400%);
+
+  --color-bg-level-0: #08090a;
+  --color-bg-level-1: #0f1011;
+  --color-bg-level-2: #141516;
+  --color-bg-level-3: #191a1b;
+  --color-bg-tint: #141516;
+
+  --color-line-primary: #37393a;
+  --color-line-secondary: #202122;
+  --color-line-tertiary: #18191a;
+  --color-line-quaternary: #141515;
+  --color-line-tint: #141516;
+}
+
+/* 断点变量覆盖（与 linear.app 的 :root 媒体查询一致） */
+@media (max-width: 1024px) {
+  :root { --homepage-outer-padding: 28px; }
+}
+@media (max-width: 768px) {
+  :root {
+    --header-height: 64px;
+    --page-padding-block: 48px;
+    --grid-columns: 8;
+    --homepage-outer-padding: 16px;
+  }
+}
+@media (max-width: 640px) {
+  :root {
+    --grid-columns: 4;
+    --homepage-outer-padding: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --speed-highlightFadeOut: 0s;
+    --speed-quickTransition: 0s;
+    --speed-regularTransition: 0s;
+  }
+}

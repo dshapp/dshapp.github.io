@@ -1,0 +1,16 @@
+{{- /* lang-switch.html —— 中文 / English 切换
+   优先跳到当前页面对应语言的翻译；若该页面尚无译文，则落到那个语言的首页。
+   用 site.Sites 而不是 relLangURL，因为 relLangURL 只会加“当前”语言的子目录。 */ -}}
+{{- $current := site.Language.Lang -}}
+<div class="lang-switch" role="group" aria-label="{{ i18n "a11y.language" }}">
+  {{- range hugo.Sites }}
+    {{- $lang := .Language }}
+    {{- $target := .Home.RelPermalink }}
+    {{- range $.AllTranslations }}
+      {{- if eq .Language.Lang $lang.Lang }}{{ $target = .RelPermalink }}{{ end }}
+    {{- end }}
+    <a class="lang-switch__item" href="{{ $target }}"
+       hreflang="{{ $lang.Locale }}"
+       {{ if eq $lang.Lang $current }}aria-current="true"{{ end }}>{{ $lang.Label }}</a>
+  {{- end }}
+</div>

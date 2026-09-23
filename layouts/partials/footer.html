@@ -1,0 +1,59 @@
+{{- /* footer.html —— 多列页脚 */ -}}
+{{- $products := slice
+  (dict "path" "/products/macos"   "key" "nav.macos")
+  (dict "path" "/products/android" "key" "nav.android")
+  (dict "path" "/products/chrome"  "key" "nav.chrome")
+  (dict "path" "/products/cu"      "key" "nav.cu")
+-}}
+<footer class="site-footer">
+  <div class="container-wide">
+    <div class="footer-grid">
+      <div class="footer-brand-col stack stack-16">
+        <a class="brand" href="{{ "" | relLangURL }}">
+          {{ partial "brand-logo.html" 22 }}
+          <span>{{ site.Params.logoText | default site.Title }}</span>
+        </a>
+        <p class="caption" style="max-width:280px">{{ i18n "footer.blurb" }}</p>
+      </div>
+
+      <div>
+        <h2 class="footer-col__title">{{ i18n "footer.products" }}</h2>
+        {{- range $products }}
+          {{- $item := . }}
+          {{- with site.GetPage $item.path }}
+            <a class="footer-link" href="{{ .RelPermalink }}">{{ i18n $item.key }}</a>
+          {{- end }}
+        {{- end }}
+      </div>
+
+      <div>
+        <h2 class="footer-col__title">{{ i18n "footer.capabilities" }}</h2>
+        {{ partial "footer-link.html" (dict "href" ("docs/" | relLangURL) "key" "footer.docs") }}
+        {{ partial "footer-link.html" (dict "href" ("docs/element-picker/" | relLangURL) "key" "footer.elementPicker") }}
+        {{ partial "footer-link.html" (dict "href" ("docs/browser-tools/" | relLangURL) "key" "footer.chromeTools") }}
+        {{ partial "footer-link.html" (dict "href" ("docs/shortcuts/" | relLangURL) "key" "footer.shortcuts") }}
+        {{ partial "footer-link.html" (dict "href" ("docs/pairing/" | relLangURL) "key" "footer.pairing") }}
+      </div>
+
+      <div>
+        <h2 class="footer-col__title">{{ i18n "footer.security" }}</h2>
+        {{ partial "footer-link.html" (dict "href" ("opensource/" | relLangURL) "key" "nav.opensource") }}
+        {{ partial "footer-link.html" (dict "href" ("docs/crypto/" | relLangURL) "key" "footer.crypto") }}
+        {{ partial "footer-link.html" (dict "href" ("docs/permissions/" | relLangURL) "key" "footer.permissions") }}
+        {{ partial "footer-link.html" (dict "href" ("docs/computer-use/" | relLangURL) "key" "footer.cuPermissions") }}
+      </div>
+
+      <div>
+        <h2 class="footer-col__title">{{ i18n "footer.getStarted" }}</h2>
+        <a class="footer-link" href="{{ site.Params.downloadMacOS | default "#" }}">{{ i18n "footer.downloadMac" }}</a>
+        <a class="footer-link" href="{{ site.Params.downloadAndroid | default "#" }}">{{ i18n "footer.downloadAndroid" }}</a>
+        <a class="footer-link" href="{{ site.Params.chromeWebStore | default "#" }}">{{ i18n "footer.chromeWebStore" }}</a>
+        <a class="footer-link" href="{{ site.Params.github | default "#" }}">{{ i18n "footer.github" }}</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="caption">© {{ now.Year }} {{ site.Params.productName | default site.Title }}</p>
+    </div>
+  </div>
+</footer>

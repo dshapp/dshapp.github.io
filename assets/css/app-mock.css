@@ -1,0 +1,471 @@
+/* app-mock.css —— 首页 macOS 版块里的 App 界面复刻。
+   全部数值取自 assets/img/shots/macos-app.jpg 的实测像素，画布固定 1229×768，
+   与该截图 1:1；因此内部一律使用绝对像素，靠容器查询等比缩放来适配宽度。
+   配色同样取自截图取样，自成一套，刻意不复用站点的 --color-* 令牌：
+   macOS 原生窗口的灰阶（侧栏 #292929 / 主区 #1e1e1e）与站点深色主题不是一个体系。 */
+
+.appmock {
+  /* 首屏 .hero 是 text-align:center（原本只放 <img> 无影响），
+     这里必须复位，否则 Mock 里所有文字都会被居中 */
+  text-align: left;
+  --am-side-width: 258px;
+  --am-side: #292929;
+  --am-main: #1e1e1e;
+  --am-card: #1e1e1e;
+  --am-line: #303030;
+  --am-field: #3a3a3a;
+  --am-row-active: #464646;
+  --am-text: #f3f3f3;
+  --am-text-2: #b8b8b8;
+  --am-text-3: #8a8a8a;
+  --am-light: #4d4d4d;
+  --am-orange: #ff9f0a;
+  --am-red: #ff4349;
+  --am-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter Variable", Inter, "PingFang SC", "Microsoft YaHei", sans-serif;
+
+  /* 容器宽度由外层 .shot-frame--appmock 夹到 1229px，
+     所以 100cqw / 1229px 恒 <= 1，缩放天然不会超过 1:1。 */
+  width: 100%;
+  container-type: inline-size;
+  aspect-ratio: 1229 / 768;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--am-font);
+  color: var(--am-text);
+  background: var(--am-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+.appmock__stage {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 1229px;
+  height: 768px;
+  transform-origin: 0 0;
+  /* 1 设计像素 = 100cqw / 1229：长度相除得到纯数。
+     上一行是不支持容器查询单位（老浏览器）时的固定兜底。 */
+  transform: scale(0.9);
+  transform: scale(calc(100cqw / 1229px));
+}
+
+.appmock svg { display: block; flex: none; }
+.appmock__grow { flex: 1 1 auto; min-width: 0; }
+
+/* ---------------- 侧栏（macOS 一体式：占满窗口高度，含左上角红绿灯） ---------------- */
+.appmock__sidebar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: 2;
+  width: var(--am-side-width);
+  background: var(--am-side);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 13px;
+}
+
+.appmock__lights {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  display: flex;
+  gap: 8px;
+}
+.appmock__lights i {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--am-light);
+}
+
+.appmock__toggle {
+  position: absolute;
+  top: 9px;
+  left: 219px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--am-text-2);
+  cursor: pointer;
+}
+.appmock__toggle svg { width: 17px; height: 17px; }
+.appmock__toggle:hover { background: rgba(255, 255, 255, 0.08); color: var(--am-text); }
+.appmock__toggle:focus-visible { outline: 2px solid #6b8afd; outline-offset: 1px; }
+
+.appmock__search {
+  margin: 58px 14px 0 21px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 6px;
+  background: var(--am-field);
+  color: #9e9e9e;
+  font-size: 12px;
+  line-height: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.appmock__nav { margin: 10px 14px 0 21px; display: flex; flex-direction: column; gap: 4px; }
+.appmock__navitem {
+  height: 26px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 9px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--am-text);
+}
+.appmock__navitem svg { width: 15px; height: 15px; color: var(--am-text-2); }
+
+.appmock__list {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 10px 8px 0 8px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.appmock__list::-webkit-scrollbar { width: 8px; }
+.appmock__list::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
+
+.appmock__group {
+  height: 22px;
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--am-text-3);
+}
+.appmock__group svg { width: 12px; height: 12px; }
+.appmock__group + .appmock__group { margin-top: 10px; }
+
+.appmock__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 32px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--am-text);
+  font-family: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+.appmock__row:hover { background: rgba(255, 255, 255, 0.06); }
+.appmock__row:focus-visible { outline: 2px solid #6b8afd; outline-offset: -2px; }
+.appmock__row.is-active { background: var(--am-row-active); }
+.appmock__row-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.appmock__row-time { flex: none; font-size: 11px; color: var(--am-text-3); }
+.appmock__row-pin { flex: none; display: flex; color: var(--am-text-3); }
+.appmock__row-pin svg { width: 13px; height: 13px; }
+
+.appmock__archived {
+  flex: none;
+  margin: 0 14px 0 21px;
+  height: 27px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 9px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--am-text-2);
+}
+.appmock__archived svg { width: 15px; height: 15px; }
+
+/* ---------------- 工具栏（主区顶部） ---------------- */
+.appmock__toolbar {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: var(--am-side-width);
+  right: 0;
+  height: 44px;
+  background: var(--am-main);
+  display: flex;
+  align-items: center;
+  padding: 0 18px 0 9px;
+}
+.appmock__crumb {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.appmock__crumb-repo { color: var(--am-text-3); }
+.appmock__crumb-sep { color: var(--am-text-3); }
+.appmock__crumb-title {
+  font-weight: 600;
+  color: var(--am-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.appmock__tactions { flex: none; display: flex; align-items: center; gap: 14px; color: var(--am-text-2); }
+.appmock__tbtn { display: flex; align-items: center; justify-content: center; }
+.appmock__tbtn svg { width: 16px; height: 16px; }
+.appmock__tbranch { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+.appmock__tbranch svg { width: 15px; height: 15px; }
+.appmock__tbranch b { font-weight: 400; color: var(--am-text-2); }
+
+/* ---------------- 主区 ---------------- */
+.appmock__main {
+  position: absolute;
+  top: 44px;
+  left: var(--am-side-width);
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.appmock__transcript {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 6px 44px 0 50px;
+}
+.appmock__transcript::-webkit-scrollbar { width: 8px; }
+.appmock__transcript::-webkit-scrollbar-thumb { background: #4a4a4a; border-radius: 4px; }
+.appmock__thread.is-hidden { display: none; }
+
+.appmock__p {
+  margin: 0 0 4px;
+  font-size: 12.5px;
+  line-height: 17px;
+  color: var(--am-text);
+}
+.appmock__p--user {
+  margin: 8px 0;
+  padding: 7px 10px;
+  border: 1px solid var(--am-line);
+  border-radius: 8px;
+  background: #232323;
+}
+
+.appmock__rail {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 4px;
+  font-size: 12.5px;
+  line-height: 17px;
+  color: var(--am-text-3);
+}
+.appmock__rail svg { width: 13px; height: 13px; flex: none; }
+.appmock__rail span {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.appmock__rail--error { color: var(--am-red); }
+
+.appmock__thumb {
+  position: relative;
+  width: 236px;
+  height: 112px;
+  margin: 8px 0 10px;
+  border: 1px solid var(--am-line);
+  border-radius: 7px;
+  background: #242424;
+  overflow: hidden;
+}
+.appmock__thumb-bar {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding-left: 6px;
+  background: #2c2c2c;
+}
+.appmock__thumb-bar i { width: 5px; height: 5px; border-radius: 50%; background: #565656; }
+.appmock__thumb-side {
+  position: absolute;
+  top: 14px;
+  left: 0;
+  bottom: 0;
+  width: 62px;
+  padding: 8px 6px;
+  background: #292929;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.appmock__thumb-side b { height: 4px; border-radius: 2px; background: #4a4a4a; }
+.appmock__thumb-body {
+  position: absolute;
+  top: 14px;
+  left: 62px;
+  right: 0;
+  bottom: 0;
+  padding: 9px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.appmock__thumb-body b { height: 4px; border-radius: 2px; background: #3d3d3d; }
+.appmock__thumb-body b:first-child { width: 62%; background: #5a5a5a; }
+.appmock__thumb-body b:nth-child(3) { width: 88%; }
+.appmock__thumb-body b:nth-child(4) { width: 74%; }
+
+/* ---------------- 输入区 ---------------- */
+.appmock__composer {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 44px 22px;
+}
+
+.appmock__card {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 12px;
+  border: 1px solid var(--am-line);
+  border-radius: 8px;
+  background: var(--am-card);
+  font-size: 12.5px;
+  color: var(--am-text-3);
+  overflow: hidden;
+}
+.appmock__card-lead { display: flex; color: var(--am-text-3); }
+.appmock__card-lead svg { width: 13px; height: 13px; }
+.appmock__card-count b { font-weight: 400; color: var(--am-text-2); }
+.appmock__card-text {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.appmock__card-text--full { color: var(--am-text-2); }
+.appmock__card-icon { display: flex; color: var(--am-text-3); }
+.appmock__card-icon svg { width: 14px; height: 14px; }
+.appmock__card-icon--send {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--am-text-2);
+  cursor: pointer;
+}
+.appmock__card-icon--send:hover { color: var(--am-text); }
+
+.appmock__input {
+  margin-top: 8px;
+  min-height: 66px;
+  padding: 8px 12px 2px;
+  border: 1px solid var(--am-line);
+  border-radius: 10px;
+  background: var(--am-card);
+  display: flex;
+  flex-direction: column;
+}
+.appmock__textarea {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 18px;
+  max-height: 96px;
+  margin: 0 0 2px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  resize: none;
+  background: transparent;
+  color: var(--am-text);
+  font-family: inherit;
+  font-size: 12.5px;
+  line-height: 18px;
+  overflow-y: auto;
+}
+.appmock__textarea::placeholder { color: var(--am-text-3); }
+
+.appmock__bar { display: flex; align-items: center; gap: 12px; height: 23px; margin-top: auto; }
+.appmock__bicon { display: flex; color: var(--am-text-2); }
+.appmock__bicon svg { width: 16px; height: 16px; }
+.appmock__access { font-size: 12.5px; color: var(--am-orange); }
+.appmock__model { display: flex; align-items: center; gap: 5px; font-size: 12.5px; color: var(--am-text-3); }
+.appmock__model svg { width: 13px; height: 13px; }
+.appmock__ring {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: conic-gradient(var(--am-text-3) 0 36%, #3a3a3a 36% 100%);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+}
+.appmock__stop {
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  background: var(--am-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.appmock__stop::after {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  background: #fff;
+}
+
+/* ---------------- 收起侧栏 ---------------- */
+/* 收起侧栏：只留红绿灯与折叠按钮（真机行为一致，收起后仍能再展开）。
+   侧栏要压在工具栏之上，否则工具栏的不透明底色会把红绿灯盖住。 */
+.appmock.is-side-hidden .appmock__stage { --am-side-width: 0px; }
+.appmock.is-side-hidden .appmock__sidebar { width: 0; }
+.appmock.is-side-hidden .appmock__sidebar > *:not(.appmock__lights):not(.appmock__toggle) { display: none; }
+.appmock.is-side-hidden .appmock__toggle { left: 88px; }
+/* 收起后工具栏要右移，给红绿灯与折叠按钮让出位置 */
+.appmock.is-side-hidden .appmock__toolbar { padding-left: 124px; }
+
+/* ---------------- 窄屏退回静态截图 ----------------
+   容器窄到 900px 以下时缩放系数不足 0.73，12.5px 正文会掉到 9px 以下，
+   既不可读也不可点；此时用原来的静态截图，信息量相同且不损失可读性。 */
+/* 窗口容器直接承载 Mock：Mock 自带圆角与背景，这里只留边框与投影。
+   宽度上限锁死在设计画布 1229px —— 再宽也不会把界面放大到超过 1:1。 */
+.shot-frame--appmock {
+  background: #1e1e1e;
+  max-width: 1229px;
+  margin-inline: auto;
+}
+.shot-frame--appmock .appmock { border-radius: inherit; }
+
+/* 窄屏用的静态截图兜底，宽屏下让位给 Mock */
+.shot-frame--appshot { display: none; }
+@media (max-width: 900px) {
+  .shot-frame--appmock { display: none; }
+  .shot-frame--appshot { display: block; }
+}
+
+/* 打印时不要把这块切开 */
+@media print {
+  .appmock { break-inside: avoid; }
+}

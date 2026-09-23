@@ -1,0 +1,121 @@
+{{- define "main" }}
+{{- $d := index hugo.Data.opensource site.Language.Lang -}}
+{{- $lang := site.Language.Lang -}}
+<article class="opensource-page">
+  <header class="page-hero">
+    <div class="container-wide page-hero__inner">
+      <span class="page-hero__icon" aria-hidden="true">{{ partial "icon.html" "shield" }}</span>
+      <h1 class="display-2">{{ .Title }}</h1>
+      {{- with .Params.tagline }}<p class="body-large text-tertiary text-balance">{{ . }}</p>{{ end }}
+    </div>
+  </header>
+
+  <section class="section container-wide">
+    <p class="body-large text-tertiary text-balance reveal" style="max-width:760px;margin-inline:auto">{{ $d.intro }}</p>
+  </section>
+
+  {{/* ── 三根支柱 ─────────────────────────────────────────── */}}
+  <section class="section container-wide section-bordered" id="pillars">
+    <div class="grid grid-3 reveal">
+      {{- range $d.pillars }}
+      <article class="card">
+        <div class="card__icon" aria-hidden="true">{{ partial "icon.html" .icon }}</div>
+        <div class="card__body">
+          <h2 class="card__title">{{ .title }}</h2>
+          <p class="body-small text-tertiary">{{ .body }}</p>
+          <ul class="feature__list feature__list--tight">
+            {{- range .points }}<li><span>{{ . }}</span></li>{{ end }}
+          </ul>
+        </div>
+      </article>
+      {{- end }}
+    </div>
+  </section>
+
+  {{/* ── 安全评审 ─────────────────────────────────────────── */}}
+  <section class="section container-wide section-bordered" id="audit">
+    <div class="section-head section-head--center stack stack-12 reveal" style="margin-bottom:36px">
+      <h2 class="display-3">{{ $d.auditTitle }}</h2>
+      <p class="body-regular text-tertiary text-balance">{{ $d.auditSub }}</p>
+    </div>
+
+    <ol class="audit-list reveal">
+      {{- range $d.audit }}
+      <li class="audit-item">
+        <div class="audit-item__head">
+          <span class="audit-item__id">{{ .id }}</span>
+          <h3 class="audit-item__title">{{ .title }}</h3>
+          <span class="audit-item__sev audit-item__sev--{{ .level | default "high" }}">{{ .severity }}</span>
+          <span class="audit-item__status">{{ .status }}</span>
+        </div>
+        <p class="audit-item__fix body-small text-tertiary">{{ .fix }}</p>
+      </li>
+      {{- end }}
+    </ol>
+
+    <p class="body-small text-quaternary text-balance reveal" style="margin-top:24px;max-width:760px">{{ $d.auditNote }}</p>
+  </section>
+
+  {{/* ── 未发现的问题 + 残留风险 ───────────────────────────── */}}
+  <section class="section container-wide">
+    <div class="grid grid-2 reveal">
+      <div>
+        <h2 class="heading-2" style="margin-bottom:14px">{{ $d.safeTitle }}</h2>
+        <ul class="feature__list">
+          {{- range $d.safe }}<li><span>{{ . }}</span></li>{{ end }}
+        </ul>
+      </div>
+      <div>
+        <h2 class="heading-2" style="margin-bottom:14px">{{ $d.residualTitle }}</h2>
+        <ul class="feature__list">
+          {{- range $d.residual }}<li><span>{{ . }}</span></li>{{ end }}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {{/* ── 仓库 ─────────────────────────────────────────────── */}}
+  <section class="section container-wide section-bordered" id="repos">
+    <div class="section-head section-head--center stack stack-12 reveal" style="margin-bottom:28px">
+      <h2 class="display-3">{{ $d.reposTitle }}</h2>
+      <p class="body-regular text-tertiary">{{ $d.reposSub }}</p>
+    </div>
+
+    <div class="repo-grid reveal">
+      {{- range $d.repos }}
+      <a class="repo-card{{ if not .public }} repo-card--soon{{ end }}"
+         href="{{ .url }}" target="_blank" rel="noopener noreferrer">
+        <span class="repo-card__top">
+          <span class="repo-card__icon" aria-hidden="true">{{ partial "icon.html" "github" }}</span>
+          <span class="repo-card__name">{{ .name }}</span>
+          <span class="repo-card__tag">{{ .tag }}</span>
+        </span>
+        <span class="body-small text-tertiary">{{ .desc }}</span>
+        <span class="repo-card__meta">
+          <span class="repo-card__lang">{{ .lang }}</span>
+          <span class="repo-card__state{{ if .public }} repo-card__state--live{{ end }}">
+            {{- if .public }}{{ $d.reposPublicLabel }}{{ else }}{{ $d.reposPrivateLabel }}{{ end }}
+          </span>
+        </span>
+      </a>
+      {{- end }}
+    </div>
+  </section>
+
+  <section class="section container-wide">
+    <div class="cta">
+      <div class="cta__grid">
+        <div class="stack stack-12">
+          <h2 class="display-3">{{ $d.ctaTitle }}</h2>
+          <p class="body-regular text-tertiary">{{ $d.ctaBody }}</p>
+        </div>
+        <div class="cta__actions">
+          <a class="btn btn--primary" href="{{ site.Params.github | default "#" }}" target="_blank" rel="noopener noreferrer">
+            {{ partial "icon.html" "github" }}<span>{{ i18n "footer.github" }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</article>
+{{- end }}

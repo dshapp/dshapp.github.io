@@ -1,0 +1,14 @@
+{{- /* sections/feature-macos.html —— dict: page, h */ -}}
+{{- $h := .h -}}
+{{- $m := $h.macos -}}
+<section class="feature container-wide" id="macos">
+  <div class="feature__copy feature__copy--center reveal">
+    <p class="eyebrow">{{ $m.eyebrow }}</p>
+    <h2 class="display-2">{{ $m.title }}</h2>
+    <p class="body-large text-tertiary">{{ $m.body }}</p>
+    <ul class="feature__list feature__list--center">
+      {{- range $m.bullets }}<li><span>{{ . | safeHTML }}</span></li>{{ end }}
+    </ul>
+  </div>
+
+</section>
