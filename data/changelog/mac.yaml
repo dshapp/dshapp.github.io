@@ -2,7 +2,7 @@
 entries:
   - version: "0.1.64"
     date: "2026-09-23"
-    status: upcoming
+    status: released
     title:
       zh: 置顶会话、变更文件卡片与新设置页
       en: Pinned sessions, changed-file cards and new settings
