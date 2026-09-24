@@ -55,7 +55,7 @@ defaultContentLanguageInSubdir = false
   productName = "Deepseek Harness APP"
   # macOS / Android 的下载地址不在这里配置：由 CI 构建的 Release 自动生成（data/releases.json，见 README「下载与安装包」）
   chromeWebStore = "https://chromewebstore.google.com/detail/deepseek-harness-app/kgjjicancjnedmappjhefngdjaommpop"
-  github = "https://github.com/deepseek-ai/deepseek-harness"
+  github = "https://github.com/dshapp"
   ogImage = "/img/shots/macos-app.jpg"
 
 [outputs]
