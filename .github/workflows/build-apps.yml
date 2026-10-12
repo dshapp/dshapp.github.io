@@ -2,10 +2,16 @@
 # 让 https://dshapp.github.io/download/ 上的下载按钮和版本号指向最新版本。
 #
 # 源码在私有仓库 dshapp/dsh-macapp、dshapp/dsh-androidapp；本仓库公开，runner 免费。
+#
+# mac 只按 Release 标签发版：dsh-macapp 推送 vX.Y.Z 标签 → 构建该标签 → 发布 mac-vX.Y.Z，
+# 正文开头的「## 更新内容」由上次发布到本标签之间的提交标题生成（可事后在 Release 页手改），
+# App 内自动更新弹窗展示的就是这一段。比已发布版本旧的标签不会发版。
+# android 仍按 main 的新提交发版。
+#
 # 触发方式：
-#   - repository_dispatch(app-updated)：两个 App 仓库 push 到 main 时由 notify-site.yml 发出
-#   - schedule：每 30 分钟轮询一次两个仓库的 main，发现新提交才构建（dispatch 没到时兜底）
-#   - workflow_dispatch：手动触发，可指定平台并强制重建
+#   - repository_dispatch(app-updated)：mac 推送标签 / android push 到 main 时由各自的 notify-site.yml 发出
+#   - schedule：每 30 分钟轮询一次（mac 看最新标签，android 看 main），dispatch 没到时兜底
+#   - workflow_dispatch：手动触发，可指定平台、mac 标签并强制重建
 #
 # 需要的 secrets（Settings → Secrets and variables → Actions）：
 #   APP_SOURCE_TOKEN          fine-grained PAT，仓库选 dsh-macapp + dsh-androidapp，Contents: Read-only
@@ -27,8 +33,12 @@ on:
         type: choice
         options: [all, mac, android]
         default: all
+      mac_tag:
+        description: 要发布的 mac 标签（例如 v0.1.70），留空取最新标签
+        type: string
+        default: ""
       force:
-        description: 源码没有新提交也重新构建
+        description: 源码没有新提交也重新构建（mac 需同时填 mac_tag，且该版本尚未发布）
         type: boolean
         default: false
 
@@ -54,7 +64,8 @@ jobs:
     timeout-minutes: 5
     outputs:
       mac: ${{ steps.plan.outputs.mac }}
-      mac_sha: ${{ steps.plan.outputs.mac_sha }}
+      mac_tag: ${{ steps.plan.outputs.mac_tag }}
+      mac_prev_sha: ${{ steps.plan.outputs.mac_prev_sha }}
       mac_version: ${{ steps.plan.outputs.mac_version }}
       mac_build: ${{ steps.plan.outputs.mac_build }}
       android: ${{ steps.plan.outputs.android }}
@@ -69,6 +80,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           INPUT_APP: ${{ inputs.app || 'all' }}
           FORCE: ${{ inputs.force || false }}
+          INPUT_MAC_TAG: ${{ inputs.mac_tag }}
+          DISPATCH_APP: ${{ github.event.client_payload.app }}
+          DISPATCH_TAG: ${{ github.event.client_payload.tag }}
         run: |
           set -euo pipefail
           if [ -z "$SRC_TOKEN" ]; then
@@ -103,8 +117,37 @@ jobs:
             echo "- **$key**: main \`${head::7}\`, 上次发布 \`${last_sha::7}\` → $([ $build = true ] && echo "构建 $vprefix$next" || echo 跳过)" >> "$GITHUB_STEP_SUMMARY"
           }
 
-          # mac 版本号沿用 dsh-macapp 旧流水线的 0.1.<N>（已发布到 0.1.63）
-          plan_app mac     "$MAC_REPO"     mac-v     0.1. 64
+          # mac：只发 vX.Y.Z 标签，且必须比已发布的 mac-v* 都新
+          plan_mac() {
+            local tag explicit=false published last_sha build=true
+            if [ "$DISPATCH_APP" = mac ] && [ -n "$DISPATCH_TAG" ]; then tag=$DISPATCH_TAG
+            elif [ -n "$INPUT_MAC_TAG" ]; then tag=$INPUT_MAC_TAG; explicit=true
+            else
+              tag=$(GH_TOKEN=$SRC_TOKEN gh api "repos/$MAC_REPO/tags?per_page=100" --paginate --jq '.[].name' \
+                    | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -1 || true)
+            fi
+            published=$(jq -r '.[] | .tag_name | select(startswith("mac-v")) | ltrimstr("mac-v")' releases.json | sort -V | tail -1)
+            last_sha=$(jq -r '[.[] | select(.tag_name | startswith("mac-v"))] | sort_by(.published_at) | last | .body // ""' releases.json \
+                       | sed -n 's/.*source-sha: *\([0-9a-f]\{40\}\).*/\1/p' | head -1)
+            local version=${tag#v}
+            if [ "$INPUT_APP" != all ] && [ "$INPUT_APP" != mac ]; then build=false
+            elif [[ ! "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then build=false
+            elif jq -e --arg t "mac-v$version" 'any(.[]; .tag_name == $t)' releases.json >/dev/null; then build=false
+            elif [ -n "$published" ] && [ "$(printf '%s\n%s\n' "$published" "$version" | sort -V | tail -1)" != "$version" ] \
+                 && ! { [ "$FORCE" = true ] && [ "$explicit" = true ]; }; then build=false
+            fi
+            echo "mac: tag=$tag published=$published -> build=$build"
+            {
+              echo "mac=$build"
+              echo "mac_tag=$tag"
+              echo "mac_version=$version"
+              echo "mac_build=$GITHUB_RUN_NUMBER"
+              echo "mac_prev_sha=$last_sha"
+            } >> "$GITHUB_OUTPUT"
+            echo "- **mac**: 标签 \`${tag:-无}\`, 已发布 \`${published:-无}\` → $([ $build = true ] && echo "构建 $version" || echo 跳过)" >> "$GITHUB_STEP_SUMMARY"
+          }
+
+          plan_mac
           plan_app android "$ANDROID_REPO" android-v 1.0. 1
 
   build-mac:
@@ -115,16 +158,32 @@ jobs:
     env:
       VERSION: ${{ needs.plan.outputs.mac_version }}
       BUILD: ${{ needs.plan.outputs.mac_build }}
-      SRC_SHA: ${{ needs.plan.outputs.mac_sha }}
+      TAG: ${{ needs.plan.outputs.mac_tag }}
+      PREV_SHA: ${{ needs.plan.outputs.mac_prev_sha }}
     steps:
       - name: Check out dsh-macapp
         uses: actions/checkout@v7
         with:
           repository: ${{ env.MAC_REPO }}
-          ref: ${{ env.SRC_SHA }}
+          ref: refs/tags/${{ env.TAG }}
           token: ${{ secrets.APP_SOURCE_TOKEN }}
           persist-credentials: false
+          fetch-depth: 0
           path: src
+
+      - name: Generate changelog
+        working-directory: src
+        run: |
+          set -euo pipefail
+          echo "SRC_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          # 起点：上次发布的源码提交 → 上一个版本标签 → 最近 30 条
+          if [ -n "$PREV_SHA" ] && git cat-file -e "$PREV_SHA^{commit}" 2>/dev/null; then range="$PREV_SHA..HEAD"
+          elif prev=$(git describe --tags --abbrev=0 --match 'v[0-9]*' HEAD^ 2>/dev/null); then range="$prev..HEAD"
+          else range="-30 HEAD"
+          fi
+          git log --no-merges --pretty='- %s' $range > "$GITHUB_WORKSPACE/changes.md"
+          [ -s "$GITHUB_WORKSPACE/changes.md" ] || echo "- 维护性更新" > "$GITHUB_WORKSPACE/changes.md"
+          cat "$GITHUB_WORKSPACE/changes.md"
 
       - name: Verify localized UI
         working-directory: src
@@ -158,10 +217,10 @@ jobs:
         run: |
           set -euo pipefail
           dmg=$(ls out/*.dmg)
-          cat > notes.md <<EOF
-          DSH macOS App **$VERSION**（Apple Silicon）
-
-          下载：https://dshapp.github.io/download/
+          # App 内更新弹窗读取「## 更新内容」到 --- 之间的部分，改格式时两边一起改
+          { printf '## 更新内容\n\n'; cat changes.md; printf '\n---\n\n'; } > notes.md
+          cat >> notes.md <<EOF
+          DSH macOS App **$VERSION**（Apple Silicon）· 下载：https://dshapp.github.io/download/
 
           > 自动构建，ad-hoc 签名，**未经 Apple 公证**。首次打开请在 Finder 中按住 Control 点按 App → 打开，
           > 或到「系统设置 → 隐私与安全性」中点「仍要打开」。

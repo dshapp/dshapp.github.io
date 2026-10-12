@@ -6,7 +6,7 @@ on:
     branches: [main]
   workflow_dispatch:        # 也可在 Actions 页面手动触发重新部署；build-apps.yml 发布新安装包后也走这里
   release:
-    types: [published]      # 手动在网页上发布 Release 时同样刷新下载页
+    types: [published, edited]  # 发布或在网页上修改 Release（含更新内容）时刷新下载页和 latest.json
 
 permissions:
   contents: read

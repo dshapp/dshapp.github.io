@@ -99,6 +99,8 @@ def main() -> int:
                 "path": f"downloads/{asset['name']}",
                 "url": f"{SITE_URL}downloads/{asset['name']}",
                 "releaseUrl": rel["html_url"],
+                # Release 页正文（Markdown），Mac App 的更新弹窗从中取「## 更新内容」
+                "notes": rel.get("body") or "",
             }
             print(f"{key}: {rel['tag_name']} -> {dest.relative_to(ROOT)} ({asset['size']} bytes)")
             break
