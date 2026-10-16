@@ -1,5 +1,37 @@
 # dsh-chrome 浏览器控制 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.3.12"
+    date: "2026-10-15"
+    status: upcoming
+    title:
+      zh: 正确报告正在运行的 DSH 版本
+      en: Reports the DSH version that is actually running
+    changes:
+      - type: fixed
+        zh: 版本信息改为读取正在运行的 dsh web，更新后尚未重启时不再误报为新版本。
+        en: Version information now comes from the running dsh web, so it no longer claims the new version before you restart after an update.
+      - type: fixed
+        zh: 安装与查询 dsh 时固定使用官方 npm 源，避免镜像未同步导致安装失败。
+        en: Installing and checking dsh now use the official npm registry, so lagging mirrors no longer cause failed installs.
+      - type: new
+        zh: 本地启动器可以读取 macOS 剪贴板和拖拽中的文件路径，供扩展粘贴与拖入文件使用。
+        en: The local launcher can read file paths from the macOS clipboard and drag operations, so the extension can paste and drop files.
+  - version: "0.3.9"
+    date: "2026-10-14"
+    status: released
+    title:
+      zh: 自动注册本地启动器，更新渠道可配置
+      en: Automatic launcher registration and configurable update channels
+    changes:
+      - type: new
+        zh: 每次启动 dsh 时都会自动注册本地启动器，扩展发现 dsh 没在运行时可以把它拉起来。
+        en: The local launcher is registered automatically every time dsh starts, so the extension can start dsh when it isn't running.
+      - type: improved
+        zh: 后台服务新增请求校验，只接受扩展本身的连接。
+        en: The background service now validates requests and only accepts connections from the extension itself.
+      - type: improved
+        zh: 支持在受限的 DSH 更新渠道中检查和安装版本。
+        en: Version checks and installs now work with restricted DSH update channels.
   - version: "0.3.6"
     date: "2026-09-14"
     status: released

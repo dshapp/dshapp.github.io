@@ -1,5 +1,123 @@
 # macOS App 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.1.72"
+    date: "2026-10-15"
+    status: released
+    title:
+      zh: 聊天记录排版更齐整，修复偶发崩溃
+      en: Tidier transcript layout and a crash fix
+    changes:
+      - type: improved
+        zh: 聊天记录与输入框使用同一列宽并左右对齐，轮次导航条贴近滚动条。
+        en: The transcript and composer now share one column width and align on both sides, and the turn rail sits next to the scroll bar.
+      - type: fixed
+        zh: 修复滚动到底部时，轮次末尾的改动文件卡片偶尔被裁掉一截。
+        en: Fixed the changed-files card at the end of a turn occasionally being clipped when scrolled to the bottom.
+      - type: fixed
+        zh: 修复运行状态行在长会话中可能引发的崩溃。
+        en: Fixed a crash the running-status line could trigger in long sessions.
+  - version: "0.1.71"
+    date: "2026-10-15"
+    status: released
+    title:
+      zh: 自动化任务、插件页与应用内更新
+      en: Automations, a plugins page and in-app updates
+    changes:
+      - type: new
+        zh: 侧栏新增「自动化任务」，可查看和管理定时任务；新建时会打开新会话并预填好提示，说一句就能创建。
+        en: A new “Automations” entry in the sidebar lists and manages scheduled tasks; creating one opens a new session with a ready-made prompt.
+      - type: new
+        zh: 侧栏恢复「插件」入口，插件管理页与 Web 端一致，官方插件可直接查看说明、安装和更新。
+        en: The “Plugins” entry is back in the sidebar with a management page matching the web UI, where official plugins can be read about, installed and updated.
+      - type: new
+        zh: 发现新版本时 App 会在后台下载，并展示这一版的更新内容，确认后一键安装重启。
+        en: New versions now download in the background, show their release notes, and install with a single restart.
+      - type: new
+        zh: 运行中的会话底部会显示当前在做的动作和已用时间。
+        en: Running sessions show the current action and elapsed time at the bottom.
+      - type: improved
+        zh: 模型设置页和 Agent 预设页按 Web 端重做；设置移到侧栏最底部，已归档会话改用筛选查看。
+        en: The model settings and agent preset pages were rebuilt to match the web UI; Settings moved to the bottom of the sidebar and archived sessions are now a filter.
+      - type: improved
+        zh: 粘贴复制的文件或文件夹与拖入效果一致，会作为附件加入，不再只粘贴文件名；发送的文件会在消息上方显示文件卡片。
+        en: Pasting copied files or folders now works like dragging them in, adding attachments instead of file names, and sent files appear as cards above your message.
+      - type: improved
+        zh: 适配 DSH 0.2.1，工作树改用 DSH 官方能力，终端、分支与「打开 Workspace」跟随当前工作目录。
+        en: Updated for DSH 0.2.1, using DSH's own worktrees, with the terminal, branch menu and “Open Workspace” following the current working directory.
+      - type: fixed
+        zh: 修复更新 dsh 后重启服务会被降级回旧版本；安装与更新 dsh 时固定使用官方 npm 源，避免镜像未同步导致失败。
+        en: Fixed restarting the service after updating dsh rolling it back to an older version, and installs and updates now use the official npm registry so lagging mirrors no longer break them.
+      - type: fixed
+        zh: 修复子代理与后台任务弹层高度塌缩、Markdown 链接点击后失效和列表排版时的偶发崩溃。
+        en: Fixed collapsed subagent and background-task popovers, links in Markdown going dead after a click, and an occasional crash while laying out lists.
+  - version: "0.1.69"
+    date: "2026-10-10"
+    status: released
+    title:
+      zh: 直接检出远程分支
+      en: Check out remote branches directly
+    changes:
+      - type: new
+        zh: 分支菜单会列出只存在于远程的分支，可以搜索并直接检出。
+        en: The branch menu now lists branches that exist only on the remote, with search and one-click checkout.
+  - version: "0.1.68"
+    date: "2026-10-02"
+    status: released
+    title:
+      zh: 适配 DSH 0.2，限时提问与可搜索的模型菜单
+      en: DSH 0.2 support, timed questions and a searchable model menu
+    changes:
+      - type: new
+        zh: 支持带倒计时的提问：超时后 Agent 会先继续，你仍可以稍后作答，回答会显示在对话里。
+        en: Questions can now carry a countdown; if time runs out the agent carries on, and you can still answer later with the reply shown in the conversation.
+      - type: improved
+        zh: 模型菜单超过 4 个模型时可以搜索，按名称排序并隐藏空分组。
+        en: The model menu becomes searchable once it holds more than four models, sorted by name with empty groups hidden.
+      - type: improved
+        zh: 定时触发的轮次显示为「自动化任务」卡片；会话搜索按原始标题匹配，无标题的会话显示「未命名」。
+        en: Turns started by a schedule show as “Automation” cards, and session search matches original titles, with untitled sessions shown as “Untitled”.
+  - version: "0.1.67"
+    date: "2026-09-28"
+    status: released
+    title:
+      zh: 会话搜索与 Web 端一致
+      en: Session search matches the web UI
+    changes:
+      - type: improved
+        zh: 会话搜索结果的匹配与排序和 Web 端保持一致。
+        en: Session search now matches and ranks results the same way as the web UI.
+  - version: "0.1.66"
+    date: "2026-09-25"
+    status: released
+    title:
+      zh: 模型设置跟进最新供应商目录
+      en: Model settings follow the latest provider catalog
+    changes:
+      - type: improved
+        zh: 模型设置页使用与 Web 端一致的供应商目录，并支持 DeepSeek 账号路由。
+        en: Model settings now use the same provider catalog as the web UI, including DeepSeek account routing.
+      - type: fixed
+        zh: 修复 Agent 预设页显示「数据缺失」的问题。
+        en: Fixed the agent presets page showing a “missing data” error.
+  - version: "0.1.65"
+    date: "2026-09-24"
+    status: released
+    title:
+      zh: 后台任务管理与更稳的流式输出
+      en: Background task controls and steadier streaming
+    changes:
+      - type: new
+        zh: 后台任务可以停止（需二次确认），详情实时显示输出；列表分为进行中与已结束，已结束的可折叠和清空。
+        en: Background tasks can be stopped (with confirmation) and show live output; the list splits running and finished tasks, and finished ones can be collapsed or cleared.
+      - type: new
+        zh: 安装插件时可选择下载源，并自动选用最快的源。
+        en: Installing a plugin lets you pick a download source and automatically uses the fastest one.
+      - type: improved
+        zh: 对话中隐藏系统提示词和普通的上下文注入；由通知唤醒的轮次显示为一行提示。第一次发送消息时会自动创建默认工作区。
+        en: System prompts and routine context injections are hidden, turns woken by notifications show as a single line, and a default workspace is created on your first message.
+      - type: fixed
+        zh: 修复流式回复时聊天记录上下抖动，以及轮次末尾改动卡片偶尔被裁切。
+        en: Fixed the transcript jittering during streaming replies and the end-of-turn changes card occasionally being clipped.
   - version: "0.1.64"
     date: "2026-09-23"
     status: released

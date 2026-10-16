@@ -1,8 +1,65 @@
 # Chrome 扩展 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.3.10"
+    date: "2026-10-15"
+    status: upcoming
+    title:
+      zh: 重试与思考状态显示更准确
+      en: More accurate retries and thinking state
+    changes:
+      - type: fixed
+        zh: 模型请求重试后，回答排在重试提示之后，重试行随轮次过程一起折叠，用时显示为固定秒数。
+        en: After a model request is retried, the answer appears after the retry note, the retry line folds with the turn's process, and its duration shows as a fixed number of seconds.
+      - type: fixed
+        zh: 思考中的行不再跑到你的消息上方，思考状态和本轮用时正常显示。
+        en: The thinking line no longer jumps above your message, and the thinking state and turn duration display correctly.
+  - version: "0.3.9"
+    date: "2026-10-15"
+    status: released
+    title:
+      zh: 适配 DSH 0.2，新增内置插件设置与自动化入口
+      en: DSH 0.2 support, built-in plugin settings and automations
+    changes:
+      - type: new
+        zh: 设置新增「内置插件」页，会话列表可筛选已归档的会话。
+        en: Settings gains a “Built-in plugins” page, and the session list can filter archived sessions.
+      - type: new
+        zh: 新建自动化任务时会打开新会话并预填好提示，说一句就能创建。
+        en: Creating an automation opens a new session with a ready-made prompt.
+      - type: new
+        zh: 运行中的会话底部显示本轮已用时间，思考时也会计时，切换会话后不再归零。
+        en: Running sessions show the turn's elapsed time at the bottom, including while thinking, and it no longer resets when you switch sessions.
+      - type: improved
+        zh: 粘贴文件与拖入效果一致；粘贴文件夹时会把它的完整路径写进输入框。
+        en: Pasting files now works like dragging them in, and pasting a folder writes its full path into the composer.
+      - type: improved
+        zh: 适配 DSH 0.2 与 0.2.1；插话发送的消息在 Agent 取走前就显示在记录末尾，轮次很多时导航条在消息区内滚动。
+        en: Updated for DSH 0.2 and 0.2.1; queued interjections appear at the end of the transcript before the agent picks them up, and the turn rail scrolls within the message area when there are many turns.
+      - type: fixed
+        zh: 轮次折叠方式与 Web 端一致，Agent 的工具变化显示为「工具已更新」提示，不再显示一段原始数据。
+        en: Turns fold the same way as on the web, and tool changes show as a “Tools updated” note instead of raw data.
+  - version: "0.3.8"
+    date: "2026-10-09"
+    status: released
+    title:
+      zh: 上架 Chrome 应用商店，侧栏支持归档与拖拽分组
+      en: On the Chrome Web Store, with archiving and drag-to-group
+    changes:
+      - type: new
+        zh: 扩展改用 Chrome 应用商店版本，本地启动器改由浏览器控制插件统一安装。
+        en: The extension now ships through the Chrome Web Store, and the local launcher is installed by the browser control plugin.
+      - type: new
+        zh: 侧栏支持归档会话、拖拽调整历史分组，并新增插件注册表、预设引导与默认工作区。
+        en: The side panel can archive sessions and regroup history by dragging, and adds a plugin registry, preset onboarding and a default workspace.
+      - type: improved
+        zh: 模型设置页与 Web 端规则一致，可编辑模型支持的输入类型；会话搜索与 Web 端一致。
+        en: Model settings follow the web UI's rules and let you edit a model's input types, and session search matches the web UI.
+      - type: fixed
+        zh: 修复子代理入口不随会话实时更新，以及用尖括号写法的本地图片无法显示。
+        en: Fixed the subagent entry not updating live with the session, and local images written with angle-bracket paths not displaying.
   - version: "0.3.6"
     date: "2026-09-21"
-    status: upcoming
+    status: released
     title:
       zh: 圈选即批注，侧栏对齐 Mac
       en: Annotate as you pick, Mac-style side panel

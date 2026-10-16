@@ -1,5 +1,105 @@
 # Android App 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "1.0.10"
+    date: "2026-10-15"
+    status: released
+    title:
+      zh: 新建自动化任务、粘贴即附件
+      en: Create automations, paste to attach
+    changes:
+      - type: new
+        zh: 自动化页新增「新建」，会打开新会话并预填好提示，说一句就能创建定时任务。
+        en: The Automations page has a “New” button that opens a session with a ready-made prompt for creating a scheduled task.
+      - type: new
+        zh: 运行中的会话底部会显示当前执行的工具和本轮已用时间，思考时也会计时。
+        en: Running sessions show the current tool and the turn's elapsed time at the bottom, including while thinking.
+      - type: improved
+        zh: 剪贴板里的图片或文件粘贴到输入框时会作为附件加入；刚发出的消息立即显示，附带的文件同时显示文件卡片。
+        en: Images or files pasted from the clipboard become attachments, and a sent message appears immediately with cards for its files.
+      - type: fixed
+        zh: 修复展开或收起轮次过程后箭头方向不变。
+        en: Fixed the arrow not flipping after expanding or collapsing a turn's process.
+  - version: "1.0.9"
+    date: "2026-10-15"
+    status: released
+    title:
+      zh: 文件附件卡片与更清晰的轮次折叠
+      en: File attachment cards and clearer turn folding
+    changes:
+      - type: improved
+        zh: 消息里的文件附件显示为卡片，只发文件时不再出现空气泡。
+        en: File attachments in messages show as cards, and sending only files no longer leaves an empty bubble.
+      - type: improved
+        zh: 轮次的折叠方式与 Web 端一致：插话的轮次不折叠，没有最终回答的轮次整体折叠。
+        en: "Turns fold the same way as on the web: interjected turns stay open and turns without a final answer fold entirely."
+      - type: fixed
+        zh: Agent 的工具变化显示为「工具已更新」提示，不再显示一段原始数据。
+        en: Tool changes now show as a “Tools updated” note instead of raw data.
+  - version: "1.0.7"
+    date: "2026-10-14"
+    status: released
+    title:
+      zh: 在手机上管理插件和自动化任务
+      en: Manage plugins and automations from your phone
+    changes:
+      - type: new
+        zh: 新增插件管理页，可在手机上查看、安装、更新和卸载电脑上的插件。
+        en: A new plugins page lets you view, install, update and uninstall the plugins on your computer from your phone.
+      - type: new
+        zh: 新增自动化页，可查看、启停、编辑和删除已有的定时任务，并查看投递记录。
+        en: A new Automations page lets you view, enable, edit and delete scheduled tasks and see their delivery history.
+      - type: improved
+        zh: 适配 DSH 0.2.1。
+        en: Updated for DSH 0.2.1.
+  - version: "1.0.6"
+    date: "2026-10-02"
+    status: released
+    title:
+      zh: 适配 DSH 0.2，支持限时提问
+      en: DSH 0.2 support and timed questions
+    changes:
+      - type: new
+        zh: 支持带倒计时的提问：超时后 Agent 会先继续，你仍可以稍后在手机上作答。
+        en: Questions can carry a countdown; if time runs out the agent carries on, and you can still answer later from your phone.
+      - type: improved
+        zh: 模型选择超过 4 个模型时可以搜索；定时触发的轮次显示为「自动化任务」卡片。
+        en: Model selection becomes searchable beyond four models, and turns started by a schedule show as “Automation” cards.
+      - type: fixed
+        zh: 修复任务很快结束时 App 偶发崩溃。
+        en: Fixed an occasional crash when a task finished very quickly.
+  - version: "1.0.5"
+    date: "2026-09-28"
+    status: released
+    title:
+      zh: 会话搜索与 Web 端一致
+      en: Session search matches the web UI
+    changes:
+      - type: improved
+        zh: 会话搜索结果的匹配与排序和 Web 端保持一致。
+        en: Session search now matches and ranks results the same way as the web UI.
+  - version: "1.0.4"
+    date: "2026-09-25"
+    status: released
+    title:
+      zh: 轮次末尾显示交付文件
+      en: Delivered files at the end of each turn
+    changes:
+      - type: new
+        zh: 轮次末尾除了改动文件，还会显示 Agent 交付给你的文件卡片，点开即可在电脑上打开。
+        en: Besides changed files, the end of each turn now shows cards for files the agent delivered, which open on your computer when tapped.
+  - version: "1.0.3"
+    date: "2026-09-24"
+    status: released
+    title:
+      zh: 后台任务管理与更清爽的对话
+      en: Background task controls and a cleaner transcript
+    changes:
+      - type: new
+        zh: 后台任务可以停止（需二次确认）并实时查看输出；列表分为进行中与已结束，已结束的可折叠和清空。
+        en: Background tasks can be stopped (with confirmation) with live output; the list splits running and finished tasks, and finished ones can be collapsed or cleared.
+      - type: improved
+        zh: 对话中隐藏系统提示词和普通的上下文注入；回答里的本地图片会直接显示。
+        en: System prompts and routine context injections are hidden, and local images in replies display inline.
   - version: "1.0.1"
     date: "2026-09-23"
     status: released

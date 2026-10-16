@@ -1,5 +1,15 @@
 # dsh-mobile-bridge 手机桥接 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.3.6"
+    date: "2026-10-15"
+    status: upcoming
+    title:
+      zh: 适配 DSH 0.2
+      en: DSH 0.2 support
+    changes:
+      - type: fixed
+        zh: 手机发出的请求按已配对设备的身份交给 DSH 0.2 处理，修复升级到 DSH 0.2 后手机无法正常使用。
+        en: Requests from a phone are now handed to DSH 0.2 under the paired device's identity, fixing phones that stopped working after upgrading to DSH 0.2.
   - version: "0.3.4"
     date: "2026-09-21"
     status: released
