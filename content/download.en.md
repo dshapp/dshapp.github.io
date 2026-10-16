@@ -1,5 +1,5 @@
 ---
 title: "Download DSH"
-tagline: "macOS, Android and the Chrome extension. Installers are built by CI — this page always carries the latest build from main."
+tagline: "The macOS app plugs into your local dsh and turns on every extension in one place; add the Android app and Chrome extension as you need them. CLI only? Install the plugins with dsh plugin add."
 layout: "download"
 ---

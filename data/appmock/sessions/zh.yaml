@@ -1,0 +1,98 @@
+# 首页 App 演示里的会话与对话（中文）。只放「用户能看懂的真实任务」，不要放内部项目与英文推理过程。
+sessions:
+- title: 把后台本周的工单整理成周报
+  time: 6分钟
+  pinned: true
+  selected: true
+  transcript:
+  - role: user
+    text: 打开公司工单后台，把本周新建的工单按模块汇总成表格，写进「周报.md」，再告诉我要点。
+  - role: thinking
+    text: 用你已登录的 Chrome 打开工单后台，按创建时间筛到本周，不需要重新登录。
+  - role: tool
+    text: 浏览器 · 打开工单后台，筛选「本周新建」
+  - role: tool
+    text: 浏览器 · 读取列表，共 47 条工单
+  - role: image
+    text: ''
+  - role: text
+    text: 47 条工单已读取，按模块分组：支付 18 条、登录 11 条、消息通知 9 条、其它 9 条。
+  - role: tool
+    text: 编辑 周报.md  +32 −4
+  - role: thinking
+    text: 有 3 条是「重新打开」的线上问题，影响面最大，单独列出来。
+  - role: text
+    text: 周报已更新。要点：支付模块占 38%，其中 3 条是重新打开的线上问题，建议本周优先处理。需要我把周报贴到团队文档吗？发出去之前我会先跟你确认。
+- title: 圈选的「立即购买」按钮改成品牌色
+  time: 1小时
+  pinned: true
+  transcript:
+  - role: user
+    text: 〔圈选元素〕button.buy「立即购买」—— 把它改成品牌色，悬停时稍微加深。
+  - role: tool
+    text: 搜索 button.buy 的样式来源
+  - role: tool
+    text: 编辑 styles/button.css  +6 −2
+  - role: text
+    text: 已改为品牌色 #4D6BFE，悬停加深 8%。刷新页面就能看到效果。
+- title: 在 Keynote 里把第 3 页排版对齐
+  time: 2小时
+  pinned: true
+  transcript:
+  - role: user
+    text: 帮我把 Keynote 第 3 页的四个文本框左对齐、间距统一。
+  - role: tool
+    text: 电脑操作 · 读取 Keynote 窗口界面
+  - role: tool
+    text: 电脑操作 · 选中 4 个文本框，左对齐，垂直间距 24pt
+  - role: text
+    text: 已对齐。操作都在后台完成，没有动你的鼠标。
+- title: 排查活动页为什么加载慢
+  time: 昨天
+  transcript:
+  - role: user
+    text: 活动页打开要 6 秒，帮我看看网络请求，找出最慢的几个。
+  - role: tool
+    text: 浏览器 · 打开活动页，记录网络请求
+  - role: text
+    text: 最慢的是一张 4.8 MB 的首图和两个串行的接口请求，合计占了 4.1 秒。建议压缩首图、把两个接口改为并行。
+- title: 比较三家云服务器的价格
+  time: 昨天
+  transcript:
+  - role: user
+    text: 比较三家云服务器 4 核 8G 的包年价格，做成表格。
+  - role: tool
+    text: 浏览器 · 打开三家官网价格页
+  - role: text
+    text: 表格已生成，按年付总价从低到高排列，附上了各家的活动截止时间。
+- title: 把备忘录待办抄到提醒事项
+  time: 2天
+  transcript:
+  - role: user
+    text: 把备忘录里「本周」那条笔记的待办，逐条加到提醒事项。
+  - role: tool
+    text: 电脑操作 · 读取备忘录窗口
+  - role: tool
+    text: 电脑操作 · 在提醒事项中新建 6 条待办
+  - role: text
+    text: 6 条都加好了，都在后台完成，没有动你的鼠标。
+- title: 发版前检查（手机上已批准）
+  time: 3天
+  transcript:
+  - role: user
+    text: 跑一遍发版前检查，没问题就打 tag 推上去。
+  - role: tool
+    text: 运行 npm run release:check · 全部通过
+  - role: thinking
+    text: 推送 tag 不可撤回，先请你确认。
+  - role: text
+    text: 已收到你在手机上的批准，tag v2.4.0 已推送。
+- title: 把 20 个联系人录入 CRM
+  time: 5天
+  transcript:
+  - role: user
+    text: 把 联系人.csv 里的 20 个人逐个录入公司 CRM。
+  - role: tool
+    text: 浏览器 · 打开 CRM 新建联系人页面（已登录）
+  - role: text
+    text: 20 个联系人已录入，其中 2 个邮箱在 CRM 里已存在，我跳过了它们并列在下面。

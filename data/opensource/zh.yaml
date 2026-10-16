@@ -1,14 +1,14 @@
-title: "开源、安全、可审核"
-subtitle: "每一层实现都公开，每一次远程访问都要经过加密握手，每一个安全发现都公开记录并修复。"
-intro: "DSH 不是把开源当口号。macOS、Android、Chrome 扩展、远程中继、计算机使用各自一个仓库，能读、能自建、能自行编译。手机远程访问唯一的公网组件是中继，它不持有任何用户数据。下面这份安全评审包含 8 个发现、全部已验证的复现步骤，以及修复后的实测数据。"
+title: "开源与安全"
+subtitle: "插件与中转开源，远程访问端到端加密，安全评审结果公开。"
+intro: "这些扩展让 DSH 碰到了你的浏览器、桌面和手机，所以值得你先看清它们怎么工作。浏览器控制、远程连接、中转与电脑操作插件都已开源，可以阅读、自行编译和部署；macOS、Android 客户端与 Chrome 扩展的源码将陆续公开。手机远程访问唯一的公网组件是中转服务器，它不持有任何用户数据。我们还对远程访问做了一次对抗性安全评审，结论与修复细节都在下面。"
 
 pillars:
   - icon: "github"
-    title: "全部开源"
+    title: "核心开源"
     body: "每个组件一个仓库，源码可读、可自建、可自行编译，构建脚本随仓库提供。"
     points:
-      - "5 个仓库以 MIT 许可发布"
-      - "远程中继 dsh-proxy 是 Rust 单端口实现，无 TLS、无证书、无配置文件、无磁盘状态"
+      - "5 个核心仓库以 MIT 许可发布，客户端源码将陆续公开"
+      - "远程中继 dsh-proxy 是 Rust 单端口实现，不持有任何能解密内容的密钥，无磁盘状态"
       - "可以指向自己的中转服务，不依赖我们的托管"
   - icon: "lock"
     title: "安全"
@@ -20,15 +20,20 @@ pillars:
       - "Chrome 控制复用你已登录的浏览器，不上传 Cookie"
   - icon: "shield"
     title: "可审核"
-    body: "我们对自己的远程访问做过一次完整的对抗性安全评审，8 个发现全部修复并公开记录。"
+    body: "我们对自己的远程访问做过一次完整的对抗性安全评审，8 个发现均已修复或收窄，并公开记录。"
     points:
       - "评审含可复现的攻击脚本与实测数据，不是纸面检查"
       - "每个发现都记录修复方式与修复后的实测测量值"
-      - "工具调用逐条留痕：命令、diff 与输出都能回看"
-      - "权限分级（计划 / 只读 / 工作区写入 / 完全访问）随时切换"
+      - "浏览器控制只接受扩展本身的连接，Cookie 不离开浏览器"
+      - "手机只能访问白名单接口，配对与吊销只能在电脑上操作"
 
-auditTitle: "安全评审：8 个发现，全部修复"
-auditSub: "对 dsh-mobile-bridge + dsh-proxy 的对抗性评审，威胁模型是互联网攻击者经公网中继拿下 Mac 上的 /api。"
+auditTitle: "安全评审：8 个问题，均已修复或收窄"
+auditSub: "我们模拟互联网上的攻击者，尝试经公网中转服务器入侵你的 Mac，对远程连接组件（dsh-mobile-bridge 与 dsh-proxy）做了一次对抗性评审。"
+auditSummary:
+  - "<strong>没有找到绕过配对的入口</strong>：没有有效的设备密钥或实时配对码，就无法触达你的 Mac；未发现预认证远程代码执行或伪造设备的路径。"
+  - "<strong>发现的 8 个问题都已处理</strong>：7 个已修复，1 个已收窄范围；每一条都附有修复方式和修复后的实测数据。"
+  - "<strong>残留风险如实公开</strong>：包括需要中转与客户端一起升级、已配对设备仍是完整客户端等，并给出对应的补救方式。"
+auditToggle: "查看 8 条发现与修复细节"
 auditNote: "以下为评审结论摘要。评审同时确认了「未发现」的部分：无法在无有效设备密钥或实时配对令牌的情况下触达 Mac，未发现预认证 RCE 或伪造设备路径。"
 
 audit:
@@ -92,7 +97,7 @@ residualTitle: "已知残留风险（如实公开）"
 residual:
   - "旧版 bridge 会让 V6 仍然成立：中继的许可阻止超额发放，释放额度依赖 bridge 的超时，因此中继与客户端需一起升级。"
   - "RPC 通道仍是完整的 RPC 面：白名单移除了手机不该调的插件路由，但已配对设备按设计仍是完整 harness 客户端 —— V3 是被收窄，不是被消除。吊销丢失的手机是既定补救方式，且现在立即生效。"
-  - "每 IP 网关上限不喜共享出口：在 L4 负载均衡或大型 NAT 后面所有 bridge 同一地址，需有意调高 --max-bridges-per-ip。"
+  - "每 IP 网关上限不适合共享出口：在 L4 负载均衡或大型 NAT 后面所有 bridge 同一地址，需有意调高 --max-bridges-per-ip。"
 
 reposTitle: "GitHub 仓库"
 reposSub: "所有源码地址，按组件划分。"
@@ -107,7 +112,7 @@ repos:
     public: true
   - name: "dsh-chrome-control"
     url: "https://github.com/dshapp/dsh-chrome-control"
-    desc: "把真实 Chrome 作为 mcp__chrome__ 工具交给 agent，纯 TypeScript，无独立守护进程；需配合 Chrome 扩展 Deepseek Harness APP 使用"
+    desc: "把真实 Chrome 作为 mcp__chrome__ 工具交给 agent，纯 TypeScript，无独立守护进程；需配合 DSH 的 Chrome 扩展使用"
     lang: "TypeScript"
     tag: "MIT"
     public: true
@@ -119,13 +124,19 @@ repos:
     public: true
   - name: "dsh-proxy"
     url: "https://github.com/dshapp/dsh-proxy"
-    desc: "移动端远程访问唯一的公网组件：单 TCP 端口、无 TLS、无证书、无配置、无磁盘状态"
+    desc: "移动端远程访问唯一的公网组件：单端口，只按路由信息转发密文，无磁盘状态"
     lang: "Rust"
     tag: "MIT"
     public: true
   - name: "dsh-kimi-computer-use"
     url: "https://github.com/dshapp/dsh-kimi-computer-use"
-    desc: "把 Kimi Computer Use 的 stdio MCP server 接入 DSH 的计算机使用 bundle"
+    desc: "把 Kimi Computer Use 的 stdio MCP server 接入 DSH 的电脑操作能力"
+    lang: "TypeScript"
+    tag: "MIT"
+    public: true
+  - name: "dsh-claude-subscription"
+    url: "https://github.com/dshapp/dsh-claude-subscription"
+    desc: "在 DSH 里直接用 Claude Code 订阅跑 Claude 模型，不用另买 API Key"
     lang: "TypeScript"
     tag: "MIT"
     public: true
@@ -149,4 +160,4 @@ repos:
     public: false
 
 ctaTitle: "源码都在这，欢迎来读"
-ctaBody: "安全评审的完整报告、可复现的攻击脚本与实测数据，都在对应仓库里。"
+ctaBody: "安全评审的完整报告、可复现的攻击脚本与实测数据，都在对应仓库里。发现问题，欢迎提 Issue。"

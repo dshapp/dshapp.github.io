@@ -1,4 +1,6 @@
-{{- /* sections/feature-macos.html —— dict: page, h */ -}}
+{{- /* sections/feature-macos.html —— dict: page, h
+     突出「为 Mac 用户打造的原生体验」：居中标题 + 六张原生体验卡片 + 一行接入说明。
+     首屏已经用可交互的 App 界面复刻展示了窗口本身，这里不再重复放截图。 */ -}}
 {{- $h := .h -}}
 {{- $m := $h.macos -}}
 <section class="feature container-wide" id="macos">
@@ -6,9 +8,22 @@
     <p class="eyebrow">{{ $m.eyebrow }}</p>
     <h2 class="display-2">{{ $m.title }}</h2>
     <p class="body-large text-tertiary">{{ $m.body }}</p>
-    <ul class="feature__list feature__list--center">
-      {{- range $m.bullets }}<li><span>{{ . | safeHTML }}</span></li>{{ end }}
-    </ul>
   </div>
 
+  <div class="grid grid-mac">
+    {{- range $m.points }}
+    <article class="card reveal">
+      <span class="card__icon">{{ partial "icon.html" .icon }}</span>
+      <h3 class="card__title">{{ .title }}</h3>
+      <p class="card__body">{{ .body }}</p>
+    </article>
+    {{- end }}
+  </div>
+
+  <div class="mac-foot reveal">
+    {{- with $m.footnote }}<p class="body-small text-tertiary">{{ . }}</p>{{ end }}
+    <a class="btn btn--secondary btn--sm" href="{{ "products/macos/" | relLangURL }}">
+      {{ $m.more }}{{ partial "icon.html" "arrow-right" }}
+    </a>
+  </div>
 </section>

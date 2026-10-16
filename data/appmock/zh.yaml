@@ -7,12 +7,15 @@ chrome:
   sessionsHeader: 会话
   archived: 已归档会话
   composerPlaceholder: 描述你的任务以生成计划
-  accessMode: 完全访问
+  accessMode: 工作区写入
   model: DeepSeek-V4.1-Flash
   hideSidebar: 隐藏边栏
   showSidebar: 显示边栏
-  backgroundTask: 8 待处理 · 1 进行中
-  backgroundTaskTitle: 用双语文案搭建 Hugo 站点
+  backgroundTask: 2 待处理 · 1 进行中
+  backgroundTaskTitle: 把后台本周的工单整理成周报
+  queuedMessage: 顺便把支付相关的 3 条单独拉一个表格
+  workspace: 团队周报
+  branch: main
   stop: 停止生成
   queueHint: 将排队的消息依次插话发送
   send: 发送

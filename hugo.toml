@@ -2,7 +2,7 @@
 # 参考视觉：https://linear.app/  设计 token 已按其 [data-theme=dark] 原值落地到 assets/css/tokens.css
 
 baseURL = "https://dshapp.github.io/"
-title = "DSH"
+title = "DSH App"
 enableRobotsTXT = true
 enableGitInfo = false
 disableKinds = ["taxonomy", "term"]
@@ -31,28 +31,30 @@ defaultContentLanguageInSubdir = false
     locale = "zh-CN"
     contentDir = "content"
     weight = 1
-    title = "DSH"
+    title = "DSH App"
     [languages.zh.params]
-      tagline = "你的 Mac、你的浏览器、你的手机 —— 一个 DSH"
-      description = "原生 macOS 与 Android 客户端、Chrome 扩展与浏览器控制、远程连接、计算机使用能力。"
+      tagline = "DSH 扩展套件：原生客户端、浏览器控制、电脑操作与手机远程"
+      description = "为 DSH 打造的扩展套件：原生 macOS 与 Android 客户端，让 DSH 操作你已登录的 Chrome 和 Mac 应用，并在手机上远程接管任务。直接接入你已有的 dsh，开源免费。"
 
   [languages.en]
     label = "English"
     locale = "en-US"
     contentDir = "content"
     weight = 2
-    title = "DSH"
+    title = "DSH App"
     [languages.en.params]
-      tagline = "Your Mac, your browser, your phone — one DSH"
-      description = "Native macOS and Android clients, Chrome extension and browser control, remote access, and computer use."
+      tagline = "Extensions for DSH: native clients, browser control, computer use and remote access"
+      description = "An extension suite built for DSH: native macOS and Android clients, an agent that drives your signed-in Chrome and Mac apps, and remote access from your phone. Plugs into the dsh you already run; free and open source."
 
 # 主导航在 layouts/partials/header.html 里用 i18n 名称 + 固定 section 生成，
 # 因此中英文各自拿到本地化名称，无需在配置里维护两份菜单。
 
 # ------------------------------------------------------- 站点参数（改这里即可）
 [params]
-  logoText = "Deepseek Harness APP"
-  productName = "Deepseek Harness APP"
+  # 本站是 DSH 的扩展套件（不是 DSH 本体），对外品牌用「DSH App」；「DeepSeek Harness」只用于描述关系
+  # （为 DeepSeek Harness 打造），见 deepseek-harness/BRAND_GUIDELINES.zh.md。Chrome 应用商店里的扩展名以商店实际名称为准。
+  logoText = "DSH App"
+  productName = "DSH App"
   # macOS / Android 的下载地址不在这里配置：由 CI 构建的 Release 自动生成（data/releases.json，见 README「下载与安装包」）
   chromeWebStore = "https://chromewebstore.google.com/detail/deepseek-harness-app/kgjjicancjnedmappjhefngdjaommpop"
   github = "https://github.com/dshapp"

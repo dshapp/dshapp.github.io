@@ -1,0 +1,19 @@
+{{- /* sections/pains.html —— dict: h。每个扩展解决的具体麻烦：以前 → 现在 */ -}}
+{{- $h := .h -}}
+<section class="section" id="pains">
+  <div class="container-wide">
+    <div class="section-head section-head--center stack stack-12 reveal" style="margin-bottom:40px">
+      <h2 class="display-3">{{ $h.painsTitle }}</h2>
+      <p class="body-regular text-tertiary">{{ $h.painsSub }}</p>
+    </div>
+    <div class="grid grid-pains">
+      {{- range $h.pains }}
+      <a class="card pain reveal" href="{{ .href | relLangURL }}">
+        <span class="pain__tag">{{ partial "icon.html" .icon }}{{ .tag }}</span>
+        <p class="pain__before"><span class="pain__label">{{ $h.painsBefore }}</span>{{ .before }}</p>
+        <p class="pain__after"><span class="pain__label pain__label--now">{{ $h.painsAfter }}</span>{{ .after }}</p>
+      </a>
+      {{- end }}
+    </div>
+  </div>
+</section>

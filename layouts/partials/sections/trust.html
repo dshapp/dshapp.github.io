@@ -1,0 +1,24 @@
+{{- /* sections/trust.html —— dict: h。可控与安全：先讲用户能感知的控制，再链到开源与安全评审 */ -}}
+{{- $h := .h -}}
+<section class="section section-bordered" id="trust">
+  <div class="container-wide">
+    <div class="section-head section-head--center stack stack-12 reveal" style="margin-bottom:40px">
+      <h2 class="display-3">{{ $h.trustTitle }}</h2>
+      <p class="body-regular text-tertiary">{{ $h.trustSub }}</p>
+    </div>
+    <div class="grid grid-trust">
+      {{- range $h.trust }}
+      <article class="card reveal">
+        <span class="card__icon">{{ partial "icon.html" .icon }}</span>
+        <h3 class="card__title">{{ .title }}</h3>
+        <p class="card__body">{{ .body }}</p>
+      </article>
+      {{- end }}
+    </div>
+    <div class="btn-row btn-row--center section-foot reveal">
+      <a class="btn btn--secondary btn--sm" href="{{ $h.trustHref | relLangURL }}">
+        {{ partial "icon.html" "github" }}<span>{{ $h.trustLink }}</span>{{ partial "icon.html" "arrow-right" }}
+      </a>
+    </div>
+  </div>
+</section>

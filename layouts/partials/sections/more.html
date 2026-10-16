@@ -1,0 +1,21 @@
+{{- /* sections/more.html —— dict: h。其它 DSH 插件（没有单独产品页的小插件） */ -}}
+{{- $h := .h -}}
+{{- with $h.more }}
+<section class="section section-bordered" id="more">
+  <div class="container-wide">
+    <h2 class="heading-2 reveal" style="margin-bottom:20px">{{ $h.moreTitle }}</h2>
+    <div class="grid grid-more">
+      {{- range . }}
+      <article class="card more-card reveal">
+        <div class="more-card__head">
+          <span class="card__icon">{{ partial "icon.html" .icon }}</span>
+          <a class="card__title more-card__name" href="{{ .href }}" target="_blank" rel="noopener noreferrer">{{ .title }}{{ partial "icon.html" "arrow-up-right" }}</a>
+        </div>
+        <p class="card__body">{{ .body }}</p>
+        {{- with .install }}{{ partial "code.html" . }}{{ end }}
+      </article>
+      {{- end }}
+    </div>
+  </div>
+</section>
+{{- end }}

@@ -1,135 +1,225 @@
-title: Your Mac, your browser, your phone — one DSH
-subtitle: Native macOS and Android clients, Chrome control that reuses your logins, and computer use that never grabs your mouse.
+# Homepage copy (English). Positioning: an extension suite for DSH — readers already use DSH (dsh web).
+title: Take DSH to your desktop, browser and phone
+subtitle: A set of extensions built for DSH — a desktop app crafted natively for the Mac and an Android client, an agent that drives your signed-in Chrome and your Mac apps, and a phone that can take over when you step away. It plugs into the dsh you already run, with the same sessions, config and plugins.
 ctaPrimary: Download for macOS
 ctaPrimaryHref: ''
-ctaSecondary: See all capabilities
-ctaSecondaryHref: '#products'
+ctaSecondary: CLI only? One-line plugin install
+ctaSecondaryHref: '#setup'
 heroShot: /img/shots/macos-app.jpg
-heroShotAlt: 'The native DSH macOS app: session list, trajectory, and composer'
-heroCaption: DSH for macOS · native SwiftUI, built for Apple Silicon
-platformsTitle: Native on every device you use
+heroShotAlt: 'The DSH macOS app: sessions on the left, each step of the agent using browser tools on the right'
+heroCaption: "Demo: DSH reads your signed-in ticket dashboard through browser control and writes up the weekly report"
 platforms:
-- icon: apple
-  label: macOS 14+ · Apple Silicon
-- icon: android
-  label: Android · Kotlin + Compose
-- icon: chrome
-  label: Chrome 120+ · Manifest V3
 - icon: terminal
-  label: Any DSH instance
-productsTitle: Four things, one DSH
-productsSub: Every client is native and shares the same sessions, models, and tools.
+  label: Plugs into your dsh web
+- icon: apple
+  label: macOS 15+ · Apple Silicon
+- icon: android
+  label: Android 8.0+
+- icon: chrome
+  label: Chrome 120+
+
+painsTitle: What DSH couldn't reach, it now can
+painsSub: Each extension removes one specific hassle.
+painsBefore: Before
+painsAfter: Now
+pains:
+- icon: apple
+  tag: macOS app
+  href: products/macos/
+  before: Using DSH meant babysitting dsh web in a terminal plus a browser tab — no menu bar, no shortcuts, no notification when a task finished. Service down or a plugin to install? Back to the command line.
+  after: A native app built for the Mac — menu bar, shortcuts, system notifications and Quick Look — that also takes over your local dsh service and turns on extensions in one click.
+- icon: globe
+  tag: Browser control
+  href: products/chrome/
+  before: The agent couldn't get into admin panels or internal tools behind a login, and a clean browser meant signing in to every site again.
+  after: The agent uses your signed-in Chrome — clicking, filling and reading in background tabs without disturbing the page you're on.
+- icon: chrome
+  tag: Chrome side panel
+  href: products/chrome/
+  before: To get the agent to change a button, you took a screenshot, described where it was, copied a selector and pasted it back into DSH.
+  after: Pick the element on the page, add a note, and it lands in DSH's composer. The side panel is a full DSH client in its own right.
+- icon: cu
+  tag: Computer use
+  href: products/cu/
+  before: Desktop apps with no API and no CLI were simply out of DSH's reach.
+  after: With Kimi Computer Use connected, the agent reads and operates Mac apps in the background, without taking your mouse or windows.
+- icon: lock
+  tag: Remote access
+  href: products/android/
+  before: Using DSH on your home or office machine from elsewhere meant opening ports, tunneling or a VPN — fiddly and worrying.
+  after: Add the mobile-bridge plugin, scan a QR code, and you're in — end-to-end encrypted, with no open ports on your computer.
+- icon: smartphone
+  tag: Android app
+  href: products/android/
+  before: A long task stalls on one approval while you're away from your desk, and you can't tell whether it finished or failed.
+  after: Your phone gets notified; approve, answer questions, add instructions or stop background tasks right there.
+
+productsTitle: Four extensions, one DSH
+productsSub: They all connect to the dsh service on your own computer and share the same sessions, model config and plugins. Install what you need; none depends on the others.
 products:
 - path: /products/macos/
   icon: apple
-  title: Native macOS app
-  body: 'A native SwiftUI window: smooth scrolling, instant launch, the full set of Mac shortcuts.'
+  title: macOS app
+  body: DSH built natively for Mac users — system controls, full keyboard control, system notifications and Quick Look, in about 14 MB.
   shot: /img/shots/macos-app.jpg
-  badge: Smooth · Fast
-- path: /products/android/
-  icon: android
-  title: Native Android app
-  body: Kotlin and Jetpack Compose, feature-for-feature with the iOS client.
-  shot: /img/shots/android-app.png
-  badge: Material 3
+  badge: Mac native
 - path: /products/chrome/
   icon: chrome
-  title: Chrome extension & control
-  body: Reuse your own Chrome session and pick elements on the page for the agent.
+  title: Chrome extension & browser control
+  body: Let the agent drive your signed-in Chrome; pick elements and talk to DSH from the side panel.
   shot: /img/shots/chrome-picker.jpg
-  badge: Element picker
+  badge: Extension + plugin
 - path: /products/cu/
   icon: cu
   title: Computer use
-  body: Reads the interface and hits the right control — in the background, without seizing your pointer.
+  body: Connects Kimi Computer Use so the agent can operate Mac apps that have no API, in the background.
   shot: /img/shots/cu.jpg
-  badge: Computer use
+  badge: Plugin
+- path: /products/android/
+  icon: android
+  title: Remote access
+  body: The mobile-bridge plugin plus the Android app — scan to reach your DSH and take over tasks from your phone.
+  shot: /img/shots/android-app.png
+  badge: Plugin + client
+
 macos:
-  eyebrow: Native macOS
-  title: A desktop client built for Mac users
-  body: Not a wrapped web page. The window, sidebar, menus, and shortcuts all follow macOS conventions, and scrolling feels like the system.
-  bullets:
-  - '<strong>Smooth</strong>: native SwiftUI rendering and scrolling — long trajectories stay at frame rate.'
-  - '<strong>Fast</strong>: a native Apple Silicon build that is ready the moment it launches, and steady even on very long sessions.'
-  - '<strong>Shortcuts</strong>: new session, find, session switching, and a shortcut reference, all where your muscle memory expects them.'
-  - '<strong>Mac conventions</strong>: it follows your system appearance and accessibility settings, including Reduce Motion and Increase Contrast.'
+  eyebrow: macOS app · Built for Mac users
+  title: DSH, made for the Mac
+  body: Not a wrapped web page, not a cross-platform framework. Built natively with SwiftUI and AppKit for Apple Silicon, in a download of about 14 MB — it feels like an app that came with your Mac.
+  points:
+  - icon: apple
+    title: Native all the way down
+    body: Sidebar, split views, lists and the composer are system controls. Scrolling and momentum match the system, streaming output doesn't jump, and input methods never send half-composed text.
+  - icon: grid
+    title: Drive it from the keyboard
+    body: Nearly everything lives in the menu bar — switch models, adjust thinking effort, enter Plan mode, approve or deny requests, interject. Common actions have shortcuts; ⌘/ shows them all.
+  - icon: message-square
+    title: System notifications
+    body: While you're busy elsewhere, macOS notifies you when a task finishes, fails, or needs your answer or approval. Click the notification to jump straight to that session.
+  - icon: folder-plus
+    title: At home with Finder
+    body: Drag files or images into the composer to attach them; preview with Quick Look, reveal deliverables in Finder, and open the workspace in the editor of your choice.
+  - icon: terminal
+    title: Built-in terminal
+    body: ⌘J brings up a terminal panel with tabs, right below the conversation — no switching windows.
+  - icon: sparkles
+    title: Follows your Mac
+    body: Light, dark or match the system, and it respects Reduce Motion. The trajectory inspector has a timeline, so every step's timing and details are easy to read.
+  footnote: It plugs straight into your local dsh service — sessions, model config and plugins are shared with dsh web, and “⇧⌘,” opens the web UI any time.
+  more: More about the macOS app
 chrome:
-  eyebrow: Chrome extension & control
-  title: Reuse your Chrome and finish the work on the page
-  body: The agent drives the Chrome you already use — the same profile, the same logins, the same open tabs. No second sign-in, and no separate clean browser.
+  eyebrow: Chrome extension + dsh-chrome-control plugin
+  title: Give DSH your signed-in Chrome
+  body: The plugin gives the agent 27 mcp__chrome__* browser tools and the extension carries them out in your Chrome. The extension's side panel is also a full DSH client.
   bullets:
-  - '<strong>Your logins</strong>: admin panels, internal tools, and anything behind a login work immediately.'
-  - '<strong>Element picker</strong>: box a target on the page and hand the agent its selector, text, and structure — far more reliable than describing where it is.'
-  - '<strong>Real input</strong>: clicks and keystrokes are trusted events; the page cannot tell them from yours.'
-  - '<strong>Cut it off</strong>: the “Allow agent control” switch in the extension popup severs control instantly.'
-  pickerTitle: Pick elements on the page
-  pickerBody: Start picking, hover to highlight candidates, and one click drops the element summary into the composer.
+  - '<strong>Your logins</strong>: the same profile, logins and open tabs — admin panels and internal tools just work, and cookies never leave the browser.'
+  - '<strong>Stays out of your way</strong>: real clicks and keystrokes run in background tabs; it reuses pages you already have open and never closes your own tabs.'
+  - '<strong>Pick + annotate</strong>: pick an element on the page and jot down what you want; or bring the current page into the conversation as context.'
+  - '<strong>The side panel is a client</strong>: sessions, Git branches and changes, plugin management, background tasks and subagents — all from Chrome''s side panel.'
+  - '<strong>Big pages stay smooth</strong>: browser control runs in a separate native service, on macOS, Linux and Windows.'
   shot: /img/shots/chrome-picker.jpg
-  shotAlt: 'Picking an element on a web page: highlight box and element summary bubble'
+  shotAlt: 'Picking the Buy now button on a page and annotating it, with DSH in the side panel'
   shot2: /img/shots/chrome-sidepanel.jpg
-  shot2Alt: The DSH panel in Chrome's side panel
-  toolsNote: Once the extension connects, the agent gets 27 mcp__chrome__* tools.
+  shot2Alt: The DSH client in Chrome's side panel
+  toolsNote: Install it in one click from Settings → Browser in the Mac app, or add the plugin from the command line and the extension from the Chrome Web Store.
+  install: dsh plugin --profile web add dsh-chrome-control
 cu:
-  eyebrow: Computer use
-  title: It reads the interface and hits the right control
-  body: It understands the current screen through the accessibility tree and screenshots, then acts with background keyboard and mouse input — no window stealing, no touching your pointer.
+  eyebrow: Computer use · dsh-kimi-computer-use plugin
+  title: Let DSH operate Mac apps that have no API
+  body: The plugin connects Kimi Computer Use to DSH as 11 mcp__cu__* tools. The agent understands the interface through the accessibility tree and screenshots, then clicks, types and drags in the background.
   bullets:
-  - '<strong>Understands</strong>: the accessibility tree supplies structure and text; screenshots fill in the visuals.'
-  - '<strong>Aims well</strong>: it targets controls rather than hard-coded coordinates, so moving a window does not break it.'
-  - '<strong>Stays in the background</strong>: input is delivered in the background, so you can keep using the machine.'
-  - '<strong>Asks first</strong>: irreversible actions — sending, deleting, purchasing, publishing — are stated before they happen.'
+  - '<strong>Leaves your mouse alone</strong>: input is delivered in the background, even to covered windows, so you keep working.'
+  - '<strong>Targets controls</strong>: no memorized coordinates — moved windows and new resolutions don''t throw it off.'
+  - '<strong>Checks every step</strong>: a bundled skill re-reads the interface before and after each action to confirm the result.'
+  - '<strong>Asks before risky actions</strong>: before sending, deleting, purchasing or publishing, it explains what will happen and waits for your OK.'
   shot: /img/shots/cu.jpg
-  shotAlt: Operating a macOS app through computer use
-  toolsNote: With KimiCU connected, these register as mcp__cu__* tools.
-matrixTitle: Capability matrix
-matrixSub: One account and one set of sessions; each client plays to its strengths.
-matrixColumns:
-- macOS app
-- Android app
-- Chrome extension
-- CU
-matrix:
-- name: Sessions & chat
-  cells:
-  - Full
-  - Full
-  - Side panel
-  - —
-- name: Models & tool calls
-  cells:
-  - Full
-  - Full
-  - Full
-  - —
-- name: Files & attachments
-  cells:
-  - Full
-  - Full
-  - Upload
-  - —
-- name: Browser control
-  cells:
-  - Calls
-  - Calls
-  - Native
-  - —
-- name: Element picking
-  cells:
-  - —
-  - —
-  - Native
-  - —
-- name: QR pairing
-  cells:
-  - Issues
-  - Scans
-  - —
-  - —
-- name: Background input
-  cells:
-  - —
-  - —
-  - —
-  - Native
-ctaTitle: Put DSH on your Mac today
-ctaBody: Native app, Chrome extension, phone client — install and go.
+  shotAlt: DSH creating a Reminders list and adding to-dos through computer use
+  toolsNote: Install KimiCU.app from Kimi's official channel first, keep it running, and grant it Accessibility and Screen Recording in System Settings. Settings → Computer use in the Mac app checks each step.
+  install: dsh plugin --profile web add dsh-kimi-computer-use
+mobile:
+  eyebrow: Remote access · dsh-mobile-bridge plugin + Android app
+  title: Step away without stalling your tasks
+  body: The plugin hands your DSH to paired phones over an end-to-end encrypted channel, and the Android app is DSH in your pocket.
+  bullets:
+  - '<strong>No open ports</strong>: your computer dials out to a public relay that only forwards ciphertext — it can''t read anything, and you can run your own.'
+  - '<strong>Pair by QR code</strong>: codes last 5 minutes and work once; manage devices from the Mac app sidebar or the /mobileaccess page of dsh web.'
+  - '<strong>Take over from your phone</strong>: follow the conversation and changed files live, handle approvals and questions, add instructions, stop background tasks, get notified.'
+  - '<strong>Take it back any time</strong>: revoking a device drops it instantly, or cut off all phone access in one click.'
+  shot: /img/shots/remote-pairing.jpg
+  shotAlt: The Mobile Access page shows a pairing code while the phone answers the agent's question
+  toolsNote: The plugin runs inside the dsh service, so any computer running dsh web can use it — not just the Mac app.
+  install: dsh plugin --profile web add dsh-mobile-bridge
+
+setupTitle: Two ways to set it up
+setupSub: Turn everything on from the Mac app, or install piece by piece from the command line.
+setupAppTitle: With the macOS app (recommended)
+steps:
+- title: Download and open
+  body: It attaches to the dsh already running on your machine; if there isn't one, it installs Node.js and @deepseek-ai/dsh after asking you.
+- title: Turn on extensions in Settings
+  body: The Browser and Computer use tabs install their plugins in one click and check connections and permissions; Mobile access in the sidebar shows a pairing code.
+- title: Add the other half
+  body: Add the extension from the Chrome Web Store, install KimiCU.app from Kimi's official channel, and scan with the Android app.
+setupCliTitle: Command line only
+setupCliBody: Browser control and remote access are ordinary dsh plugins that install on dsh for macOS, Linux and Windows; computer use needs macOS.
+setupCli: |-
+  # Browser control (then add the extension from the Chrome Web Store)
+  dsh plugin --profile web add dsh-chrome-control
+
+  # Computer use (install KimiCU.app first; macOS only)
+  dsh plugin --profile web add dsh-kimi-computer-use
+
+  # Remote access (then open /mobileaccess in dsh web and scan)
+  dsh plugin --profile web add dsh-mobile-bridge
+stepsLink: Full install guides
+stepsHref: docs/
+
+trustTitle: It can do more, with clearer boundaries
+trustSub: The extensions put the agent in your browser, your desktop and your phone — so each one comes with limits.
+trust:
+- icon: chrome
+  title: Cookies stay in the browser
+  body: Browser control reuses your logins but never uploads cookies, and only the extension itself can connect to the control channel — ordinary pages can't, even if they find the address.
+- icon: lock
+  title: The relay sees nothing
+  body: Phone and computer are end-to-end encrypted with no open ports; the relay only moves ciphertext, stores nothing, and can be swapped for your own.
+- icon: smartphone
+  title: Phones do only what they should
+  body: A phone reaches only allowlisted endpoints; pairing and revoking happen on the computer only, and revocation drops live connections at once.
+- icon: shield
+  title: Risky actions ask first
+  body: The computer-use skill explains sending, deleting, purchasing or publishing before doing it, and remote access has been through a published adversarial security review.
+trustLink: Open source repos & security review
+trustHref: opensource/
+
+faqTitle: FAQ
+faq:
+- q: Do I need DSH installed first?
+  a: Not with the Mac app — it attaches to the dsh you already have, or installs Node.js and @deepseek-ai/dsh after asking you. For command-line use, you need dsh first.
+- q: Will it clash with the dsh web I'm already running?
+  a: No. The Mac app probes port 3080 first and attaches to a running dsh instead of starting another. Sessions, model config and plugins are shared, and ⇧⌘, opens the web UI.
+- q: Can I use the extensions without the Mac app?
+  a: Yes. Browser control and remote access are ordinary dsh plugins for dsh on macOS, Linux and Windows; phone pairing happens on the /mobileaccess page of dsh web. Computer use needs macOS.
+- q: Will browser control mess with the Chrome I'm using?
+  a: Cookies are never uploaded. The agent reuses pages you already have open, sends real input to background tabs, and doesn't close your own tabs when it's done. To keep it out of your browser, disable the extension.
+- q: What does computer use need?
+  a: A Mac with KimiCU.app installed from Kimi's official channel and running, with Accessibility and Screen Recording granted to KimiCU.app in System Settings. KimiCU does the actual work; the plugin connects it to DSH.
+- q: Does remote access need a public IP? Can the relay see my data?
+  a: No public IP and no open ports — your computer dials out to the relay. Phone and computer are end-to-end encrypted; the relay reads only the routing header, then forwards ciphertext without storing or logging it.
+- q: Do the extensions cost anything?
+  a: No. The plugins and relay are MIT-licensed open source; model costs are whatever your DSH model provider charges.
+faqMore: More questions
+faqHref: docs/faq/
+
+moreTitle: More DSH plugins
+more:
+- icon: sparkles
+  title: dsh-claude-subscription
+  body: Run Claude models in DSH on your Claude Code subscription — no separate API key, no per-token billing. macOS only.
+  install: dsh plugin --profile web add @dshapp/dsh-claude-subscription
+  href: https://github.com/dshapp/dsh-claude-subscription
+
+ctaTitle: Give your DSH these powers
+ctaBody: Start with the macOS app to turn everything on in one place — or, if you live in the terminal, start with a single dsh plugin add.
+ctaSecondary2: Install guides
+ctaSecondary2Href: docs/

@@ -6,13 +6,14 @@ group: "use"
 weight: 12
 ---
 
-Press `⌘/` at any time to open the shortcuts panel and see every binding. The most useful ones are below.
-## The full list
+Press `⌘/` at any time to open the shortcuts panel and see every binding — it's the authoritative list. The everyday set is below.
 
-The in-app shortcut panel (`⌘/`) is the authoritative list. The everyday set is below.
+## Common shortcuts
 
 | Action | Shortcut |
 | --- | --- |
+| Send message | `↩` |
+| New line | `⇧↩` |
 | New session | `⌘N` |
 | New session in this workspace | `⌥⌘N` |
 | New workspace | `⇧⌘N` |

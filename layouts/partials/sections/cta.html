@@ -11,8 +11,8 @@
         <a class="btn btn--primary" href="{{ partial "dl/url.html" "mac" }}">
           {{ partial "icon.html" "apple" }}<span>{{ $h.ctaPrimary }}</span>
         </a>
-        <a class="btn btn--secondary" href="{{ site.Params.github | default "#" }}">
-          {{ partial "icon.html" "github" }}<span>{{ i18n "footer.github" }}</span>
+        <a class="btn btn--secondary" href="{{ $h.ctaSecondary2Href | relLangURL }}">
+          <span>{{ $h.ctaSecondary2 }}</span>{{ partial "icon.html" "arrow-right" }}
         </a>
       </div>
     </div>

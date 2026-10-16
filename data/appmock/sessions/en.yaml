@@ -1,0 +1,98 @@
+# Sessions and transcripts in the homepage app demo (English). Only real, user-facing tasks.
+sessions:
+- title: Turn this week's tickets into a report
+  time: 6m
+  pinned: true
+  selected: true
+  transcript:
+  - role: user
+    text: Open our ticket dashboard, summarize this week's new tickets by module in a table, write it into report.md, and give me the highlights.
+  - role: thinking
+    text: Use your signed-in Chrome to open the dashboard and filter to this week — no need to log in again.
+  - role: tool
+    text: Browser · Open ticket dashboard, filter "Created this week"
+  - role: tool
+    text: Browser · Read the list — 47 tickets
+  - role: image
+    text: ''
+  - role: text
+    text: "Read 47 tickets. By module: Payments 18, Login 11, Notifications 9, Other 9."
+  - role: tool
+    text: Edit report.md  +32 −4
+  - role: thinking
+    text: Three of them are reopened production issues with the widest impact — call them out separately.
+  - role: text
+    text: report.md is updated. Highlights — Payments is 38% of the volume, including 3 reopened production issues worth prioritizing this week. Want me to post it to the team doc? I'll check with you before sending.
+- title: Make the picked "Buy now" button on-brand
+  time: 1h
+  pinned: true
+  transcript:
+  - role: user
+    text: "[Picked element] button.buy \"Buy now\" — use the brand color, slightly darker on hover."
+  - role: tool
+    text: Find where button.buy is styled
+  - role: tool
+    text: Edit styles/button.css  +6 −2
+  - role: text
+    text: Switched to brand color #4D6BFE with an 8% darker hover. Reload the page to see it.
+- title: Align slide 3 in Keynote
+  time: 2h
+  pinned: true
+  transcript:
+  - role: user
+    text: Left-align the four text boxes on slide 3 in Keynote and even out the spacing.
+  - role: tool
+    text: Computer use · Read the Keynote window
+  - role: tool
+    text: Computer use · Select 4 text boxes, align left, 24pt vertical spacing
+  - role: text
+    text: Done — all in the background, without touching your mouse.
+- title: Why is the promo page slow?
+  time: Yesterday
+  transcript:
+  - role: user
+    text: The promo page takes 6 seconds to load. Check the network requests and find the slowest ones.
+  - role: tool
+    text: Browser · Open the promo page and record network requests
+  - role: text
+    text: The slowest are a 4.8 MB hero image and two API calls made one after another — 4.1 seconds in total. Compress the image and run the two calls in parallel.
+- title: Compare three cloud server prices
+  time: Yesterday
+  transcript:
+  - role: user
+    text: Compare yearly pricing for a 4-core / 8 GB server across three cloud providers, as a table.
+  - role: tool
+    text: Browser · Open three pricing pages
+  - role: text
+    text: Table ready, sorted by yearly total, with each promotion's end date.
+- title: Copy to-dos from Notes to Reminders
+  time: 2d
+  transcript:
+  - role: user
+    text: Take the to-dos from my "This week" note and add each one to Reminders.
+  - role: tool
+    text: Computer use · Read the Notes window
+  - role: tool
+    text: Computer use · Create 6 reminders
+  - role: text
+    text: All 6 added — in the background, without touching your mouse.
+- title: Pre-release check (approved on phone)
+  time: 3d
+  transcript:
+  - role: user
+    text: Run the pre-release checks, and if they pass, tag and push.
+  - role: tool
+    text: Run npm run release:check · all passed
+  - role: thinking
+    text: Pushing a tag can't be undone — ask first.
+  - role: text
+    text: Got your approval from your phone; tag v2.4.0 is pushed.
+- title: Enter 20 contacts into the CRM
+  time: 5d
+  transcript:
+  - role: user
+    text: Enter the 20 people in contacts.csv into our CRM one by one.
+  - role: tool
+    text: Browser · Open the CRM's new-contact page (signed in)
+  - role: text
+    text: All 20 entered. Two emails already existed in the CRM, so I skipped them and listed them below.

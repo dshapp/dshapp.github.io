@@ -39,7 +39,17 @@
       <p class="body-regular text-tertiary text-balance">{{ $d.auditSub }}</p>
     </div>
 
-    <ol class="audit-list reveal">
+    {{- with $d.auditSummary }}
+    <ul class="feature__list audit-summary reveal">
+      {{- range . }}<li><span>{{ . | safeHTML }}</span></li>{{ end }}
+    </ul>
+    {{- end }}
+
+    {{- /* 明细默认折叠：普通用户看结论即可，想核对的人展开看每一条 */}}
+    <details class="audit-details reveal">
+      <summary class="btn btn--secondary btn--sm audit-details__toggle">{{ $d.auditToggle }}{{ partial "icon.html" "chevron-down" }}</summary>
+
+    <ol class="audit-list">
       {{- range $d.audit }}
       <li class="audit-item">
         <div class="audit-item__head">
@@ -53,12 +63,10 @@
       {{- end }}
     </ol>
 
-    <p class="body-small text-quaternary text-balance reveal" style="margin-top:24px;max-width:760px">{{ $d.auditNote }}</p>
-  </section>
+    <p class="body-small text-quaternary text-balance" style="margin-top:24px;max-width:760px">{{ $d.auditNote }}</p>
 
-  {{/* ── 未发现的问题 + 残留风险 ───────────────────────────── */}}
-  <section class="section container-wide">
-    <div class="grid grid-2 reveal">
+    {{/* ── 未发现的问题 + 残留风险 ───────────────────────────── */}}
+    <div class="grid grid-2" style="margin-top:40px">
       <div>
         <h2 class="heading-2" style="margin-bottom:14px">{{ $d.safeTitle }}</h2>
         <ul class="feature__list">
@@ -72,6 +80,7 @@
         </ul>
       </div>
     </div>
+    </details>
   </section>
 
   {{/* ── 仓库 ─────────────────────────────────────────────── */}}

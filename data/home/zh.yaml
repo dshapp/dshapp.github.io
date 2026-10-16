@@ -1,135 +1,226 @@
-title: 你的 Mac、你的浏览器、你的手机 —— 一个 DSH
-subtitle: 原生 macOS 与 Android 客户端、复用登录态的 Chrome 控制，以及不抢你鼠标的计算机使用能力。
+# 首页文案（中文）。定位：DSH 的扩展套件 —— 读者是已经在用 DSH（dsh web）的人。
+# 顺序见 layouts/index.html：hero → 痛点（装之前/装之后）→ 四个扩展 → 深挖×4 → 接入方式 → 边界与安全 → 常见问题 → 更多插件 → CTA
+title: 把 DSH 带到桌面、浏览器和手机上
+subtitle: 一套为 DSH 打造的扩展：专为 Mac 打造的原生桌面端和 Android 客户端，让 Agent 操作你已登录的 Chrome 和 Mac 应用，离开电脑也能在手机上接管任务。直接接入你已有的 dsh，会话、配置、插件都是同一份。
 ctaPrimary: 下载 macOS App
 ctaPrimaryHref: ''
-ctaSecondary: 浏览全部能力
-ctaSecondaryHref: '#products'
+ctaSecondary: 只用命令行？一行装插件
+ctaSecondaryHref: '#setup'
 heroShot: /img/shots/macos-app.jpg
-heroShotAlt: DSH macOS 原生应用：侧边栏会话列表、对话轨迹与输入区
-heroCaption: DSH for macOS · 原生 SwiftUI，Apple Silicon 原生构建
-platformsTitle: 在你的设备上原生运行
+heroShotAlt: DSH macOS App：左侧会话列表，右侧是 Agent 用浏览器工具完成任务的每一步
+heroCaption: 演示：DSH 通过浏览器控制读取你已登录的工单后台，写好周报
 platforms:
-- icon: apple
-  label: macOS 14+ · Apple Silicon
-- icon: android
-  label: Android · Kotlin + Compose
-- icon: chrome
-  label: Chrome 120+ · Manifest V3
 - icon: terminal
-  label: 任意 DSH 实例
-productsTitle: 四件事，一个 DSH
-productsSub: 每一端都是原生实现，共享同一套会话、模型与工具能力。
+  label: 接入已有的 dsh web
+- icon: apple
+  label: macOS 15+ · Apple Silicon
+- icon: android
+  label: Android 8.0+
+- icon: chrome
+  label: Chrome 120+
+
+painsTitle: DSH 原来够不着的，现在够得着了
+painsSub: 每个扩展解决一个具体的麻烦。
+painsBefore: 以前
+painsAfter: 现在
+pains:
+- icon: apple
+  tag: macOS App
+  href: products/macos/
+  before: 用 DSH 得守着终端里的 dsh web 和一个浏览器标签页：没有菜单栏和快捷键，任务跑完不会通知你；服务挂了、插件要装，都得回命令行。
+  after: 一个为 Mac 打造的原生 App：菜单栏、快捷键、系统通知、Quick Look 一应俱全，同时接管本机的 dsh 服务，扩展一键开启。
+- icon: globe
+  tag: 浏览器控制
+  href: products/chrome/
+  before: Agent 进不了需要登录的后台和内部系统；另开一个干净浏览器，还得把每个站点重新登录一遍。
+  after: Agent 直接用你已登录的 Chrome，在后台标签页里点击、填表、读数据，不打扰你正在看的页面。
+- icon: chrome
+  tag: Chrome 侧栏
+  href: products/chrome/
+  before: 想让 Agent 改页面上的某个按钮，只能截图、描述位置、复制选择器，再切回 DSH 粘贴。
+  after: 在网页上圈出元素、写一句批注，元素信息直接进 DSH 的输入框；侧栏本身就是完整的 DSH 客户端。
+- icon: cu
+  tag: 电脑操作
+  href: products/cu/
+  before: 没有 API、没有命令行的桌面应用，DSH 完全碰不到。
+  after: 接入 Kimi Computer Use，Agent 在后台看懂并操作 Mac 应用，不抢你的鼠标和窗口。
+- icon: lock
+  tag: 远程连接
+  href: products/android/
+  before: 想在外面用家里或公司电脑上的 DSH，得开端口、做内网穿透或连 VPN，麻烦又不放心。
+  after: 装上 mobile-bridge 插件，扫码配对，端到端加密，电脑不开任何端口。
+- icon: smartphone
+  tag: Android App
+  href: products/android/
+  before: 长任务卡在一个审批上，你却不在电脑前；跑完没有、失败没有，全不知道。
+  after: 手机收到通知，直接处理审批和提问、追加指令、停止后台任务。
+
+productsTitle: 四个扩展，接入同一个 DSH
+productsSub: 都连到你自己电脑上的 dsh 服务，共享同一套会话、模型配置与插件。按需安装，互不依赖。
 products:
 - path: /products/macos/
   icon: apple
-  title: 原生 macOS App
-  body: SwiftUI 原生窗口，丝滑滚动、极速启动，全套 Mac 快捷键。
+  title: macOS App
+  body: 为 Mac 用户打造的原生 DSH：系统控件、全键盘操作、系统通知、Quick Look，安装包约 14 MB。
   shot: /img/shots/macos-app.jpg
-  badge: 丝滑 · 极速
-- path: /products/android/
-  icon: android
-  title: 原生 Android App
-  body: Kotlin + Jetpack Compose，与 iOS 端 1:1 的功能与交互。
-  shot: /img/shots/android-app.png
-  badge: Material 3
+  badge: Mac 原生
 - path: /products/chrome/
   icon: chrome
-  title: Chrome 扩展与控制
-  body: 复用你自己的 Chrome 登录态，在网页里圈选元素交给 Agent。
+  title: Chrome 扩展与浏览器控制
+  body: 让 Agent 操作你已登录的 Chrome；侧栏里圈选元素、直接和 DSH 对话。
   shot: /img/shots/chrome-picker.jpg
-  badge: 圈选元素
+  badge: 扩展 + 插件
 - path: /products/cu/
   icon: cu
-  title: CU 能力
-  body: 读得懂界面、点得准控件，后台操作不抢你的鼠标和前台。
+  title: 电脑操作
+  body: 接入 Kimi Computer Use，让 Agent 在后台操作没有 API 的 Mac 应用。
   shot: /img/shots/cu.jpg
-  badge: 计算机使用
+  badge: 插件
+- path: /products/android/
+  icon: android
+  title: 手机远程
+  body: mobile-bridge 插件加 Android App：扫码连回你的 DSH，在手机上接管任务。
+  shot: /img/shots/android-app.png
+  badge: 插件 + 客户端
+
 macos:
-  eyebrow: macOS 原生
-  title: 为 Mac 用户做的桌面端
-  body: 不是套壳网页。窗口、侧边栏、菜单栏、快捷键全部走 macOS 原生规范，滚动手感和系统一致。
-  bullets:
-  - <strong>丝滑</strong>：原生 SwiftUI 渲染与滚动，长会话轨迹也不掉帧。
-  - <strong>极速</strong>：Apple Silicon 原生构建，冷启动即用，长会话滚动依然稳。
-  - <strong>快捷键</strong>：新建会话、查找、会话切换、快捷键面板一应俱全，符合肌肉记忆。
-  - <strong>Mac 习惯</strong>：遵循系统外观与辅助功能设置，尊重「减少动态效果」与高对比度。
+  eyebrow: macOS App · 为 Mac 用户打造
+  title: 为 Mac 而生的 DSH
+  body: 不是网页套壳，也不是跨平台框架。SwiftUI 与 AppKit 原生实现，Apple Silicon 原生构建，安装包约 14 MB —— 用起来就像 Mac 自带的 App。
+  points:
+  - icon: apple
+    title: 原生到每一处
+    body: 侧边栏、分栏、列表、输入框都是系统控件。滚动和惯性与系统一致，长会话流式输出也不跳动；中文输入法选词不会误发送。
+  - icon: grid
+    title: 键盘就能驾驭
+    body: 几乎所有操作都在菜单栏里：切模型、调思考强度、进出 Plan 模式、批准或拒绝请求、插话发送。常用操作都有快捷键，⌘/ 一键看全。
+  - icon: message-square
+    title: 系统通知
+    body: 你在忙别的事时，任务完成、失败、等你回答或批准，都会推送 macOS 通知；点一下通知，直接回到那个会话。
+  - icon: folder-plus
+    title: 和 Finder 无缝衔接
+    body: 文件和图片拖进输入框就是附件；预览用快速查看（Quick Look），交付文件一键「在 Finder 中显示」，工作区用你选定的编辑器打开。
+  - icon: terminal
+    title: 内置终端
+    body: ⌘J 呼出终端面板，支持多个标签页，就在会话下方，不用再切到别的窗口。
+  - icon: sparkles
+    title: 跟随你的 Mac
+    body: 浅色、深色或跟随系统；尊重「减少动态效果」。轨迹检查器带时间线，每一步的耗时和细节都看得清。
+  footnote: 它直接接入你本机的 dsh 服务：会话、模型配置、插件与 dsh web 完全互通，按「⇧⌘,」随时打开 Web 端。
+  more: 了解 macOS App
 chrome:
-  eyebrow: Chrome 扩展与控制
-  title: 复用你的 Chrome，帮你把网页上的活干完
-  body: Agent 直接操作你日常使用的那只 Chrome —— 同一个配置文件、同一批登录态、同一组已打开的标签页。不需要重新登录，也不需要另开一个干净浏览器。
+  eyebrow: Chrome 扩展 + dsh-chrome-control 插件
+  title: 让 DSH 用上你已登录的 Chrome
+  body: 插件给 Agent 提供 27 个 mcp__chrome__* 浏览器工具，扩展负责在你的 Chrome 里执行；扩展的侧栏本身也是一个完整的 DSH 客户端。
   bullets:
-  - <strong>复用登录态</strong>：后台管理系统、内部工具、需要登录的页面都能直接上手。
-  - <strong>圈选元素</strong>：在页面上框出目标元素，连同它的选择器、文本与结构一起交给 Agent，比描述位置可靠得多。
-  - <strong>真实输入</strong>：点击与键盘走的是受信任事件，页面无法区分是人还是 Agent。
-  - <strong>随时切断</strong>：扩展弹窗里的「允许 Agent 控制」开关一关，控制立即中断。
-  pickerTitle: 在网页中圈选元素
-  pickerBody: 按下圈选，鼠标划过页面即高亮候选元素，点一下就把元素摘要塞进输入框。
+  - <strong>复用登录态</strong>：同一个配置文件、同一批登录态和已打开的标签页，公司后台、内部系统直接可用，Cookie 不离开浏览器。
+  - <strong>不打扰你</strong>：真实点击和键盘输入在后台标签页执行；优先复用你已打开的页面，结束时不关你自己的标签页。
+  - <strong>圈选元素 + 批注</strong>：在页面上圈出元素、顺手写一句要求；还可以把当前页面作为上下文带进对话。
+  - <strong>侧栏即客户端</strong>：会话、Git 分支与改动、插件管理、后台任务与子代理，都能在浏览器侧栏里完成。
+  - <strong>大页面不卡</strong>：浏览器控制由独立的原生后台服务承担，支持 macOS、Linux 与 Windows。
   shot: /img/shots/chrome-picker.jpg
-  shotAlt: 在网页中圈选元素：高亮框与元素摘要气泡
+  shotAlt: 在网页上圈选「立即购买」按钮并写下批注，侧栏里就是 DSH
   shot2: /img/shots/chrome-sidepanel.jpg
-  shot2Alt: Chrome 侧边栏中的 DSH 面板
-  toolsNote: 扩展连上后，Agent 获得 27 个 mcp__chrome__* 工具。
+  shot2Alt: Chrome 侧边栏中的 DSH 客户端
+  toolsNote: 在 Mac App 的「设置 → 浏览器」一键安装；或在命令行装插件，再从 Chrome 应用商店添加扩展。
+  install: dsh plugin --profile web add dsh-chrome-control
 cu:
-  eyebrow: CU 能力
-  title: 看得懂界面，也点得准控件
-  body: 通过辅助功能树与截图理解当前界面，再用后台键鼠完成操作 —— 不需要把窗口抢到前台，也不碰你的鼠标指针。
+  eyebrow: 电脑操作 · dsh-kimi-computer-use 插件
+  title: 让 DSH 操作 Mac 应用
+  body: 插件把 Kimi Computer Use 接入 DSH，提供 11 个 mcp__cu__* 工具：Agent 通过辅助功能树和截图看懂界面，再在后台点击、输入、拖拽。
   bullets:
-  - <strong>看得懂</strong>：辅助功能树给出结构与文本，截图补齐视觉信息。
-  - <strong>点得准</strong>：按控件定位而不是硬编码坐标，窗口挪位置也不失效。
-  - <strong>不抢前台</strong>：操作在后台投递，你可以继续用电脑做别的事。
-  - <strong>危险动作先确认</strong>：发送、删除、购买、发布这类不可逆操作，先说明再做。
+  - <strong>不抢鼠标和前台</strong>：输入在后台投递，窗口被遮住也能操作，你可以继续用电脑。
+  - <strong>按控件定位</strong>：不靠死记坐标，窗口挪了位置、换了分辨率照样点得准。
+  - <strong>每一步都核对</strong>：内置操作技能，操作前后重新读取界面，确认结果再往下走。
+  - <strong>危险动作先确认</strong>：发送、删除、购买、发布之前，先说明要做什么，等你点头。
   shot: /img/shots/cu.jpg
-  shotAlt: 通过计算机使用能力操作 macOS 应用
-  toolsNote: KimiCU 连接后注册为 mcp__cu__* 工具。
-matrixTitle: 能力对照
-matrixSub: 同一套账号与会话，在不同端上各取所长。
-matrixColumns:
-- macOS App
-- Android App
-- Chrome 扩展
-- CU
-matrix:
-- name: 会话与对话
-  cells:
-  - 完整
-  - 完整
-  - 侧边栏
-  - —
-- name: 模型与工具调用
-  cells:
-  - 完整
-  - 完整
-  - 完整
-  - —
-- name: 文件与附件
-  cells:
-  - 完整
-  - 完整
-  - 上传
-  - —
-- name: 浏览器控制
-  cells:
-  - 调用
-  - 调用
-  - 原生
-  - —
-- name: 网页圈选元素
-  cells:
-  - —
-  - —
-  - 原生
-  - —
-- name: 扫码配对
-  cells:
-  - 发起
-  - 扫码
-  - —
-  - —
-- name: 后台键鼠操作
-  cells:
-  - —
-  - —
-  - —
-  - 原生
-ctaTitle: 现在就把 DSH 装到你的 Mac 上
-ctaBody: 原生应用、Chrome 扩展、手机端，装好即用。
+  shotAlt: DSH 通过电脑操作在「提醒事项」里新建列表并逐条添加待办
+  toolsNote: 需要先从 Kimi 官方渠道安装 KimiCU.app 并保持运行，在系统设置里给它授予「辅助功能」与「屏幕录制」。Mac App 的「设置 → 电脑操作」会逐项检查。
+  install: dsh plugin --profile web add dsh-kimi-computer-use
+mobile:
+  eyebrow: 手机远程 · dsh-mobile-bridge 插件 + Android App
+  title: 离开电脑，任务也不会卡住
+  body: 插件把你的 DSH 经端到端加密通道交给已配对的手机，Android App 就是口袋里的 DSH 客户端。
+  bullets:
+  - <strong>不开端口</strong>：电脑主动连到公网中转，中转只转发加密数据、读不到内容，也可以自己部署。
+  - <strong>扫码配对</strong>：配对码 5 分钟有效、只能用一次；在 Mac App 侧栏或 dsh web 的 /mobileaccess 页面管理设备。
+  - <strong>手机上接管任务</strong>：实时看对话和改动文件，处理审批与提问，追加指令、停止后台任务，进展推送通知。
+  - <strong>随时收回</strong>：吊销设备立即断开；也可以一键临时切断所有手机访问。
+  shot: /img/shots/remote-pairing.jpg
+  shotAlt: 电脑上的移动端访问页生成配对码，手机上直接回答 Agent 的提问
+  toolsNote: 插件随 dsh 服务一起运行，任何跑着 dsh web 的电脑都能用，不限于 Mac App。
+  install: dsh plugin --profile web add dsh-mobile-bridge
+
+setupTitle: 两种接入方式
+setupSub: 用 Mac App 一站式开启，或者在命令行里按需安装。
+setupAppTitle: 用 macOS App（推荐）
+steps:
+- title: 下载并打开
+  body: 自动接入本机已在运行的 dsh；还没装的话，会征得你同意后装好 Node.js 与 @deepseek-ai/dsh。
+- title: 在设置里开启扩展
+  body: 「浏览器」「电脑操作」分页一键安装插件，逐项检查连接与授权；侧栏「移动端访问」生成配对码。
+- title: 装好另一半
+  body: 从 Chrome 应用商店添加扩展；从 Kimi 官方渠道安装 KimiCU.app；用 Android App 扫码。
+setupCliTitle: 只用命令行
+setupCliBody: 浏览器控制与手机远程是普通的 dsh 插件，macOS、Linux、Windows 上的 dsh 都能装；电脑操作需要 macOS。
+setupCli: |-
+  # 浏览器控制（再从 Chrome 应用商店安装扩展）
+  dsh plugin --profile web add dsh-chrome-control
+
+  # 电脑操作（需先安装 KimiCU.app，仅 macOS）
+  dsh plugin --profile web add dsh-kimi-computer-use
+
+  # 手机远程（装好后打开 dsh web 的 /mobileaccess 扫码）
+  dsh plugin --profile web add dsh-mobile-bridge
+stepsLink: 查看完整安装说明
+stepsHref: docs/
+
+trustTitle: 能做的更多，边界也更清楚
+trustSub: 扩展让 Agent 碰到了浏览器、桌面和手机，所以每一处都设了边界。
+trust:
+- icon: chrome
+  title: Cookie 不离开浏览器
+  body: 浏览器控制复用登录态，但不上传 Cookie；只有扩展本身能连接控制通道，普通网页即使发现地址也接不进来。
+- icon: lock
+  title: 中转看不到内容
+  body: 手机与电脑之间端到端加密，电脑不开端口；中转只搬运密文、不落盘，也可以换成你自己部署的。
+- icon: smartphone
+  title: 手机只做该做的事
+  body: 手机只能访问白名单里的接口，配对和吊销只能在电脑上操作；吊销后已有连接立即断开。
+- icon: shield
+  title: 危险动作先确认
+  body: 电脑操作内置的操作技能遇到发送、删除、购买、发布，会先说明再执行；远程访问做过一次公开的对抗性安全评审。
+trustLink: 查看开源仓库与安全评审
+trustHref: opensource/
+
+faqTitle: 常见问题
+faq:
+- q: 需要先安装 DSH 吗？
+  a: 用 Mac App 的话不需要：它会接入你已经装好的 dsh；还没装，就在征得你同意后装好 Node.js 与 @deepseek-ai/dsh。只用命令行的话，需要先有 dsh。
+- q: 会和我正在跑的 dsh web 冲突吗？
+  a: 不会。Mac App 启动时先探测 3080 端口，已有 dsh 服务就直接接入，不会再起一个；会话、模型配置、插件都是同一份，⇧⌘, 还能直接打开 Web 端。
+- q: 不用 Mac App，能用这些扩展吗？
+  a: 可以。浏览器控制和手机远程都是普通的 dsh 插件，在 macOS、Linux、Windows 上的 dsh 都能装；手机配对在 dsh web 的 /mobileaccess 页面完成。电脑操作需要 macOS。
+- q: 浏览器控制会影响我正在用的 Chrome 吗？
+  a: Cookie 不会被上传；Agent 优先复用你已打开的页面，真实输入在后台标签页执行，任务结束也不会关掉你自己的标签页。不想让它碰浏览器时，停用扩展即可。
+- q: 电脑操作需要准备什么？
+  a: 一台 macOS 电脑，从 Kimi 官方渠道安装 KimiCU.app 并保持运行，在系统设置里给 KimiCU.app 授予「辅助功能」与「屏幕录制」。真正执行动作的是 KimiCU，插件只负责把它接入 DSH。
+- q: 手机远程需要公网 IP 吗？中转能看到我的数据吗？
+  a: 不需要公网 IP，也不用开端口：电脑主动连到中转。手机与电脑之间是端到端加密，中转只读连接开头的路由信息，之后只转发密文，不落盘、不记日志。
+- q: 这些扩展收费吗？
+  a: 不收费。插件与中转以 MIT 许可开源；模型调用的费用照旧取决于你在 DSH 里配置的模型服务商。
+faqMore: 更多问题
+faqHref: docs/faq/
+
+moreTitle: 更多 DSH 插件
+more:
+- icon: sparkles
+  title: dsh-claude-subscription
+  body: 在 DSH 里直接用你的 Claude Code 订阅跑 Claude 模型，不用另买 API Key，也不按 token 计费。仅 macOS。
+  install: dsh plugin --profile web add @dshapp/dsh-claude-subscription
+  href: https://github.com/dshapp/dsh-claude-subscription
+
+ctaTitle: 给你的 DSH 装上这些能力
+ctaBody: 先装 macOS App，一站式开启全部扩展；习惯命令行，就从一行 dsh plugin add 开始。
+ctaSecondary2: 安装说明
+ctaSecondary2Href: docs/

@@ -1,102 +1,91 @@
 ---
-title: "原生 Android App"
-linkTitle: "Android App"
-tagline: "Kotlin + Compose，扫码连回 Mac"
-description: "DSH 的 Android 原生客户端：Kotlin 与 Jetpack Compose 实现，Material 3 交互，与其它端共享同一批会话；扫码即可连回 Mac，端到端加密。"
+title: "手机远程"
+linkTitle: "手机远程"
+tagline: "mobile-bridge 插件 + Android App：离开电脑，也能在手机上接管 DSH"
+description: "dsh-mobile-bridge 插件把你电脑上的 DSH 经端到端加密通道交给已配对的手机，Android App 就是口袋里的 DSH 客户端：看进度、处理审批与提问、追加指令、收到通知。电脑不开端口。"
 icon: "android"
-badge: "Material 3"
-weight: 20
-repo: "https://github.com/dshapp/dsh-androidapp"
+badge: "插件 + 客户端"
+weight: 40
+repo: "https://github.com/dshapp/dsh-mobile-bridge"
 aliases:
   - /products/remote/
 shot: "/img/shots/android-app.png"
-shotAlt: "DSH Android 应用界面"
+shotPortrait: true
+shotAlt: "DSH Android App 会话列表"
 shot2: "/img/shots/remote-pairing.jpg"
-shot2Alt: "Mac 应用中的手机访问配对二维码"
+shot2Alt: "电脑上的移动端访问页与手机上的提问卡片"
 features:
-  - title: "纯原生实现"
-    body: "Kotlin + Jetpack Compose，不嵌 WebView；列表、抽屉、底部弹层都用 Material 3 组件。"
-  - title: "功能对齐"
-    body: "会话列表、会话页、输入区、图片与附件、各类设置面板与桌面端保持一致。"
-  - title: "扫码接入"
-    body: "用相机扫描 Mac 上的配对二维码即可接入，之后靠密钥自证明，不再需要验证码。"
+  - title: "任务不再卡在审批上"
+    body: "Agent 需要你批准或回答问题时，手机上直接处理；任务有进展、完成或失败都会推送通知。"
+  - title: "不开端口、不做内网穿透"
+    body: "电脑主动连到公网中转，手机经中转连回来；不需要公网 IP、路由器设置或 VPN。"
   - title: "端到端加密"
-    body: "手机与 Mac 之间一次 Noise_IK 握手同时完成加密与双向认证，中转服务器读不到任何内容。"
+    body: "一次 Noise 握手同时完成加密与双向认证，中转只转发密文，读不到内容、不落盘。"
+  - title: "随时收回"
+    body: "吊销设备立即断开已有连接；也可以一键临时切断所有手机访问，不必取消配对。"
 related:
   - path: "/products/macos/"
-    title: "原生 macOS App"
-    body: "配对码的发起端，也是会话真正运行的地方。"
-  - path: "/products/chrome/"
-    title: "Chrome 扩展与控制"
-    body: "让 Agent 直接操作你日常使用的 Chrome。"
+    title: "macOS App"
+    body: "侧栏「移动端访问」就是配对入口。"
+  - path: "/opensource/"
+    title: "开源与安全"
+    body: "远程访问的加密设计与安全评审结果。"
 ---
 
-## 与桌面端一致的能力
+## 解决什么问题
 
-Android 客户端的目标不是「能用」，而是和桌面端**一样好用**：
+- **人一离开，任务就卡住。** 长任务跑到一半需要审批或回答一个问题，你却在会议室、在路上。
+- **不知道跑完没有。** 完成了、失败了、卡住了，只有回到电脑前才知道。
+- **远程访问又麻烦又不放心。** 想从外面连回家里或公司电脑上的 DSH，得开端口、做内网穿透或连 VPN。
 
-- 会话列表、工作区、设置面板与桌面端是同一份数据。
-- 对话流里的工具调用、轨迹、Markdown 与代码高亮都原生渲染。
-- 图片、附件、分享都通过系统能力完成。
+## 由什么组成
 
-## 平台化的交互替换
+| 组件 | 作用 | 获取 |
+| --- | --- | --- |
+| dsh-mobile-bridge 插件 | 装在 dsh 里，把 DSH 经加密隧道提供给已配对的手机；不开端口、不写状态文件、不额外起进程 | `dsh plugin --profile web add dsh-mobile-bridge` |
+| dsh-proxy 中转 | 唯一的公网组件，只按路由信息转发密文；中转地址写在配对二维码里，可以自己部署 | [GitHub](https://github.com/dshapp/dsh-proxy) |
+| Android App | 手机上的 DSH 客户端 | [下载页](/download/#android) |
 
-界面按 Android 规范重新实现，不做 iOS 的照搬：
+插件随 dsh 服务一起运行，**任何跑着 dsh web 的电脑都能用**，不限于 Mac App。
 
-| iOS | Android |
-| --- | --- |
-| NavigationStack | Navigation Compose |
-| List / Section | LazyColumn + ListItem |
-| swipeActions | SwipeToDismissBox |
-| contextMenu | 长按 DropdownMenu |
-| sheet | ModalBottomSheet |
-| SF Symbols | Material Icons |
-| DataScanner | CameraX + ML Kit |
+## 手机上能做什么
 
-## 配对流程
+手机连的是**你电脑上的同一个 DSH**，看到的是同一批会话和文件，不是云端副本：
 
-手机不是「登录」进来的，而是和这台 Mac 建立一条自己的加密通道：
+- 实时查看会话、工具调用与每轮的改动文件和 diff。
+- **处理审批与提问**：多道提问逐题作答，也可以自定义答案。
+- 新建会话、发送消息和附件、插话、编辑排队消息、停止后台任务。
+- 任务进展推送通知；任务运行时 App 在后台保持连接，锁屏也不中断。
+- 配对多台电脑，在列表里切换；会话内查找、预览文件与图片、归档会话。
 
-- Mac 侧点「添加设备」，生成一次性配对令牌（5 分钟有效，同时只留一枚）。
-- 二维码里带上中转地址、Mac 的公钥与名称、以及令牌。
-- 手机扫码 → 本地生成密钥对 → 用 Noise_IK 连上 → 首条消息携带令牌。
-- Mac 校验令牌（常数时间、单次消费）后把设备公钥写入白名单。
-- 令牌立即丢弃；未配对设备的握手在认证阶段就失败。
+## 三步连上
 
-## 三件事，一次握手解决
+1. 在电脑上安装插件：Mac App 用户已经内置入口；命令行用户运行 `dsh plugin --profile web add dsh-mobile-bridge`。
+2. 打开配对页：Mac App 侧栏点「**移动端访问**」，或在浏览器里打开 dsh web 的 `/mobileaccess` 页面。
+3. 用 Android App 扫描二维码，完成。
 
-传统方案里，加密靠 TLS、鉴权靠令牌、防重放靠时间戳与去重表。DSH 把它们合并成一次 Noise_IK 握手：
-
-| 能力 | 由什么提供 |
-| --- | --- |
-| 加密信道 | Noise transport（ChaChaPoly） |
-| 认证手机 | 握手里的设备静态公钥，公钥本身就是设备 ID |
-| 认证 Mac | 手机预先知道 Mac 的公钥，握手时验证 |
-| 前向保密 | 每次握手的临时密钥 |
-| 防重放 | transport nonce 单调计数 |
-
-结果是：**没有证书、没有 CA、没有域名依赖、没有 bearer token，也没有时间窗校验。**
-
-## 中转服务器看不到内容
-
-公网侧只有一个极简中转：
-
-1. 读每条连接开头的 37 字节明文头（magic + 版本 + 路由公钥）。
-2. 按路由公钥找到对应 Mac 的长连接。
-3. 之后**只搬字节**，永不解析。
-
-它不解密、不写磁盘、不记日志。路由公钥只是标识符，不是秘密——它本来就在配对二维码里。
+配对码 5 分钟内有效、只能用一次，生成新码会让旧码作废；配对后 180 天内无需重新配对。
 
 ## 设备管理
 
-- 每台设备带到期时间，默认 180 天。
-- 设备列表里的"在线"是观测出来的：中转会统计手机实际持有的连接数，而不是靠"最后活跃时间"猜。
-- 吊销设备会同时挂断它已经建立的连接。
+- 设备列表显示每台手机**实时**是否在线（按实际连接观测，不是猜测）。
+- 可以给手机重命名，方便区分多台设备。
+- **吊销**某台手机，它已有的连接会立即断开。
+- 一键**断开 / 恢复**与中转的连接，临时停止所有手机访问而不必取消配对。
 
-## 连接后能访问什么
+## 安全
 
-手机连上后**只能访问它需要的**：RPC 通道开放，插件路由默认拒绝，只有明确加入白名单的少数路由例外。配对与吊销接口对手机一律返回 403 —— 它们只属于 Mac 端。
+- **端到端加密**：手机与电脑之间一次 Noise_IK 握手同时完成加密与双向认证；中转只读连接开头的路由信息，之后只转发密文，不落盘、不记日志。
+- **最小权限**：手机只能访问白名单里的接口；配对、吊销等管理操作只能在电脑上进行。
+- **弱网友好**：所有请求走同一条长连接并自动压缩；断线重连后重试的操作不会被执行两次。
 
-## 安全存储
+技术细节见[加密与安全模型](/docs/crypto/)，安全评审见[开源与安全](/opensource/)。
 
-设备私钥与服务器配置保存在加密存储中，与桌面端一样，配对成功后不依赖密码。
+## 系统要求
+
+| 项目 | 要求 |
+| --- | --- |
+| 手机 | Android 8.0 或更高，带相机 |
+| 电脑 | 运行 dsh web 并安装 dsh-mobile-bridge 插件（macOS、Linux 均可） |
+
+[下载 Android App](/download/#android) · [配对与设备管理](/docs/pairing/)

@@ -8,16 +8,20 @@ weight: 61
 
 ## macOS App 打不开
 
-**被 Gatekeeper 拦下**：到「系统设置 → 隐私与安全性」，在刚才那条拦截提示下面点「仍要打开」。
+**提示「无法验证开发者」**：当前版本还没有经过 Apple 公证。在 Finder 里按住 Control 点按 App，选「打开」；或到「系统设置 → 隐私与安全性」点「仍要打开」。
 
-**确认架构**：客户端是 Apple Silicon（arm64）原生构建，需要 macOS 14+。
+**确认系统与芯片**：需要 macOS 15 或更高，Apple Silicon（M1 及以上），暂不支持 Intel Mac。
+
+## 首次启动卡在准备环境
+
+App 需要联网安装 Node.js 与 DSH 服务。确认网络能访问 nodejs.org 与 npm；安装 Node.js 时弹出的 Apple 安装器需要你点完并输入开机密码。
 
 ## Chrome 扩展显示未连接
 
-1. 确认 macOS 客户端正在运行（服务随应用起停）。
-2. 确认 DSH 已安装 [dsh-chrome-control](https://github.com/dshapp/dsh-chrome-control) 插件（`dsh plugin --profile web add dsh-chrome-control`，装完重启 `dsh web`）。没有这个插件，服务端根本没有 `/chrome/ws`，扩展无处可连。
-3. 检查扩展弹窗里填的服务地址是否正确。
-4. 弹窗里会显示 WebSocket 状态，注意看具体报错。
+1. 确认 macOS App 正在运行（服务随 App 起停）。
+2. 打开「**设置 → 浏览器**」：它会检测所需组件是否已安装，并显示具体的失败原因，缺什么点一下即可补装。
+3. 检查扩展弹窗里的服务地址，默认是 `http://127.0.0.1:3080`。
+4. 如果你在终端里直接运行 DSH，确认已安装 [dsh-chrome-control](https://github.com/dshapp/dsh-chrome-control) 插件（`dsh plugin --profile web add dsh-chrome-control`，装完重启 `dsh web`）。
 
 ## 手机扫码后没连上
 
@@ -27,9 +31,11 @@ weight: 61
 | 提示配对失败 | 确认手机与 Mac 跑的是同一版本，令牌单次消费 |
 | 之前能用现在不行 | 设备可能已到期（默认 180 天），重新配对 |
 
-## 计算机使用点不中控件
+## 电脑操作点不中控件
 
-到「系统设置 → 隐私与安全性」确认 **辅助功能** 与 **屏幕录制** 都已授权。少任何一个，要么读不到控件树，要么截不了图。
+1. 确认 **KimiCU.app** 已从 Kimi 官方渠道安装并在运行；工具不可用时，Agent 也会提示你检查这一点。
+2. 打开「**设置 → 电脑操作**」查看授权状态，确认已给 **KimiCU.app**（不是 DSH）授予 **辅助功能** 与 **屏幕录制**。少任何一个，要么读不到界面结构，要么截不了图。
+3. 刚装完插件的话，重启 dsh 服务后才生效。
 
 ## 权限被拒绝
 
@@ -38,4 +44,4 @@ weight: 61
 ## 还是不行
 
 - [常见问题](/docs/faq/)
-- [开源与审核](/opensource/) —— 提 issue 前先看看仓库。
+- [开源与安全](/opensource/) —— 提 Issue 前先看看仓库。

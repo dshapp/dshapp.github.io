@@ -1,33 +1,41 @@
 ---
 title: "Install the Android app"
 linkTitle: "Install the Android app"
-description: "Install the native Android client and pair your phone to your Mac with a QR scan."
+description: "Install the DSH Android app, scan to connect to your Mac, and check progress, approve steps and add requests from your phone."
 group: "start"
 weight: 3
 ---
 
-The Android client is the phone side of the same sessions — and the scanning end of remote access.
+The Android app is the phone client for DSH on your computer: you see the same sessions on your phone, while tasks keep running on the computer. It connects through the `dsh-mobile-bridge` plugin, with no open ports on your computer.
 
 ## Requirements
 
 | Item | Requirement |
 | --- | --- |
-| OS | Android 10 or later |
-| Camera | for scanning the pairing code |
-| Storage | about 60 MB |
+| OS | Android 8.0 or later |
+| Camera | To scan the pairing QR code |
+| Storage | About 40 MB |
+| Computer | dsh running with the `dsh-mobile-bridge` plugin (built into the Mac app) |
 
 ## Install
 
-1. Get the APK or install from the store (see the [download page](/en/download/#android)).
-2. Open the app and go to the pairing screen.
-3. Tap Add device on your Mac to show the QR code, then scan it.
-4. Once scanned, the device is on the allowlist and proves itself with its key — no verification codes.
+1. Open the [download page](/en/download/#android) in your phone's browser and download the `.apk` (or download on your computer and copy it over).
+2. When prompted, allow your browser or file manager to install unknown apps.
+3. If a locally built debug version is installed, its signature differs — uninstall it first.
 
-## After the scan
+## Connect to your computer
 
-A Noise-encrypted channel is established between phone and Mac. What you see on the phone is the **same sessions**, the same files and the same workspace — not a separate remote copy.
+1. Open the pairing page: click **Mobile access** in the Mac app sidebar; without the Mac app, run `dsh plugin --profile web add dsh-mobile-bridge`, then open `/mobileaccess` in dsh web.
+2. Open the Android app and scan it.
+3. Your phone is now a trusted device for that computer and connects straight away next time — no codes to type.
+
+QR codes are valid for 5 minutes and work once; just make a new one if it expires.
+
+## Once connected
+
+Phone and Mac talk over an end-to-end encrypted channel; the relay can't read anything. Your phone shows the **same sessions** and files — not a separate cloud copy.
 
 ## Next
 
 - [Pairing and devices](/en/docs/pairing/) — expiry, presence and revocation.
-- [Encryption and the security model](/en/docs/crypto/) — the three problems one handshake solves.
+- [Encryption and the security model](/en/docs/crypto/) — why this channel is safe.

@@ -26,8 +26,9 @@
 
   <div id="tools" class="reveal feature__more">
     <p class="body-large text-tertiary">{{ $c.toolsNote }}</p>
-    <a class="btn btn--secondary btn--sm" href="{{ "docs/browser-tools/" | relLangURL }}">
-      {{ i18n "docs.title" }}{{ partial "icon.html" "arrow-right" }}
+    {{- with $c.install }}{{ partial "code.html" . }}{{ end }}
+    <a class="btn btn--secondary btn--sm" href="{{ "docs/install-chrome/" | relLangURL }}">
+      {{ i18n "cta.setup" }}{{ partial "icon.html" "arrow-right" }}
     </a>
   </div>
 </section>

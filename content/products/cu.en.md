@@ -1,59 +1,78 @@
 ---
 title: "Computer use"
-linkTitle: "Computer Use"
-tagline: "It reads the interface and hits the right control"
-description: "DSH computer use: it understands the screen through the accessibility tree and screenshots, then acts with background keyboard and mouse input — no window stealing, no moving your pointer."
+linkTitle: "Computer use"
+tagline: "Let DSH operate Mac apps that have no API — in the background, without taking your mouse"
+description: "The dsh-kimi-computer-use plugin connects Kimi Computer Use to DSH as 11 mcp__cu__* tools: the agent understands Mac app interfaces through the accessibility tree and screenshots, then clicks, types and drags in the background, asking before irreversible actions."
 icon: "cu"
-badge: "Computer use"
-weight: 50
+badge: "Plugin"
+weight: 30
 repo: "https://github.com/dshapp/dsh-kimi-computer-use"
 shot: "/img/shots/cu.jpg"
-shotAlt: "Operating a macOS app through computer use"
+shotAlt: "DSH creating a Reminders list and adding to-dos through computer use"
 features:
-  - title: "Understands the interface"
-    body: "The accessibility tree supplies structure and text; screenshots fill in the visuals. Together the agent knows what is actually on screen."
-  - title: "Targets controls"
-    body: "It locates controls rather than hard-coded coordinates, so a moved window or a different resolution does not break it."
-  - title: "Stays in the background"
-    body: "Input is delivered in the background without moving your pointer or raising the window, so you keep using the machine."
-  - title: "Asks before irreversible actions"
-    body: "Sending, deleting, purchasing, and publishing are stated before they happen."
+  - title: "Reaches desktop apps"
+    body: "Mac apps with no API and no CLI become something the agent can read and operate."
+  - title: "Leaves your mouse alone"
+    body: "Input is delivered in the background without moving your pointer, even to covered windows, so you keep working."
+  - title: "Checks every step"
+    body: "A bundled skill re-reads the interface before and after each action and confirms the result before moving on."
+  - title: "Asks before risky actions"
+    body: "Before sending, deleting, purchasing or publishing, it explains what will happen and waits for your OK."
 related:
   - path: "/products/chrome/"
-    title: "Chrome extension & control"
-    body: "Inside the browser, browser control; for desktop apps, computer use."
+    title: "Chrome extension & browser control"
+    body: "Web work goes to browser control; desktop apps go to computer use."
   - path: "/products/macos/"
-    title: "Native macOS app"
-    body: "All of it happens inside the same session."
+    title: "macOS app"
+    body: "Settings → Computer use checks the plugin, KimiCU and permissions."
 ---
 
-## Two kinds of eyes
+## The problem it solves
 
-Computer use reads through two channels at once:
+DSH is great with files, commands and web pages, but a lot of work happens in desktop apps with **no API and no command line** — Keynote, System Settings, Notes, assorted internal clients. And classic GUI automation takes over your mouse and front window, so you can't do anything while it runs.
 
-- **The accessibility tree** gives windows, controls, text, and hierarchy. It is precise, targetable, and tells us what an element *is* rather than what it looks like.
-- **Screenshots** cover what the tree cannot express — canvases, charts, and custom-drawn interfaces.
+## What it's made of
 
-Together, the agent knows both the control's name and its position on screen.
+| Component | Job | Get it |
+| --- | --- | --- |
+| KimiCU.app | Does the actual work: reads the interface and delivers clicks and keystrokes in the background | Kimi's official channel |
+| dsh-kimi-computer-use plugin | Connects KimiCU to DSH as 11 `mcp__cu__*` tools, plus an operating skill | `dsh plugin --profile web add dsh-kimi-computer-use` |
 
-## Background input
+The plugin only connects: DSH starts and stops KimiCU's MCP process with the plugin, but never downloads, installs or updates KimiCU.app itself.
 
-Actions are delivered as background mouse and keyboard events:
+## What it can do for you
 
-- **Your pointer does not move**, so you can keep working.
-- **The target window is not raised** — input lands even when the window is fully covered.
-- For the rare app that truly needs foreground input, there is an explicit opt-in fallback.
+- "Left-align the four text boxes on slide 3 in Keynote."
+- "Rename this Mac to Design-Mac in System Settings."
+- "Copy this week's to-dos from Notes into Reminders."
+- "This internal client has no export — copy its list into a spreadsheet."
 
-## Controls, not coordinates
+## Two kinds of "eyes"
 
-Because targeting is based on the control itself:
+- **Accessibility tree**: windows, buttons, text and hierarchy. Precise and addressable — it knows what an element *is*.
+- **Screenshots**: fill in what the tree can't describe, such as canvases, charts and custom-drawn UI.
 
-- Moving a window, changing resolution, or changing display scaling does not break an action.
-- A localized build of the same interface is still recognized.
-- Coordinate input remains available for canvases, games, and handwriting.
+Targeting is based on controls rather than coordinates, so moved windows and new resolutions don't throw it off; coordinates are still available for canvas-style interfaces.
 
-## Safety boundaries
+## Stays out of your way
 
-- The agent states what it is about to do; irreversible actions need your confirmation.
-- Accessibility and screen recording permissions are granted by you and can be revoked in System Settings at any time.
-- It does not download or install software on its own; required apps come from you, from official channels.
+- **Doesn't move your pointer** — keep using your Mac normally.
+- **Doesn't pull windows to the front** — even fully covered windows receive input.
+- Only the rare app that truly needs foreground input is brought forward briefly.
+
+## Setup
+
+1. Install KimiCU.app from **Kimi's official channel** and keep it running.
+2. In System Settings → Privacy & Security, grant **KimiCU.app** (not DSH) Accessibility and Screen Recording.
+3. Install the plugin: with the Mac app, use Settings → Computer use, which also checks KimiCU and its permissions; from the command line, run `dsh plugin --profile web add dsh-kimi-computer-use` and restart the dsh service.
+4. Back in DSH, ask it to "do X in app Y."
+
+Details: [Computer use docs](/en/docs/computer-use/).
+
+## Requirements
+
+| Item | Requirement |
+| --- | --- |
+| System | macOS |
+| Dependency | KimiCU.app installed and running |
+| DSH | `@deepseek-ai/dsh` 0.1.1-rc.2 or later |

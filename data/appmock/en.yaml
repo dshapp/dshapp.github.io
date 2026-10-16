@@ -7,12 +7,15 @@ chrome:
   sessionsHeader: Sessions
   archived: Archived sessions
   composerPlaceholder: Describe a task to generate a plan
-  accessMode: Full access
+  accessMode: Workspace write
   model: DeepSeek-V4.1-Flash
   hideSidebar: Hide sidebar
   showSidebar: Show sidebar
-  backgroundTask: 8 pending · 1 running
-  backgroundTaskTitle: Scaffold the Hugo site with bilingual content
+  backgroundTask: 2 pending · 1 running
+  backgroundTaskTitle: Turn this week's tickets into a report
+  queuedMessage: Also pull the 3 payment issues into their own table
+  workspace: team-report
+  branch: main
   stop: Stop generating
   queueHint: Send the queued messages in order
   send: Send

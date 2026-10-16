@@ -1,0 +1,5 @@
+{{- /* code.html —— 带复制按钮的代码块；参数是代码文本。复制逻辑见 assets/js/main.js 的 [data-copy] */ -}}
+<div class="code-block">
+  <pre><code>{{ . }}</code></pre>
+  <button class="code-copy" type="button" data-copy data-copied="{{ i18n "code.copied" }}">{{ i18n "code.copy" }}</button>
+</div>

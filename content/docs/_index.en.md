@@ -1,29 +1,36 @@
 ---
-title: "DSH documentation"
+title: "DSH App documentation"
 linkTitle: "Documentation"
-description: "Install, use and audit DSH: from your first client to handing the agent your browser and your phone."
+description: "Install, use and secure the DSH extension suite: the macOS app, the Chrome extension & browser control, computer use and remote access."
 group: "start"
 weight: 1
 ---
 
-DSH is **one** agent that runs on **your own** machine, and you reach it through native clients, a browser extension and your phone. This documentation is ordered as "get it running, then use it well, then understand why it is safe".
+DSH App is a set of extensions built for DSH: native clients, plus the browser, desktop apps and phone that DSH can't reach on its own. They all connect to **the dsh service on your own computer** and share the same sessions, model config and plugins.
 
 ## Where to start
 
-| Where you are | Start here |
+| You want to | Start here |
 | --- | --- |
-| Nothing installed yet | [Install the macOS app](/en/docs/install-macos/) |
-| Installed, unsure what to say | [Sessions and workspaces](/en/docs/sessions/) |
-| Want the agent to drive a page | [Picking elements](/en/docs/element-picker/) |
-| Want your phone to reach your Mac | [Pairing and devices](/en/docs/pairing/) |
-| Care where the data goes | [Encryption and the security model](/en/docs/crypto/) |
+| Stop babysitting a terminal and a browser tab | [Install the macOS app](/en/docs/install-macos/) |
+| Let the agent drive your signed-in Chrome | [Install the Chrome extension](/en/docs/install-chrome/) |
+| Let the agent operate Mac apps that have no API | [Computer use](/en/docs/computer-use/) |
+| Handle approvals and follow progress away from your desk | [Install the Android app](/en/docs/install-android/) |
+| Understand why remote access is safe | [Encryption and the security model](/en/docs/crypto/) |
 
-## Four clients, one set of sessions
+## How each extension plugs into DSH
 
-The macOS app, the Android app, the Chrome extension and computer use share the same sessions, models and tools. Start a session on your Mac and your phone continues it after a scan; ask something in the browser side panel and the full trajectory is there on the desktop.
+| Extension | How it connects |
+| --- | --- |
+| macOS app | Attaches to dsh on port 3080 (or starts / installs one) |
+| Browser control | `dsh-chrome-control` plugin + Chrome extension |
+| Computer use | `dsh-kimi-computer-use` plugin + KimiCU.app |
+| Remote access | `dsh-mobile-bridge` plugin + Android app |
+
+Plugins install in one click from the Mac app's Settings, or with `dsh plugin --profile web add <plugin>`. Browser control and remote access don't need the Mac app and work with dsh on Linux too.
 
 ## Three ground rules
 
-- **Local first**: the DSH service runs on your machine, and session data does not leave it by default.
-- **Default deny**: a phone or plugin reaches only what is explicitly allowed, and nothing else.
-- **Always a way back**: anything irreversible — sending, deleting, buying, publishing — is explained before it happens.
+- **Local first**: everything connects to the dsh on your own computer; phones and browsers are clients that connect in, not cloud copies.
+- **Default deny**: phones reach only allowlisted endpoints, and the control channel accepts only the extension itself.
+- **Say it before doing it**: computer use explains irreversible actions — sending, deleting, purchasing, publishing — before carrying them out.

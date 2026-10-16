@@ -36,7 +36,7 @@ modules:
     product: docs/pairing/
     repo: https://github.com/dshapp/dsh-mobile-bridge
   - key: cu
-    name: 计算机使用
+    name: 电脑操作
     icon: cu
     product: products/cu/
     repo: https://github.com/dshapp/dsh-kimi-computer-use

@@ -4,7 +4,7 @@ size: Size
 requirements: Requirements
 checksum: SHA-256
 soon: Coming soon
-soonBody: The first build is on its way. The download button appears here automatically once it is published.
+soonBody: The first release is on its way. The download button will appear here once it’s published.
 allReleases: All releases
 installTitle: Install
 platforms:
@@ -12,12 +12,13 @@ platforms:
     icon: apple
     name: macOS App
     button: Download .dmg
-    requirements: macOS 14 or later · Apple Silicon (M1 and newer)
+    requirements: macOS 15 or later · Apple Silicon (M1 and newer); Intel Macs aren’t supported yet
     docs: docs/install-macos/
     steps:
       - Open the downloaded .dmg and drag the app into Applications.
-      - Builds are ad-hoc signed and not yet notarized by Apple. The first time, Control-click the app in Finder and choose Open, or click “Open Anyway” in System Settings → Privacy & Security.
-      - For later versions just download and replace the app; sessions and settings are kept.
+      - The first time, macOS may say it can’t verify the developer — this release isn’t notarized by Apple yet. Control-click the app in Finder and choose Open; you only need to do this once.
+      - On launch it attaches to the dsh already running on your Mac; if dsh isn’t installed, it installs Node.js and @deepseek-ai/dsh after asking you.
+      - The app lets you know when an update is available; sessions and settings are kept.
   - key: android
     icon: android
     name: Android App
@@ -27,13 +28,14 @@ platforms:
     steps:
       - Open this page in your phone’s browser and download the .apk (or copy it over from your computer).
       - When prompted, allow your browser or file manager to install unknown apps.
-      - Devices with a locally built debug version have a different signature — uninstall it first.
+      - Your computer needs the dsh-mobile-bridge plugin: click Mobile access in the Mac app sidebar, or open /mobileaccess in dsh web, and scan the QR code with your phone.
   - key: chrome
     icon: chrome
     name: Chrome extension
     button: Open Chrome Web Store
-    requirements: Chrome 120 or later
+    requirements: Chrome 120 or later · browser control needs the dsh-chrome-control plugin
     docs: docs/install-chrome/
     steps:
+      - Install the dsh-chrome-control plugin: one click in Settings → Browser in the Mac app, or run dsh plugin --profile web add dsh-chrome-control.
       - Click “Add to Chrome” in the Chrome Web Store.
-      - Pin the extension and open the side panel to connect to your local DSH.
+      - Once Settings shows “Connected” you’re ready; pin the extension to chat from Chrome’s side panel too.

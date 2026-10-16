@@ -18,8 +18,9 @@
       </figure>
       <div class="feature__more feature__more--tight">
         <p class="micro text-quaternary">{{ $c.toolsNote }}</p>
+        {{- with $c.install }}{{ partial "code.html" . }}{{ end }}
         <a class="btn btn--secondary btn--sm" href="{{ "docs/computer-use/" | relLangURL }}">
-          {{ i18n "docs.title" }}{{ partial "icon.html" "arrow-right" }}
+          {{ i18n "cta.setup" }}{{ partial "icon.html" "arrow-right" }}
         </a>
       </div>
     </div>

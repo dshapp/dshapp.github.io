@@ -14,7 +14,7 @@ Each tool call leaves an expandable trajectory: **the command, the diff and the 
 
 ## 2. The protocol code is readable
 
-Encryption and the relay are in the repositories: readable, self-hostable, buildable. The only public component of mobile access is `dsh-proxy`: a single-port Rust implementation with **no TLS, no certificate, no config file and no disk state**.
+Encryption and the relay are in the repositories: readable, self-hostable, buildable. The only public component of mobile access is `dsh-proxy`: a single-port Rust implementation that **holds no key able to decrypt your traffic and keeps no disk state**.
 
 ## 3. The security review is published
 

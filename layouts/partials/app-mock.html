@@ -1,10 +1,10 @@
 {{- /* app-mock.html —— 首页 macOS 版块里可交互的 App 界面复刻。
      几何与配色全部取自 assets/img/shots/macos-app.jpg 的实测像素（1229×768 逻辑画布，
      与该截图 1:1）；所有数值即截图坐标，便于逐像素比对。
-     数据：data/appmock/sessions.yaml（用户数据，中英一致）+ data/appmock/<lang>.yaml（界面文案）。
+     数据：data/appmock/sessions/<lang>.yaml（演示会话，按语言区分）+ data/appmock/<lang>.yaml（界面文案）。
      交互见 assets/js/app-mock.js；无 JS 时是一个完整的静态展示态。 */ -}}
 {{- $c := (index hugo.Data.appmock site.Language.Lang).chrome -}}
-{{- $sessions := hugo.Data.appmock.sessions.sessions -}}
+{{- $sessions := (index hugo.Data.appmock.sessions site.Language.Lang).sessions -}}
 {{- $pinned := where $sessions "pinned" true -}}
 {{- $rest := where $sessions "pinned" "!=" true -}}
 {{- $sel := index (where $sessions "selected" true) 0 | default (index $sessions 0) -}}
@@ -57,13 +57,13 @@
     {{- /* ---------- 工具栏（右侧） ---------- */}}
     <header class="appmock__toolbar">
       <span class="appmock__crumb">
-        <span class="appmock__crumb-repo">dsh-macapp</span>
+        <span class="appmock__crumb-repo">{{ $c.workspace }}</span>
         <span class="appmock__crumb-sep">/</span>
         <span class="appmock__crumb-title" data-appmock-title>{{ $sel.title }}</span>
       </span>
       <span class="appmock__tactions">
         <span class="appmock__tbtn">{{ partial "icon.html" "terminal" }}</span>
-        <span class="appmock__tbranch">{{ partial "icon.html" "git-branch" }}<b>main</b></span>
+        <span class="appmock__tbranch">{{ partial "icon.html" "git-branch" }}<b>{{ $c.branch }}</b></span>
         <span class="appmock__tbtn">{{ partial "icon.html" "arrow-up-right" }}</span>
       </span>
     </header>
@@ -106,7 +106,7 @@
         </div>
         <div class="appmock__card">
           <span class="appmock__card-lead">{{ partial "icon.html" "list" }}</span>
-          <span class="appmock__card-text appmock__card-text--full">还要突出开源、安全和审核这个特性，把所有的 GitHub 仓库仓库链接贴上去</span>
+          <span class="appmock__card-text appmock__card-text--full">{{ $c.queuedMessage }}</span>
           <span class="appmock__grow"></span>
           <span class="appmock__card-icon">{{ partial "icon.html" "trash-2" }}</span>
           <button class="appmock__card-icon appmock__card-icon--send" type="button"

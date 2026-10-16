@@ -1,102 +1,91 @@
 ---
-title: "Native Android app"
-linkTitle: "Android App"
-tagline: "Kotlin + Compose, pairing straight back to your Mac"
-description: "The native Android client for DSH: Kotlin and Jetpack Compose, Material 3, sharing sessions with every other client, and pairing back to your Mac end-to-end encrypted."
+title: "Remote access"
+linkTitle: "Remote access"
+tagline: "The mobile-bridge plugin + Android app: take over DSH from your phone when you step away"
+description: "The dsh-mobile-bridge plugin hands the DSH on your computer to paired phones over an end-to-end encrypted channel, and the Android app is DSH in your pocket: follow progress, handle approvals and questions, add instructions, get notified. No open ports."
 icon: "android"
-badge: "Material 3"
-weight: 20
-repo: "https://github.com/dshapp/dsh-androidapp"
+badge: "Plugin + client"
+weight: 40
+repo: "https://github.com/dshapp/dsh-mobile-bridge"
 aliases:
   - /products/remote/
 shot: "/img/shots/android-app.png"
-shotAlt: "The DSH Android app"
+shotPortrait: true
+shotAlt: "The DSH Android app session list"
 shot2: "/img/shots/remote-pairing.jpg"
-shot2Alt: "The phone-access pairing QR code in the DSH macOS app"
+shot2Alt: "The Mobile Access page next to a question card on the phone"
 features:
-  - title: "Genuinely native"
-    body: "Kotlin and Jetpack Compose with no WebView; lists, drawers, and sheets are Material 3 components."
-  - title: "Aligned with the desktop"
-    body: "Session list, conversation, composer, images and attachments, and every settings panel match the desktop client."
-  - title: "Join by QR code"
-    body: "Scan the pairing code shown on your Mac to join. After that its key proves who it is — no verification codes."
+  - title: "Tasks don't stall on approvals"
+    body: "When the agent needs an approval or an answer, handle it on your phone; progress, completion and failures are pushed as notifications."
+  - title: "No ports, no tunnels"
+    body: "Your computer dials out to a public relay and your phone reaches it through that — no public IP, router setup or VPN."
   - title: "End-to-end encrypted"
-    body: "One Noise_IK handshake between phone and Mac provides encryption and mutual authentication; the relay cannot read a byte."
+    body: "One Noise handshake handles encryption and mutual authentication; the relay forwards ciphertext it can't read and stores nothing."
+  - title: "Take it back any time"
+    body: "Revoking a device drops its live connections instantly, or cut off all phone access in one click without unpairing."
 related:
   - path: "/products/macos/"
-    title: "Native macOS app"
-    body: "The side that issues the pairing code and runs the session."
-  - path: "/products/chrome/"
-    title: "Chrome extension and control"
-    body: "Lets the agent work directly in the Chrome you already use."
+    title: "macOS app"
+    body: "Mobile access in the sidebar is where pairing starts."
+  - path: "/opensource/"
+    title: "Open source & security"
+    body: "How remote access is encrypted, and the security review results."
 ---
 
-## The same capabilities as the desktop
+## The problem it solves
 
-The goal for Android is not “it works” but **it works just as well**:
+- **Step away and the task stalls.** A long task needs one approval or one answer while you're in a meeting or on the road.
+- **No idea whether it finished.** Done, failed or stuck — you only find out back at your desk.
+- **Remote access is fiddly and worrying.** Reaching DSH on your home or office machine means opening ports, tunneling or a VPN.
 
-- Sessions, workspaces, and settings are the same data as on the desktop.
-- Tool calls, trajectories, Markdown, and code highlighting render natively.
-- Images, attachments, and sharing go through platform capabilities.
+## What it's made of
 
-## Platform-appropriate interaction
+| Component | Job | Get it |
+| --- | --- | --- |
+| dsh-mobile-bridge plugin | Installed into dsh; serves DSH to paired phones over an encrypted tunnel, with no open port, no state file and no extra process | `dsh plugin --profile web add dsh-mobile-bridge` |
+| dsh-proxy relay | The only public component; forwards ciphertext by routing key. The relay address is in the pairing QR code, and you can run your own | [GitHub](https://github.com/dshapp/dsh-proxy) |
+| Android app | The DSH client on your phone | [Download](/en/download/#android) |
 
-The interface is reimplemented to Android conventions rather than copying iOS:
+The plugin runs inside the dsh service, so **any computer running dsh web can use it** — not just the Mac app.
 
-| iOS | Android |
-| --- | --- |
-| NavigationStack | Navigation Compose |
-| List / Section | LazyColumn + ListItem |
-| swipeActions | SwipeToDismissBox |
-| contextMenu | long-press DropdownMenu |
-| sheet | ModalBottomSheet |
-| SF Symbols | Material Icons |
-| DataScanner | CameraX + ML Kit |
+## What you can do from your phone
 
-## The pairing flow
+Your phone talks to **the same DSH on your computer** — the same sessions and files, not a cloud copy:
 
-The phone does not “log in” — it establishes its own encrypted channel to this Mac:
+- Follow sessions, tool calls and each turn's changed files and diffs live.
+- **Handle approvals and questions**, one question at a time, with custom answers.
+- Start sessions, send messages and attachments, interject, edit queued messages, stop background tasks.
+- Get progress notifications; the app stays connected in the background while tasks run, even with the screen locked.
+- Pair several computers and switch between them; search within a session, preview files and images, archive sessions.
 
-- The Mac issues a single-use pairing token (valid five minutes, only one outstanding).
-- The QR code carries the relay address, the Mac's public key and name, and the token.
-- The phone scans it, generates a key pair, connects over Noise_IK, and sends the token in its first message.
-- The Mac verifies the token in constant time, consumes it, and adds the device's public key to the allowlist.
-- The token is discarded; an unpaired device fails during the handshake itself.
+## Connect in three steps
 
-## Three problems, one handshake
+1. Install the plugin on your computer: the Mac app has it built in; from the command line run `dsh plugin --profile web add dsh-mobile-bridge`.
+2. Open the pairing page: click **Mobile access** in the Mac app sidebar, or open `/mobileaccess` in dsh web.
+3. Scan the QR code with the Android app. Done.
 
-Conventional designs separate encryption (TLS), authentication (a token), and replay protection (timestamps plus a dedup table). DSH folds them into one Noise_IK handshake:
-
-| Property | Provided by |
-| --- | --- |
-| Encrypted channel | Noise transport (ChaChaPoly) |
-| The phone is authenticated | the device's static public key in the handshake — that key *is* the device id |
-| The Mac is authenticated | the phone already knows the Mac's public key and verifies it |
-| Forward secrecy | the ephemeral key of each handshake |
-| Replay protection | the monotonic transport nonce |
-
-The result: **no certificate, no CA, no domain dependency, no bearer token, and no time-window check.**
-
-## The relay cannot read a byte
-
-The only public component is a minimal relay:
-
-1. Read the 37-byte cleartext header at the start of each connection (magic + version + routing key).
-2. Look up the Mac's long-lived connection by that key.
-3. From then on, **copy bytes only** — never parse.
-
-It does not decrypt, does not touch disk, and does not log. The routing key is an identifier, not a secret; it is already in the pairing QR code.
+Pairing codes last 5 minutes and work once, and a new code voids the old one; a paired phone doesn't need to re-pair for 180 days.
 
 ## Device management
 
-- Each device carries an expiry, 180 days by default.
-- Presence is *observed*, not guessed: the bridge counts the streams a phone actually holds rather than trusting a “last seen” timestamp.
-- Revoking a device also hangs up the connections it already has.
+- The device list shows whether each phone is online **right now** — observed from actual connections, not guessed.
+- Rename phones to tell them apart.
+- **Revoke** a phone and its live connections drop immediately.
+- **Disconnect / resume** the relay link in one click to pause all phone access without unpairing.
 
-## What a phone may reach
+## Security
 
-A connected phone reaches **only what it needs**: the RPC channel is open, plugin routes are default-deny, and only an explicit handful of routes are allowlisted. The pairing and revocation endpoints answer a phone with 403 — they belong to the Mac side only.
+- **End-to-end encryption**: one Noise_IK handshake handles encryption and mutual authentication; the relay reads only the routing header, then forwards ciphertext without storing or logging it.
+- **Least privilege**: phones reach only allowlisted endpoints; pairing and revoking can only be done on the computer.
+- **Weak-network friendly**: all requests share one long-lived, compressed connection, and retries after a reconnect are never executed twice.
 
-## Secure storage
+Technical details: [Encryption & security model](/en/docs/crypto/); the review: [Open source & security](/en/opensource/).
 
-The device private key and server profiles live in encrypted storage. As on the desktop, pairing means no passwords afterwards.
+## Requirements
+
+| Item | Requirement |
+| --- | --- |
+| Phone | Android 8.0 or later, with a camera |
+| Computer | dsh web with the dsh-mobile-bridge plugin (macOS or Linux) |
+
+[Download for Android](/en/download/#android) · [Pairing & devices](/en/docs/pairing/)

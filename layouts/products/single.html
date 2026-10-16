@@ -22,7 +22,7 @@
   </header>
 
   {{- with .Params.shot }}
-  <section class="detail-shot">
+  <section class="detail-shot{{ if $.Params.shotPortrait }} detail-shot--portrait{{ end }}">
     <div class="container-wide">
       <figure class="shot-frame shot-frame--radius-16 grain reveal">
         {{ partial "shot-img.html" (dict "src" . "alt" $.Params.shotAlt "loading" "eager" "priority" "high") }}

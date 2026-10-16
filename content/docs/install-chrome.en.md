@@ -1,44 +1,45 @@
 ---
 title: "Install the Chrome extension"
 linkTitle: "Install the Chrome extension"
-description: "Install the DSH Chrome extension to chat in the side panel and let the agent reuse your logged-in browser."
+description: "Let DSH work in your signed-in Chrome: install the components from the Mac app's Settings in one click, then add the extension from the Chrome Web Store."
 group: "start"
 weight: 4
 ---
 
-The Chrome extension lets the agent work in **the Chrome you actually use** — the same profile, the same logins, the same open tabs.
+Browser control lets DSH's agent use **the Chrome you already use** — the same logins and the same open tabs. It has two parts: the `dsh-chrome-control` plugin and the Chrome extension; the extension alone also works as a DSH client in the side panel.
 
 ## Requirements
 
 | Item | Requirement |
 | --- | --- |
-| Browser | Chrome 120+ |
-| Extension platform | Manifest V3 |
-| Server | DSH running locally with the [dsh-chrome-control](https://github.com/dshapp/dsh-chrome-control) plugin installed |
+| Browser | Chrome 120 or later |
+| Mac | The [DSH macOS app](/en/docs/install-macos/) installed and running |
 
-## Install the dsh-chrome-control plugin first
+## Install (recommended)
 
-The extension is only the browser half and **does not work on its own**. It connects to the [dsh-chrome-control](https://github.com/dshapp/dsh-chrome-control) plugin inside DSH, which mounts `/chrome/mcp` and `/chrome/ws` on `dsh web` and publishes the extension's abilities to the agent as `mcp__chrome__*` tools. You need both.
+1. In the Mac app, open **Settings → Browser**. It checks what browser control needs and installs anything missing in one click.
+2. Open the [extension on the Chrome Web Store](https://chromewebstore.google.com/detail/deepseek-harness-app/kgjjicancjnedmappjhefngdjaommpop) (listed as "DeepSeek Harness APP") and click Add to Chrome.
+3. Back in Settings → Browser, "Connected" means you're ready. If not, Settings shows the specific reason.
+4. Pin the extension to the toolbar; open the side panel to chat with it right inside Chrome.
+
+The extension connects to the local DSH service (`http://127.0.0.1:3080`) by default — usually nothing to change.
+
+## Not using the Mac app? Install from the command line
+
+If you run DSH directly in a terminal instead of through the Mac app, install the browser control plugin [dsh-chrome-control](https://github.com/dshapp/dsh-chrome-control) yourself:
 
 ```bash
 dsh plugin --profile web add dsh-chrome-control
 dsh web          # listens on http://127.0.0.1:3080 by default
 ```
 
-Without the plugin the extension has nothing to connect to, and every browser tool call reports that no Chrome extension is attached.
-
-## Install
-
-1. Open [DeepSeek Harness APP on the Chrome Web Store](https://chromewebstore.google.com/detail/deepseek-harness-app/kgjjicancjnedmappjhefngdjaommpop) and click **Add to Chrome**.
-2. Open the popup from the toolbar and enter your local DSH service address (the `dsh web` URL, `http://127.0.0.1:3080` by default); the extension connects to its `/chrome/ws` endpoint.
-3. The popup shows the WebSocket status; once connected you are ready.
-4. Open the side panel and start chatting.
+Then install the extension as in step 2 and confirm the service address in its popup, which shows the connection state. Without the plugin the extension can't connect, and browser actions report "no connected Chrome extension."
 
 ## Why not a clean browser
 
-A fresh incognito browser means **no logins** — you would have to sign in to every site again. Reusing your logged-in Chrome lets the agent continue from your real context, and no cookie ever has to be uploaded.
+A fresh browser means **no logins** — you'd have to sign in to every site again. Reusing your signed-in Chrome lets it pick up right where you are, and your cookies stay in your browser, never uploaded.
 
 ## Next
 
-- [Picking elements](/en/docs/element-picker/) — point at things instead of describing them.
-- [Browser tools](/en/docs/browser-tools/) — what the extension actually exposes.
+- [Picking elements](/en/docs/element-picker/) — point at things on the page.
+- [Browser tools](/en/docs/browser-tools/) — what it can do in the browser.

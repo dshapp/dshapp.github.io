@@ -1,0 +1,22 @@
+{{- /* sections/faq.html —— dict: h。首页常见问题：费用、模型、数据去向、系统要求、首次打开 */ -}}
+{{- $h := .h -}}
+<section class="section section-bordered" id="faq">
+  <div class="container">
+    <div class="section-head section-head--center stack stack-12 reveal" style="margin-bottom:32px">
+      <h2 class="display-3">{{ $h.faqTitle }}</h2>
+    </div>
+    <div class="faq reveal">
+      {{- range $h.faq }}
+      <details class="faq__item">
+        <summary class="faq__q">{{ .q }}{{ partial "icon.html" "chevron-down" }}</summary>
+        <p class="faq__a">{{ .a }}</p>
+      </details>
+      {{- end }}
+    </div>
+    <div class="btn-row btn-row--center section-foot reveal">
+      <a class="btn btn--secondary btn--sm" href="{{ $h.faqHref | relLangURL }}">
+        <span>{{ $h.faqMore }}</span>{{ partial "icon.html" "arrow-right" }}
+      </a>
+    </div>
+  </div>
+</section>

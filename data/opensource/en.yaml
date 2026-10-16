@@ -1,14 +1,14 @@
-title: "Open source, secure, auditable"
-subtitle: "Every layer is public, every remote connection has to complete a cryptographic handshake, and every security finding is published and fixed."
-intro: "DSH does not treat open source as a slogan. macOS, Android, the Chrome extension, the relay and computer use each live in their own repository — readable, self-hostable, buildable. The only public component of mobile access is the relay, and it holds none of your data. The review below documents eight findings, every verified reproduction, and the measured result after each fix."
+title: "Open source & security"
+subtitle: "Open-source plugins and relay, end-to-end encrypted remote access, and a published security review."
+intro: "These extensions put DSH in your browser, on your desktop and on your phone, so they deserve a close look at how they work. The browser control, remote connection, relay and computer-use plugins are open source — read them, build them, deploy them yourself; source for the macOS and Android clients and the Chrome extension will follow. The only public component of mobile access is the relay, and it holds none of your data. We also ran an adversarial security review of remote access; the conclusions and fix details are below."
 
 pillars:
   - icon: "github"
-    title: "Open source"
+    title: "Open at the core"
     body: "One repository per component — read it, self-host it, build it yourself, with the build scripts included."
     points:
-      - "Five repositories published under the MIT license"
-      - "The relay dsh-proxy is a single-port Rust implementation: no TLS, no certificate, no config file, no disk state"
+      - "Five core repositories published under the MIT license; client source to follow"
+      - "The relay dsh-proxy is a single-port Rust implementation that holds no key able to decrypt your traffic and keeps no disk state"
       - "Point clients at your own relay instead of our hosting"
   - icon: "lock"
     title: "Secure"
@@ -20,15 +20,20 @@ pillars:
       - "Chrome control reuses your signed-in browser and never uploads cookies"
   - icon: "shield"
     title: "Auditable"
-    body: "We ran a full adversarial security review of our own remote access path. All eight findings are fixed and published."
+    body: "We ran a full adversarial security review of our own remote access path. All eight findings are fixed or narrowed, and published."
     points:
       - "The review carries reproducible attack scripts and live measurements, not a paper checklist"
       - "Every finding records how it was fixed and the post-fix measurement"
-      - "Every tool call is logged — command, diff and output stay reviewable"
-      - "Permission tiers (plan / read-only / workspace write / full access), switchable at any time"
+      - "Browser control accepts connections only from the extension itself; cookies never leave the browser"
+      - "Phones reach only allowlisted endpoints; pairing and revoking happen on the computer only"
 
-auditTitle: "Security review: eight findings, all fixed"
-auditSub: "An adversarial review of dsh-mobile-bridge + dsh-proxy. The threat model is an internet attacker reaching this machine's /api through the public relay."
+auditTitle: "Security review: eight findings, all fixed or narrowed"
+auditSub: "We played an internet attacker trying to break into your Mac through the public relay, in an adversarial review of the remote-connection components (dsh-mobile-bridge and dsh-proxy)."
+auditSummary:
+  - "<strong>No way around pairing</strong>: without a valid device key or a live pairing code your Mac is unreachable; no pre-auth remote code execution or fake-device path was found."
+  - "<strong>All eight findings addressed</strong>: seven fixed, one narrowed — each with how it was fixed and post-fix measurements."
+  - "<strong>Residual risks published</strong>: such as needing to upgrade relay and clients together, and paired devices remaining full clients — with the remedy for each."
+auditToggle: "Show all eight findings and fixes"
 auditNote: "Summary of the review's conclusions. The review also recorded what it could not break: the Mac was unreachable without a valid device key or a live pairing token, and no pre-auth RCE or fabricated-device path was found."
 
 audit:
@@ -92,7 +97,7 @@ residualTitle: "Known residual risk (published as-is)"
 residual:
   - "A stale bridge keeps V6 open: the relay's permit stops it over-issuing slots, but releasing them depends on the bridge's timeout, so relay and clients must be upgraded together."
   - "The RPC channel is still the whole RPC surface: the allowlist removes plugin routes a phone has no business calling, but a paired device is still a full harness client by design — V3 is narrowed, not eliminated. Revoking a lost phone is the intended remedy, and it now takes effect immediately."
-  - "Per-IP bridge caps dislike shared egress: behind an L4 load balancer or a large NAT every bridge presents the same address, so --max-bridges-per-ip must then be raised deliberately."
+  - "Per-IP bridge caps don't suit shared egress: behind an L4 load balancer or a large NAT every bridge presents the same address, so --max-bridges-per-ip must then be raised deliberately."
 
 reposTitle: "GitHub repositories"
 reposSub: "Every source location, by component."
@@ -107,7 +112,7 @@ repos:
     public: true
   - name: "dsh-chrome-control"
     url: "https://github.com/dshapp/dsh-chrome-control"
-    desc: "Hands the agent your real Chrome as mcp__chrome__ tools. Pure TypeScript, no separate daemon; used together with the Deepseek Harness APP Chrome extension"
+    desc: "Hands the agent your real Chrome as mcp__chrome__ tools. Pure TypeScript, no separate daemon; used together with the DSH Chrome extension"
     lang: "TypeScript"
     tag: "MIT"
     public: true
@@ -119,13 +124,19 @@ repos:
     public: true
   - name: "dsh-proxy"
     url: "https://github.com/dshapp/dsh-proxy"
-    desc: "The only public component of mobile access: one TCP port, no TLS, no certificate, no config, no disk state"
+    desc: "The only public component of mobile access: one port, forwards ciphertext by routing key, no disk state"
     lang: "Rust"
     tag: "MIT"
     public: true
   - name: "dsh-kimi-computer-use"
     url: "https://github.com/dshapp/dsh-kimi-computer-use"
     desc: "Wires Kimi Computer Use's stdio MCP server into DSH through a computer-use bundle"
+    lang: "TypeScript"
+    tag: "MIT"
+    public: true
+  - name: "dsh-claude-subscription"
+    url: "https://github.com/dshapp/dsh-claude-subscription"
+    desc: "Run Claude models in DSH on your Claude Code subscription, no separate API key"
     lang: "TypeScript"
     tag: "MIT"
     public: true
@@ -149,4 +160,4 @@ repos:
     public: false
 
 ctaTitle: "The source is all here — go read it"
-ctaBody: "The full review, the reproducible attack scripts and the measurements live in the repositories."
+ctaBody: "The full review, the reproducible attack scripts and the measurements live in the repositories. Found something? Open an issue."

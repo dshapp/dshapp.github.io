@@ -1,0 +1,37 @@
+{{- /* sections/setup.html —— dict: h。两种接入方式：Mac App 三步 / 命令行装插件 */ -}}
+{{- $h := .h -}}
+<section class="section section-bordered" id="setup">
+  <div class="container-wide">
+    <div class="section-head section-head--center stack stack-12 reveal" style="margin-bottom:40px">
+      <h2 class="display-3">{{ $h.setupTitle }}</h2>
+      <p class="body-regular text-tertiary">{{ $h.setupSub }}</p>
+    </div>
+    <div class="setup">
+      <div class="setup__col reveal">
+        <h3 class="heading-3 setup__title">{{ partial "icon.html" "apple" }}{{ $h.setupAppTitle }}</h3>
+        <ol class="setup__steps">
+          {{- range $i, $s := $h.steps }}
+          <li class="step">
+            <span class="step__num" aria-hidden="true">{{ add $i 1 }}</span>
+            <div class="stack stack-4">
+              <h4 class="card__title">{{ $s.title }}</h4>
+              <p class="card__body">{{ $s.body }}</p>
+            </div>
+          </li>
+          {{- end }}
+        </ol>
+        <a class="btn btn--primary btn--sm" href="{{ partial "dl/url.html" "mac" }}">
+          {{ partial "icon.html" "apple" }}<span>{{ $h.ctaPrimary }}</span>
+        </a>
+      </div>
+      <div class="setup__col reveal">
+        <h3 class="heading-3 setup__title">{{ partial "icon.html" "terminal" }}{{ $h.setupCliTitle }}</h3>
+        <p class="card__body">{{ $h.setupCliBody }}</p>
+        {{ partial "code.html" $h.setupCli }}
+        <a class="btn btn--secondary btn--sm" href="{{ $h.stepsHref | relLangURL }}">
+          <span>{{ $h.stepsLink }}</span>{{ partial "icon.html" "arrow-right" }}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

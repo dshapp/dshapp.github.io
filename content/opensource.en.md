@@ -1,6 +1,6 @@
 ---
-title: "Open source, secure, auditable"
-tagline: "Every layer is public, every remote connection has to complete a cryptographic handshake, and every security finding is published and fixed."
+title: "Open source & security"
+tagline: "Open-source plugins and relay, end-to-end encrypted remote access, and a published security review."
 icon: "shield"
 layout: "opensource"
 ---

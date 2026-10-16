@@ -8,16 +8,20 @@ weight: 61
 
 ## The macOS app will not open
 
-**Blocked by Gatekeeper**: go to System Settings → Privacy & Security and choose Open Anyway next to the block notice.
+**"Can't verify the developer"**: this release isn't notarized by Apple yet. Control-click the app in Finder and choose Open, or choose Open Anyway in System Settings → Privacy & Security.
 
-**Check the architecture**: the client is a native Apple Silicon (arm64) build and needs macOS 14+.
+**Check your system and chip**: macOS 15 or later on Apple Silicon (M1 or later) is required; Intel Macs aren't supported yet.
+
+## First launch is stuck preparing the runtime
+
+The app needs network access to install Node.js and the DSH service. Make sure nodejs.org and npm are reachable, and finish Apple's installer (it asks for your login password) when it appears.
 
 ## The Chrome extension says it is not connected
 
-1. Confirm the macOS client is running (the service lives with the app).
-2. Confirm DSH has the [dsh-chrome-control](https://github.com/dshapp/dsh-chrome-control) plugin installed (`dsh plugin --profile web add dsh-chrome-control`, then restart `dsh web`). Without it the server has no `/chrome/ws` for the extension to connect to.
-3. Check the service address entered in the extension popup.
-4. The popup shows the WebSocket state — read the actual error there.
+1. Confirm the macOS app is running (the service lives with the app).
+2. Open **Settings → Browser**: it checks whether the needed components are installed, shows the specific failure reason, and installs anything missing in one click.
+3. Check the service address in the extension popup; the default is `http://127.0.0.1:3080`.
+4. If you run DSH directly in a terminal, make sure the [dsh-chrome-control](https://github.com/dshapp/dsh-chrome-control) plugin is installed (`dsh plugin --profile web add dsh-chrome-control`, then restart `dsh web`).
 
 ## The phone will not connect after scanning
 
@@ -29,7 +33,9 @@ weight: 61
 
 ## Computer use cannot hit a control
 
-In System Settings → Privacy & Security, confirm **both** Accessibility and Screen Recording are granted. Without either one you either cannot read the control tree or cannot take screenshots.
+1. Make sure **KimiCU.app** is installed from Kimi's official channel and running; the agent also reminds you of this when the tools are unavailable.
+2. Open **Settings → Computer use** and confirm **KimiCU.app** (not DSH) has both Accessibility and Screen Recording. Without either one it can't read the interface or can't take screenshots.
+3. If you just installed the plugin, restart the dsh service for it to take effect.
 
 ## Permission denied
 
@@ -38,4 +44,4 @@ In System Settings → Privacy & Security, confirm **both** Accessibility and Sc
 ## Still stuck
 
 - [FAQ](/en/docs/faq/)
-- [Open source and audit](/en/opensource/) — check the repositories before filing an issue.
+- [Open source & security](/en/opensource/) — check the repositories before filing an issue.

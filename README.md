@@ -72,8 +72,8 @@ pages.yml
 ```
 hugo.toml                  双语配置、站点参数、输出格式
 i18n/{zh,en}.toml          界面文案（导航、按钮、页脚、404）
-data/home/{zh,en}.yaml     首页文案（hero、平台、产品、三个深挖、对照表、CTA）
-data/appmock/sessions.yaml   macOS 版块 App 复刻的会话与轨迹（用户数据，中英共用）
+data/home/{zh,en}.yaml     首页文案（hero、场景、四种能力、三个深挖、三步上手、可控与安全、常见问题、CTA）
+data/appmock/sessions/{zh,en}.yaml   首屏 App 复刻的演示会话与轨迹（按语言区分，只放用户能看懂的真实任务）
 data/appmock/{zh,en}.yaml    App 复刻的界面文案（随语言切换）
 data/opensource/{zh,en}.yaml  开源/安全/可审核详情页：三支柱、8 条安全评审、仓库清单
 content/_index*.md         首页 front matter
@@ -155,7 +155,7 @@ layouts/index.html         首页编排（只调用 sections/* 分片）
 | `layouts/partials/app-mock.html` | 界面结构（侧栏 / 工具栏 / 轨迹 / 输入区） |
 | `assets/css/app-mock.css` | 全部样式，收在 `.appmock` 作用域内 |
 | `assets/js/app-mock.js` | 交互：切会话、收起侧栏、追加消息 |
-| `data/appmock/sessions.yaml` | 会话与轨迹（**用户数据，中英共用**） |
+| `data/appmock/sessions/{zh,en}.yaml` | 演示会话与轨迹（**按语言区分**；不要放内部项目或英文推理过程） |
 | `data/appmock/{zh,en}.yaml` | 应用自身的界面文案（随语言切换） |
 
 只有应用 UI 文案随语言切换；会话标题与轨迹是用户数据，中英一致（真实 App 里用户的会话名不会因为界面语言改变）。

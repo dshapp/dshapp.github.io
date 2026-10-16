@@ -1,5 +1,5 @@
 [site.tagline]
-other = "原生客户端、浏览器控制与计算机使用"
+other = "DSH 扩展套件"
 
 [a11y.skip]
 other = "跳到主要内容"
@@ -20,16 +20,16 @@ other = "在 GitHub 上查看这个组件的源码"
 other = "macOS App"
 
 [nav.android]
-other = "Android App"
+other = "手机远程"
 
 [nav.chrome]
 other = "Chrome 扩展"
 
 [nav.opensource]
-other = "开源"
+other = "开源与安全"
 
 [nav.cu]
-other = "CU 能力"
+other = "电脑操作"
 
 [nav.docs]
 other = "文档"
@@ -39,6 +39,21 @@ other = "下载"
 
 [cta.learnMore]
 other = "了解详情"
+
+[cta.setup]
+other = "安装说明"
+
+[code.copy]
+other = "复制"
+
+[code.copied]
+other = "已复制"
+
+[quote.open]
+other = "「"
+
+[quote.close]
+other = "」"
 
 [cta.allProducts]
 other = "全部产品"
@@ -68,7 +83,7 @@ other = "这个地址没有对应内容，也许它被移动或重命名了。"
 other = "回到首页"
 
 [footer.blurb]
-other = "原生 macOS 与 Android 客户端、Chrome 控制与计算机使用能力，一个 DSH 全部打通。"
+other = "为 DSH 打造的扩展套件：原生客户端、浏览器控制、电脑操作与手机远程，直接接入你已有的 dsh。"
 
 [footer.products]
 other = "产品"
@@ -101,7 +116,7 @@ other = "端到端加密"
 other = "权限与开关"
 
 [footer.cuPermissions]
-other = "CU 权限"
+other = "电脑操作权限"
 
 [footer.downloadMac]
 other = "下载 macOS App"
@@ -141,7 +156,7 @@ other = "浏览器"
 other = "手机与远程"
 
 [docs.group.cu]
-other = "计算机使用"
+other = "电脑操作"
 
 [docs.group.security]
 other = "安全与权限"

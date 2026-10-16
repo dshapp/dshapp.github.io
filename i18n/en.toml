@@ -1,5 +1,5 @@
 [site.tagline]
-other = "native clients, browser control, and computer use"
+other = "extensions for DSH"
 
 [a11y.skip]
 other = "Skip to main content"
@@ -20,13 +20,13 @@ other = "View this component's source on GitHub"
 other = "macOS App"
 
 [nav.android]
-other = "Android App"
+other = "Remote Access"
 
 [nav.chrome]
 other = "Chrome Extension"
 
 [nav.opensource]
-other = "Open Source"
+other = "Open Source & Security"
 
 [nav.cu]
 other = "Computer Use"
@@ -39,6 +39,21 @@ other = "Download"
 
 [cta.learnMore]
 other = "Learn more"
+
+[cta.setup]
+other = "Setup guide"
+
+[code.copy]
+other = "Copy"
+
+[code.copied]
+other = "Copied"
+
+[quote.open]
+other = "“"
+
+[quote.close]
+other = "”"
 
 [cta.allProducts]
 other = "All products"
@@ -68,7 +83,7 @@ other = "Nothing lives at this address — it may have moved or been renamed."
 other = "Back to home"
 
 [footer.blurb]
-other = "Native macOS and Android clients, browser control, and computer use — all in one DSH."
+other = "An extension suite built for DSH: native clients, browser control, computer use and remote access, plugging into the dsh you already run."
 
 [footer.products]
 other = "Products"
