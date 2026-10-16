@@ -12,7 +12,7 @@
 }
 .hero__inner { display: flex; flex-direction: column; align-items: center; gap: 24px; }
 .hero__title { max-width: 820px; text-wrap: balance; }
-.hero__sub { max-width: 640px; color: var(--color-text-tertiary); }
+.hero__sub { max-width: 640px; color: var(--color-text-tertiary); text-wrap: balance; }
 .hero__actions { margin-top: 8px; }
 .hero__meta {
   display: flex;
@@ -68,26 +68,124 @@
   z-index: -1;
 }
 
-/* ---------------------------------------------------------------- 平台 / 环境条 */
-.platforms { padding-block: 32px; }
-.platforms__row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px 28px;
-  flex-wrap: wrap;
-}
-.platform-item {
+/* ---------------------------------------------------------------- 痛点卡（以前 → 现在） */
+.grid-pains { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.pain { gap: 12px; }
+.pain__tag {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   font-size: 13px;
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-quaternary);
-  transition: color var(--speed-quickTransition) var(--ease-out-quad);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
 }
-.platform-item:hover { color: var(--color-text-secondary); }
-.platform-item svg { width: 15px; height: 15px; }
+.pain__tag svg { width: 15px; height: 15px; color: var(--color-text-tertiary); }
+.pain__before, .pain__after { font-size: 14px; line-height: 1.65; }
+.pain__before { color: var(--color-text-quaternary); }
+.pain__after { color: var(--color-text-secondary); }
+.pain__label {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 0 6px;
+  border-radius: var(--radius-4);
+  font-size: 11px;
+  font-weight: var(--font-weight-medium);
+  line-height: 18px;
+  vertical-align: 1px;
+  color: var(--color-text-tertiary);
+  border: 1px solid var(--color-border-translucent);
+}
+.pain__label--now { color: var(--color-text-primary); background: var(--color-bg-tertiary); }
+
+/* ---------------------------------------------------------------- 两种接入方式 */
+.setup { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--grid-gap); }
+.setup__col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px;
+  border-radius: var(--radius-12);
+  background: var(--color-bg-level-1);
+  border: 1px solid var(--color-border-translucent);
+}
+.setup__col .code-block { width: 100%; }
+.setup__title { display: inline-flex; align-items: center; gap: 8px; font-size: 17px; font-weight: var(--font-weight-semibold); }
+.setup__title svg { width: 18px; height: 18px; color: var(--color-text-tertiary); }
+.setup__steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+.step { display: flex; gap: 14px; align-items: flex-start; }
+.step__num {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-circle);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-translucent);
+  font-size: 12px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+/* ---------------------------------------------------------------- 更多插件 */
+.grid-more { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.more-card__head { display: flex; align-items: center; gap: 12px; }
+.more-card__name { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-monospace); font-size: 14px; }
+.more-card__name svg { width: 13px; height: 13px; color: var(--color-text-quaternary); }
+
+/* macOS 版块：六张原生体验卡片 */
+.grid-mac { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 40px; }
+.mac-foot { margin-top: 28px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+.mac-foot p { max-width: 640px; }
+@media (max-width: 1024px) { .grid-mac { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 720px) { .grid-mac { grid-template-columns: minmax(0, 1fr); } }
+
+/* 深挖区块里的安装命令 */
+.feature__more .code-block { width: 100%; }
+
+/* ---------------------------------------------------------------- 可控与安全 */
+.grid-trust { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.section-foot { margin-top: 32px; }
+
+/* 开源页：评审结论 + 可折叠明细 */
+.audit-summary { max-width: 760px; margin: 0 auto 28px; }
+.audit-details { max-width: 100%; }
+.audit-details > summary { list-style: none; cursor: pointer; display: flex; width: max-content; margin: 0 auto 24px; }
+.audit-details > summary::-webkit-details-marker { display: none; }
+.audit-details > summary svg { width: 14px; height: 14px; transition: transform var(--speed-regularTransition) var(--ease-out-quad); }
+.audit-details[open] > summary svg { transform: rotate(180deg); }
+
+/* ---------------------------------------------------------------- 首页常见问题 */
+.faq { border-top: 1px solid var(--color-border-translucent); }
+.faq__item { border-bottom: 1px solid var(--color-border-translucent); }
+.faq__q {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 4px;
+  font-size: 15px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+.faq__q::-webkit-details-marker { display: none; }
+.faq__q svg { width: 16px; height: 16px; flex: none; color: var(--color-text-quaternary); transition: transform var(--speed-regularTransition) var(--ease-out-quad); }
+.faq__item[open] .faq__q svg { transform: rotate(180deg); }
+.faq__a { padding: 0 4px 20px; font-size: 14px; line-height: 1.7; color: var(--color-text-tertiary); max-width: var(--prose-max-width); }
+
+@media (max-width: 1024px) {
+  .grid-pains { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid-trust { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .setup { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 720px) {
+  .grid-pains, .grid-trust, .grid-more { grid-template-columns: minmax(0, 1fr); }
+}
 
 /* ---------------------------------------------------------------- 深潜区块 */
 .feature { padding-block: 96px; }
@@ -190,6 +288,8 @@
 .page-hero__icon svg { width: 20px; height: 20px; }
 
 .detail-shot { padding-block: 48px; }
+/* 手机竖屏截图：限宽居中，否则会被拉成整屏宽 */
+.detail-shot--portrait .shot-frame { max-width: 360px; margin-inline: auto; border-radius: 36px; }
 
 /* 详情页正文（Markdown 渲染） */
 .prose-content { max-width: 760px; }

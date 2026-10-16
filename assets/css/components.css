@@ -141,10 +141,13 @@ a.card:hover .card__more { color: var(--color-text-primary); }
 .card__more svg { width: 13px; height: 13px; transition: transform var(--speed-quickTransition) var(--ease-out-quad); }
 a.card:hover .card__more svg { transform: translateX(2px); }
 
-/* 产品矩阵：5 列 → 3 → 1 */
-.grid-products { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+/* 产品卡：4 列 → 2 → 1 */
+.grid-products { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
 .grid-products .card { padding: 16px; }
-@media (max-width: 1100px) { .grid-products { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* 截图比例不一（手机竖图很高），统一裁成同一比例，卡片才齐 */
+.grid-products .shot-frame--sm { aspect-ratio: 16 / 10; overflow: hidden; }
+.grid-products .shot-frame--sm img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+@media (max-width: 1100px) { .grid-products { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 760px) { .grid-products { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 480px) { .grid-products { grid-template-columns: minmax(0, 1fr); } }
 
@@ -186,9 +189,10 @@ table.matrix td { color: var(--color-text-tertiary); }
 /* ---------------------------------------------------------------- 截图容器（Linear 式边框 + 边缘高光） */
 .shot-frame {
   position: relative;
-  border-radius: var(--radius-12);
+  /* 圆角要大于截图里 macOS 窗口自身的圆角，否则窗口外的角会露出来 */
+  border-radius: 20px;
   background: var(--color-bg-level-1);
-  border: 1px solid var(--color-border-translucent-strong);
+  border: 1px solid var(--color-border-translucent);
   box-shadow: var(--shadow-high);
   overflow: hidden;
   isolation: isolate;
@@ -200,7 +204,7 @@ table.matrix td { color: var(--color-text-tertiary); }
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: linear-gradient(180deg, #ffffff0f 0%, transparent 22%);
+  background: linear-gradient(180deg, #ffffff08 0%, transparent 18%);
   mix-blend-mode: screen;
 }
 .shot-frame img {
@@ -208,9 +212,9 @@ table.matrix td { color: var(--color-text-tertiary); }
   height: auto;
   display: block;
 }
-.shot-frame--radius-16 { border-radius: var(--radius-16); }
-.shot-frame--bleed { border-radius: var(--radius-16) var(--radius-16) 0 0; border-bottom: none; }
-.shot-frame--sm { box-shadow: var(--shadow-medium); }
+.shot-frame--radius-16 { border-radius: 28px; }
+.shot-frame--bleed { border-radius: 28px 28px 0 0; border-bottom: none; }
+.shot-frame--sm { border-radius: 14px; box-shadow: var(--shadow-medium); }
 
 /* 截图顶部的窗口条（仅用于 App 窗口截图，模拟真实窗口外观） */
 .shot-titlebar {

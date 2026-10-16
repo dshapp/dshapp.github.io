@@ -5,7 +5,7 @@
 {{- $alt := .alt | default "" -}}
 {{- $loading := .loading | default "lazy" -}}
 {{- $priority := .priority | default "" -}}
-{{- with resources.Get (strings.TrimPrefix "/" $src) -}}
+{{- with resources.Get (strings.TrimPrefix "/" $src) | fingerprint -}}
 <img src="{{ .RelPermalink }}" alt="{{ $alt }}" width="{{ .Width }}" height="{{ .Height }}"
   {{- with $loading }} loading="{{ . }}"{{ end }}
   {{- with $priority }} fetchpriority="{{ . }}"{{ end }} decoding="async">
