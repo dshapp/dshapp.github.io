@@ -24,11 +24,31 @@ weight: 4
 
 扩展默认连接本机的 DSH 服务（`http://127.0.0.1:3080`），一般不需要修改。
 
-## 不用 Mac App？用命令行安装
+## 不用 Mac App？一条命令检查并安装
 
-如果你直接在终端里运行 DSH，而不是用 Mac App，需要手动安装浏览器控制插件 [dsh-chrome-control](https://github.com/dshapp/dsh-chrome-control)：
+一键脚本会依次检查 Node.js（≥ 22.19）、pnpm（≥ 10，dsh 用它安装插件）、dsh 和浏览器控制插件 [dsh-chrome-control](https://github.com/dshapp/dsh-chrome-control)，缺什么装什么，最后在后台启动一次 `dsh web`，让插件注册 Chrome 的本地启动器。已经装好的步骤会跳过，可以放心重复运行。
+
+**macOS / Linux**：在「终端」中粘贴执行（[查看脚本](/install/chrome.sh)）：
 
 ```bash
+curl -fsSL https://dshapp.github.io/install/chrome.sh | bash
+```
+
+**Windows 10 / 11**：在「命令提示符」（cmd）或 PowerShell 中粘贴执行（[查看脚本](/install/chrome.ps1)）：
+
+```bat
+powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol=3072; iex ([Text.Encoding]::UTF8.GetString((New-Object Net.WebClient).DownloadData('https://dshapp.github.io/install/chrome.ps1')))"
+```
+
+- 只想检查、不安装：macOS / Linux 在命令末尾加 `-s -- --check`（即 `… | bash -s -- --check`）；Windows 先执行 `set DSH_CHECK_ONLY=1`（PowerShell 中为 `$env:DSH_CHECK_ONLY='1'`）。
+- 需要安装 Node.js 时：macOS 有 Homebrew 就用 Homebrew，否则从 nodejs.org 下载官方 LTS 安装包、校验 SHA-256 后用系统安装器安装（会要求输入开机密码）；Windows 优先用 winget，没有则下载官方 MSI（会弹出管理员授权）；Linux 请先用包管理器或 nvm 自行安装。
+- 如果 `dsh web` 在装插件之前就已经在运行，脚本不会替你结束它，会提示你关掉后重新运行。
+
+也可以手动执行同样的步骤：
+
+```bash
+npm install -g pnpm
+npm install -g @deepseek-ai/dsh
 dsh plugin --profile web add dsh-chrome-control
 dsh web          # 默认监听 http://127.0.0.1:3080
 ```

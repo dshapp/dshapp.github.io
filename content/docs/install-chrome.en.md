@@ -24,11 +24,31 @@ Browser control lets DSH's agent use **the Chrome you already use** — the same
 
 The extension connects to the local DSH service (`http://127.0.0.1:3080`) by default — usually nothing to change.
 
-## Not using the Mac app? Install from the command line
+## Not using the Mac app? Check and install with one command
 
-If you run DSH directly in a terminal instead of through the Mac app, install the browser control plugin [dsh-chrome-control](https://github.com/dshapp/dsh-chrome-control) yourself:
+The setup script checks, in order, Node.js (≥ 22.19), pnpm (≥ 10 — dsh installs plugins with it), dsh and the browser control plugin [dsh-chrome-control](https://github.com/dshapp/dsh-chrome-control), installs whatever is missing, then starts `dsh web` once in the background so the plugin registers Chrome's local launcher. Finished steps are skipped, so it is safe to run again.
+
+**macOS / Linux** — paste into Terminal ([view script](/install/chrome.sh)):
 
 ```bash
+curl -fsSL https://dshapp.github.io/install/chrome.sh | bash
+```
+
+**Windows 10 / 11** — paste into Command Prompt (cmd) or PowerShell ([view script](/install/chrome.ps1)):
+
+```bat
+powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol=3072; iex ([Text.Encoding]::UTF8.GetString((New-Object Net.WebClient).DownloadData('https://dshapp.github.io/install/chrome.ps1')))"
+```
+
+- Check only, install nothing: on macOS / Linux append `-s -- --check` (`… | bash -s -- --check`); on Windows run `set DSH_CHECK_ONLY=1` first (`$env:DSH_CHECK_ONLY='1'` in PowerShell).
+- When Node.js is missing: macOS uses Homebrew if present, otherwise the official LTS package from nodejs.org, verified by SHA-256 and installed with Apple's installer (asks for your password); Windows prefers winget and falls back to the official MSI (shows an admin prompt); on Linux install it with your package manager or nvm first.
+- If `dsh web` was already running before the plugin was installed, the script won't stop it for you; it tells you to stop it and run the script again.
+
+Or run the same steps by hand:
+
+```bash
+npm install -g pnpm
+npm install -g @deepseek-ai/dsh
 dsh plugin --profile web add dsh-chrome-control
 dsh web          # listens on http://127.0.0.1:3080 by default
 ```
