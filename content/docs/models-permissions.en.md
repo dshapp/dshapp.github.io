@@ -3,6 +3,7 @@ title: "Models and permission modes"
 linkTitle: "Models and permission modes"
 description: "Choose the model and the permission level per session: plan, read-only, workspace write, and full access."
 group: "use"
+platform: "macos"
 weight: 11
 ---
 

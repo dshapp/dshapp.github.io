@@ -3,6 +3,7 @@ title: "Encryption and the security model"
 linkTitle: "Encryption and the security model"
 description: "One Noise_IK handshake provides encryption, mutual authentication and replay protection, and the relay cannot read a byte."
 group: "mobile"
+platform: ["android", "miniapp"]
 weight: 31
 ---
 
@@ -29,6 +30,16 @@ The only public component is a minimal relay:
 3. From then on, **copy bytes only** — never parse.
 
 It does not decrypt, does not touch disk and does not log. The routing key is an identifier, not a secret — it is already in the pairing QR code.
+
+## How the WeChat mini program connects
+
+A mini program can't open a raw TCP socket, so it carries the very same bytes inside a WebSocket:
+
+1. The mini program connects to `wss://<relay>/tunnel`. The outer TLS 1.3 only proves it reached the real relay, and the relay's domain must be registered in the mini program's domain allowlist.
+2. The WebSocket frames carry the same 37-byte cleartext header followed by the **Noise_IK session** between phone and computer.
+3. The relay only unwraps the WebSocket frames and keeps copying bytes by routing key; it holds no key that could open the session.
+
+So for the mini program, TLS and the domain are just the carrier; end-to-end encryption, mutual authentication and replay protection still come entirely from the Noise_IK handshake, exactly as on Android. Because the domain must be registered, the mini program can only use the official relay for now.
 
 ## What a phone may reach
 

@@ -16,7 +16,8 @@
           <span class="badge badge--accent" style="align-self:flex-start">{{ $item.badge }}</span>
           <h3 class="card__title">{{ $item.title }}</h3>
           <p class="card__body">{{ $item.body }}</p>
-          <figure class="shot-frame shot-frame--sm" style="margin-top:4px">
+          {{- /* shotFit: contain —— 不裁切（小程序码这类必须完整显示的图） */}}
+          <figure class="shot-frame shot-frame--sm{{ if eq $item.shotFit "contain" }} shot-frame--contain{{ end }}" style="margin-top:4px">
             {{ partial "shot-img.html" (dict "src" $item.shot "alt" $item.title) }}
           </figure>
           <span class="card__more">{{ i18n "cta.learnMore" }}{{ partial "icon.html" "arrow-right" }}</span>

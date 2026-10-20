@@ -1,6 +1,6 @@
 ---
-title: "手机远程"
-linkTitle: "手机远程"
+title: "Android App"
+linkTitle: "Android App"
 tagline: "mobile-bridge 插件 + Android App：离开电脑，也能在手机上接管 DSH"
 description: "dsh-mobile-bridge 插件把你电脑上的 DSH 经端到端加密通道交给已配对的手机，Android App 就是口袋里的 DSH 客户端：看进度、处理审批与提问、追加指令、收到通知。电脑不开端口。"
 icon: "android"
@@ -27,6 +27,9 @@ related:
   - path: "/products/macos/"
     title: "macOS App"
     body: "侧栏「移动端访问」就是配对入口。"
+  - path: "/products/miniapp/"
+    title: "微信小程序"
+    body: "不想装 App，或者用 iPhone：微信里的 DSH Remote，同一套配对。"
   - path: "/opensource/"
     title: "开源与安全"
     body: "远程访问的加密设计与安全评审结果。"
@@ -47,6 +50,8 @@ related:
 | Android App | 手机上的 DSH 客户端 | [下载页](/download/#android) |
 
 插件随 dsh 服务一起运行，**任何跑着 dsh web 的电脑都能用**，不限于 Mac App。
+
+不想装 App，或者用的是 iPhone？同一个插件也服务微信小程序 [DSH Remote](/products/miniapp/)，扫的是同一个二维码。
 
 ## 手机上能做什么
 

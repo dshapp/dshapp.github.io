@@ -23,8 +23,16 @@
   font-size: 12px;
   color: var(--color-text-quaternary);
 }
-.hero__meta span { display: inline-flex; align-items: center; gap: 6px; }
-.hero__meta span + span::before {
+.hero__meta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: inherit;
+  text-decoration: none;
+  transition: color .15s ease;
+}
+.hero__meta a:hover { color: var(--color-text-secondary); }
+.hero__meta a + a::before {
   content: "";
   width: 3px;
   height: 3px;
@@ -388,7 +396,7 @@
   .feature { padding-block: 64px; }
   .grid-3, .grid-2 { grid-template-columns: minmax(0, 1fr); }
   .hero__meta { flex-direction: column; gap: 6px; }
-  .hero__meta span + span::before { display: none; }
+  .hero__meta a + a::before { display: none; }
 }
 
 /* ── 开源 / 安全 / 可审核 ───────────────────────────────────────── */
@@ -551,7 +559,8 @@
 
 
 /* ---------------------------------------------------------------- 下载页 */
-.dl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+.dl-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+@media (max-width: 1200px) { .dl-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 1000px) { .dl-grid { grid-template-columns: minmax(0, 1fr); max-width: 640px; margin-inline: auto; } }
 .dl-card { gap: 18px; padding: 24px; scroll-margin-top: calc(var(--header-height) + 24px); }
 .dl-card:target { border-color: var(--color-border-translucent-strong); box-shadow: var(--shadow-medium); }
@@ -559,6 +568,10 @@
 .dl-card__name { font-size: 18px; flex: 1; }
 .dl-card__btn { align-self: stretch; justify-content: center; }
 .dl-card__btn[aria-disabled="true"] { opacity: .55; pointer-events: none; }
+/* 小程序码：白底圆角，深色主题下也能扫 */
+.dl-qr { display: grid; justify-items: center; gap: 10px; margin: 0; }
+.dl-qr img { width: 160px; height: 160px; padding: 10px; border-radius: var(--radius-12); background: #fff; }
+.dl-qr figcaption { font-size: 13px; line-height: 1.5; color: var(--color-text-secondary); text-align: center; }
 .dl-meta { display: grid; gap: 8px; margin: 0; font-size: 13px; }
 .dl-meta > div { display: flex; justify-content: space-between; gap: 16px; }
 .dl-meta dt { color: var(--color-text-quaternary); flex-shrink: 0; }

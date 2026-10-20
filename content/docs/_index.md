@@ -1,7 +1,7 @@
 ---
 title: "DSH App 文档"
 linkTitle: "文档概览"
-description: "DSH 扩展套件的安装、使用与安全说明：macOS App、Chrome 扩展与浏览器控制、电脑操作、手机远程。"
+description: "DSH 扩展套件的安装、使用与安全说明：macOS App、Chrome 扩展与浏览器控制、电脑操作、手机远程（Android App 与微信小程序）。"
 group: "start"
 weight: 1
 ---
@@ -16,6 +16,7 @@ DSH App 是一套为 DSH 打造的扩展：原生客户端，加上浏览器、�
 | 让 Agent 操作你已登录的 Chrome | [安装 Chrome 扩展](/docs/install-chrome/) |
 | 让 Agent 操作没有 API 的 Mac 应用 | [电脑操作](/docs/computer-use/) |
 | 离开电脑也能处理审批、看进度 | [安装 Android App](/docs/install-android/) |
+| 用 iPhone，或不想装 App | [安装微信小程序](/docs/install-miniapp/) |
 | 了解远程访问为什么安全 | [加密与安全模型](/docs/crypto/) |
 
 ## 每个扩展是怎么接入 DSH 的
@@ -25,7 +26,8 @@ DSH App 是一套为 DSH 打造的扩展：原生客户端，加上浏览器、�
 | macOS App | 接入本机 3080 端口上的 dsh（没有就启动或安装一个） |
 | 浏览器控制 | `dsh-chrome-control` 插件 + Chrome 扩展 |
 | 电脑操作 | `dsh-kimi-computer-use` 插件 + KimiCU.app |
-| 手机远程 | `dsh-mobile-bridge` 插件 + Android App |
+| 手机远程 · Android | `dsh-mobile-bridge` 插件 + Android App |
+| 手机远程 · 微信 | `dsh-mobile-bridge` 插件 + 微信小程序 DSH Remote |
 
 插件既可以在 Mac App 的设置里一键安装，也可以用 `dsh plugin --profile web add <插件名>` 安装。浏览器控制与手机远程不依赖 Mac App，在 Linux 上的 dsh 同样可用。
 

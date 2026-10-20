@@ -4,6 +4,7 @@
   (dict "path" "/products/chrome"  "key" "nav.chrome")
   (dict "path" "/products/cu"      "key" "nav.cu")
   (dict "path" "/products/android" "key" "nav.android")
+  (dict "path" "/products/miniapp" "key" "nav.miniapp")
 -}}
 <footer class="site-footer">
   <div class="container-wide">
@@ -47,6 +48,7 @@
         <h2 class="footer-col__title">{{ i18n "footer.getStarted" }}</h2>
         <a class="footer-link" href="{{ partial "dl/url.html" "mac" }}">{{ i18n "footer.downloadMac" }}</a>
         <a class="footer-link" href="{{ partial "dl/url.html" "android" }}">{{ i18n "footer.downloadAndroid" }}</a>
+        <a class="footer-link" href="{{ partial "dl/url.html" "miniapp" }}">{{ i18n "footer.openMiniapp" }}</a>
         <a class="footer-link" href="{{ site.Params.chromeWebStore | default "#" }}">{{ i18n "footer.chromeWebStore" }}</a>
         <a class="footer-link" href="{{ site.Params.github | default "#" }}">{{ i18n "footer.github" }}</a>
       </div>

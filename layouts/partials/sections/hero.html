@@ -19,15 +19,18 @@
         <a class="btn btn--primary" href="{{ with $h.ctaPrimaryHref }}{{ . }}{{ else }}{{ partial "dl/url.html" "mac" }}{{ end }}">
           {{ partial "icon.html" "apple" }}<span>{{ $h.ctaPrimary }}</span>
         </a>
-        <a class="btn btn--secondary" href="{{ $h.ctaSecondaryHref }}">
-          <span>{{ $h.ctaSecondary }}</span>{{ partial "icon.html" "arrow-right" }}
+        <a class="btn btn--secondary" href="{{ partial "dl/url.html" "chrome" }}" target="_blank" rel="noopener noreferrer">
+          {{ partial "icon.html" "chrome" }}<span>{{ $h.ctaChrome }}</span>
+        </a>
+        {{- /* 手机有 Android App 和微信小程序两种，落到下载页的 #android，下面紧接着就是小程序卡片 */}}
+        <a class="btn btn--secondary" href="{{ $h.ctaMobileHref | relLangURL }}">
+          {{ partial "icon.html" "smartphone" }}<span>{{ $h.ctaMobile }}</span>
         </a>
       </div>
-      {{ partial "dl/version-line.html" "mac" }}
 
       <div class="hero__meta">
         {{- range $h.platforms }}
-          <span>{{ partial "icon.html" .icon }}{{ .label }}</span>
+          <a href="{{ if hasPrefix .href "#" }}{{ .href }}{{ else }}{{ .href | relLangURL }}{{ end }}">{{ partial "icon.html" .icon }}{{ .label }}</a>
         {{- end }}
       </div>
     </div>

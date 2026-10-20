@@ -34,7 +34,7 @@ defaultContentLanguageInSubdir = false
     title = "DSH App"
     [languages.zh.params]
       tagline = "DSH 扩展套件：原生客户端、浏览器控制、电脑操作与手机远程"
-      description = "为 DSH 打造的扩展套件：原生 macOS 与 Android 客户端，让 DSH 操作你已登录的 Chrome 和 Mac 应用，并在手机上远程接管任务。直接接入你已有的 dsh，开源免费。"
+      description = "为 DSH 打造的扩展套件：原生 macOS 与 Android 客户端和微信小程序，让 DSH 操作你已登录的 Chrome 和 Mac 应用，并在手机上远程接管任务。直接接入你已有的 dsh，开源免费。"
 
   [languages.en]
     label = "English"
@@ -44,7 +44,7 @@ defaultContentLanguageInSubdir = false
     title = "DSH App"
     [languages.en.params]
       tagline = "Extensions for DSH: native clients, browser control, computer use and remote access"
-      description = "An extension suite built for DSH: native macOS and Android clients, an agent that drives your signed-in Chrome and Mac apps, and remote access from your phone. Plugs into the dsh you already run; free and open source."
+      description = "An extension suite built for DSH: native macOS and Android clients plus a WeChat mini program, an agent that drives your signed-in Chrome and Mac apps, and remote access from your phone. Plugs into the dsh you already run; free and open source."
 
 # 主导航在 layouts/partials/header.html 里用 i18n 名称 + 固定 section 生成，
 # 因此中英文各自拿到本地化名称，无需在配置里维护两份菜单。

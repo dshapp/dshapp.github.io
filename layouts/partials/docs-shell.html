@@ -1,10 +1,35 @@
-{{- /* docs-shell.html —— 文档页外壳：左侧目录 + 正文 + 右侧本页目录 + 上下页。
-     list 与 single 都调用它，保证两种页面版式一致。 */ -}}
+{{- /* docs-shell.html —— 文档页外壳：顶部「端」选择器 + 左侧目录 + 正文 + 右侧本页目录 + 上下页。
+     list 与 single 都调用它，保证两种页面版式一致。
+     「端」：页面 front matter 的 platform（macos / chrome / android / miniapp）标明它属于哪个端，不写就是各端通用；
+     一页可以同时属于几个端（写成列表，如配对与加密同属 android 与 miniapp），第一项是主端，见 docs/page-platforms.html。
+     当前端写在 .docs-shell 的 data-platform 上，目录与上下页按它筛选（CSS 隐藏 + main.js 重排上下页）。 */ -}}
 {{- $root := site.GetPage "/docs" -}}
 {{- $pages := $root.RegularPages.ByWeight -}}
 {{- $cur := . -}}
 {{- $toc := .TableOfContents -}}
-<div class="container-wide docs-shell">
+{{- $own := partial "docs/page-platforms.html" . -}}
+{{- $main := "" -}}{{- with $own }}{{ $main = index . 0 }}{{ end -}}
+{{- /* 端列表：顺序即选择器顺序；新增一个端要同时改 i18n 的 docs.platform.<key> 和 docs.css 里的筛选规则 */ -}}
+{{- $platforms := slice
+  (dict "key" "macos"   "icon" "apple")
+  (dict "key" "chrome"  "icon" "chrome")
+  (dict "key" "android" "icon" "android")
+  (dict "key" "miniapp" "icon" "wechat")
+-}}
+{{- /* 上下页：属于某个端的页面只在「主端 + 通用」里翻；通用页先按全部排，有 JS 时按当前端重排 */ -}}
+{{- $seq := $pages -}}
+{{- if $main }}
+  {{- $seq = slice }}
+  {{- range $pages }}
+    {{- $pf := partial "docs/page-platforms.html" . }}
+    {{- if or (not $pf) (in $pf $main) }}{{ $seq = $seq | append . }}{{ end }}
+  {{- end }}
+{{- end -}}
+<div class="container-wide docs-shell" data-docs-shell data-platform="{{ $main | default "all" }}" data-page-platform="{{ delimit $own " " }}">
+  {{ partial "docs-platforms.html" (dict "page" . "platforms" $platforms "pages" $pages) }}
+  {{- /* 首屏前同步读 ?platform=，避免目录先全量渲染再闪一下；指向别的端的专属页时直接跳到那个端 */}}
+  <script>(function(){var s=document.currentScript.parentNode,p=new URLSearchParams(location.search).get("platform");if(!p||!/^[a-z]+$/.test(p))return;var t=s.querySelector('[data-platform-tab="'+p+'"]');if(!t)return;var o=s.getAttribute("data-page-platform");if(o&&p!=="all"&&o.split(" ").indexOf(p)<0){location.replace(t.getAttribute("href"));return}s.setAttribute("data-platform",p)})();</script>
+
   <aside class="docs-aside">
     {{ partial "docs-nav.html" . }}
   </aside>
@@ -23,18 +48,19 @@
 
       {{- if .IsPage }}
         {{- $idx := -1 }}
-        {{- range $i, $p := $pages }}{{ if eq $p $cur }}{{ $idx = $i }}{{ end }}{{ end }}
+        {{- range $i, $p := $seq }}{{ if eq $p $cur }}{{ $idx = $i }}{{ end }}{{ end }}
         {{- if ge $idx 0 }}
-          <nav class="docs-pager" aria-label="{{ i18n "docs.tocLabel" }}">
+          <nav class="docs-pager" data-docs-pager aria-label="{{ i18n "docs.tocLabel" }}"
+               data-prev="{{ i18n "docs.prev" }}" data-next="{{ i18n "docs.next" }}">
             {{- if gt $idx 0 }}
-              {{- $prev := index $pages (sub $idx 1) }}
+              {{- $prev := index $seq (sub $idx 1) }}
               <a class="docs-pager__link docs-pager__link--prev" href="{{ $prev.RelPermalink }}">
                 <span class="docs-pager__dir">{{ i18n "docs.prev" }}</span>
                 <span class="docs-pager__title">{{ $prev.LinkTitle }}</span>
               </a>
             {{- else }}<span></span>{{ end }}
-            {{- if lt $idx (sub (len $pages) 1) }}
-              {{- $next := index $pages (add $idx 1) }}
+            {{- if lt $idx (sub (len $seq) 1) }}
+              {{- $next := index $seq (add $idx 1) }}
               <a class="docs-pager__link docs-pager__link--next" href="{{ $next.RelPermalink }}">
                 <span class="docs-pager__dir">{{ i18n "docs.next" }}</span>
                 <span class="docs-pager__title">{{ $next.LinkTitle }}</span>

@@ -16,7 +16,8 @@
       {{- range $d.platforms }}
       {{- $p := . }}
       {{- $r := index $rel $p.key }}
-      {{- $live := or $r (eq $p.key "chrome") }}
+      {{- /* 小程序没有安装包：有 qr 就算已上线，卡片里放小程序码代替下载按钮 */}}
+      {{- $live := or $r (eq $p.key "chrome") $p.qr }}
       <section class="card dl-card reveal" id="{{ $p.key }}" aria-labelledby="dl-{{ $p.key }}">
         <div class="dl-card__head">
           <span class="card__icon" aria-hidden="true">{{ partial "icon.html" $p.icon }}</span>
@@ -36,7 +37,12 @@
           {{- end }}
         </dl>
 
-        {{- if $live }}
+        {{- if $p.qr }}
+          <figure class="dl-qr">
+            {{ partial "shot-img.html" (dict "src" $p.qr "alt" ($p.qrAlt | default $p.name)) }}
+            {{- with $p.qrCaption }}<figcaption>{{ . }}</figcaption>{{ end }}
+          </figure>
+        {{- else if $live }}
           <a class="btn btn--primary dl-card__btn" href="{{ partial "dl/url.html" $p.key }}"
              {{- if eq $p.key "chrome" }} target="_blank" rel="noopener noreferrer"{{ end }}>
             {{ partial "icon.html" (cond (eq $p.key "chrome") "arrow-up-right" "download") }}<span>{{ $p.button }}</span>

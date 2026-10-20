@@ -3,6 +3,7 @@ title: "快捷键"
 linkTitle: "快捷键"
 description: "macOS 客户端的完整快捷键体系，以及怎么一次看全所有绑定。"
 group: "use"
+platform: "macos"
 weight: 12
 ---
 

@@ -20,7 +20,10 @@ other = "在 GitHub 上查看这个组件的源码"
 other = "macOS App"
 
 [nav.android]
-other = "手机远程"
+other = "Android App"
+
+[nav.miniapp]
+other = "微信小程序"
 
 [nav.chrome]
 other = "Chrome 扩展"
@@ -39,6 +42,9 @@ other = "下载"
 
 [cta.learnMore]
 other = "了解详情"
+
+[cta.openMiniapp]
+other = "扫码打开小程序"
 
 [cta.setup]
 other = "安装说明"
@@ -124,6 +130,9 @@ other = "下载 macOS App"
 [footer.downloadAndroid]
 other = "下载 Android App"
 
+[footer.openMiniapp]
+other = "打开微信小程序"
+
 [footer.chromeWebStore]
 other = "安装 Chrome 扩展"
 
@@ -175,6 +184,24 @@ other = "全部文档"
 
 [docs.updatedOn]
 other = "最后更新"
+
+[docs.platform.label]
+other = "选择端"
+
+[docs.platform.all]
+other = "全部"
+
+[docs.platform.macos]
+other = "macOS App"
+
+[docs.platform.chrome]
+other = "Chrome 扩展"
+
+[docs.platform.android]
+other = "Android App"
+
+[docs.platform.miniapp]
+other = "微信小程序"
 
 
 [download.latest]

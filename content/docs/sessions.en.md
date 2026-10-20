@@ -3,6 +3,7 @@ title: "Sessions and workspaces"
 linkTitle: "Sessions and workspaces"
 description: "Sessions, workspaces, the composer and trajectories — how DSH is used day to day, and how to open a first conversation."
 group: "use"
+platform: "macos"
 weight: 10
 ---
 

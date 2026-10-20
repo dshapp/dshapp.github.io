@@ -3,6 +3,7 @@ title: "Computer use"
 linkTitle: "Computer use"
 description: "Let DSH operate Mac apps that have no API: it understands the interface through the accessibility tree and screenshots, then acts with background keyboard and mouse input."
 group: "cu"
+platform: "macos"
 weight: 40
 ---
 

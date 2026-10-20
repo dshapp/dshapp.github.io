@@ -3,7 +3,8 @@ title: "Install the Android app"
 linkTitle: "Install the Android app"
 description: "Install the DSH Android app, scan to connect to your Mac, and check progress, approve steps and add requests from your phone."
 group: "start"
-weight: 3
+platform: "android"
+weight: 4
 ---
 
 The Android app is the phone client for DSH on your computer: you see the same sessions on your phone, while tasks keep running on the computer. It connects through the `dsh-mobile-bridge` plugin, with no open ports on your computer.
@@ -39,3 +40,4 @@ Phone and Mac talk over an end-to-end encrypted channel; the relay can't read an
 
 - [Pairing and devices](/en/docs/pairing/) — expiry, presence and revocation.
 - [Encryption and the security model](/en/docs/crypto/) — why this channel is safe.
+- On an iPhone, or rather not install an app? Try the [WeChat mini program DSH Remote](/en/docs/install-miniapp/).

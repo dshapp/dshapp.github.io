@@ -2,7 +2,7 @@
 {{- /* index.html —— 首页编排。文案来自 data/home/<lang>.yaml
      定位：DSH 的扩展套件，读者是已经在用 DSH 的人。
      顺序：hero → 痛点（以前/现在）→ 四个扩展 → 深挖（macOS / 浏览器 / 电脑操作 / 手机远程）
-           → 两种接入方式 → 边界与安全 → 常见问题 → 更多插件 → CTA */ -}}
+           → 两种接入方式 → 边界与安全 → 常见问题 → CTA */ -}}
 {{- $h := index hugo.Data.home site.Language.Lang -}}
 {{ partial "sections/hero.html" (dict "page" . "h" $h) }}
 {{ partial "sections/pains.html" (dict "h" $h) }}
@@ -14,6 +14,5 @@
 {{ partial "sections/setup.html" (dict "h" $h) }}
 {{ partial "sections/trust.html" (dict "h" $h) }}
 {{ partial "sections/faq.html" (dict "h" $h) }}
-{{ partial "sections/more.html" (dict "h" $h) }}
 {{ partial "sections/cta.html" (dict "h" $h) }}
 {{- end }}

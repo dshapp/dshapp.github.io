@@ -1,22 +1,27 @@
 # Homepage copy (English). Positioning: an extension suite for DSH — readers already use DSH (dsh web).
 title: Take DSH to your desktop, browser and phone
-subtitle: A set of extensions built for DSH — a desktop app crafted natively for the Mac and an Android client, an agent that drives your signed-in Chrome and your Mac apps, and a phone that can take over when you step away. It plugs into the dsh you already run, with the same sessions, config and plugins.
+subtitle: A set of extensions built for DSH — a desktop app crafted natively for the Mac, an Android client and a WeChat mini program, an agent that drives your signed-in Chrome and your Mac apps, and a phone that can take over when you step away. It plugs into the dsh you already run, with the same sessions, config and plugins.
 ctaPrimary: Download for macOS
 ctaPrimaryHref: ''
-ctaSecondary: CLI only? One-line plugin install
-ctaSecondaryHref: '#setup'
+ctaChrome: Use in Chrome
+ctaMobile: Use on your phone
+ctaMobileHref: download/#android
 heroShot: /img/shots/macos-app.jpg
 heroShotAlt: 'The DSH macOS app: sessions on the left, each step of the agent using browser tools on the right'
 heroCaption: "Demo: DSH reads your signed-in ticket dashboard through browser control and writes up the weekly report"
 platforms:
-- icon: terminal
-  label: Plugs into your dsh web
 - icon: apple
   label: macOS 15+ · Apple Silicon
+  href: products/macos/
 - icon: android
   label: Android 8.0+
+  href: products/android/
+- icon: wechat
+  label: WeChat Mini Program
+  href: products/miniapp/
 - icon: chrome
   label: Chrome 120+
+  href: products/chrome/
 
 painsTitle: What DSH couldn't reach, it now can
 painsSub: Each extension removes one specific hassle.
@@ -54,7 +59,7 @@ pains:
   before: A long task stalls on one approval while you're away from your desk, and you can't tell whether it finished or failed.
   after: Your phone gets notified; approve, answer questions, add instructions or stop background tasks right there.
 
-productsTitle: Four extensions, one DSH
+productsTitle: Five extensions, one DSH
 productsSub: They all connect to the dsh service on your own computer and share the same sessions, model config and plugins. Install what you need; none depends on the others.
 products:
 - path: /products/macos/
@@ -77,10 +82,17 @@ products:
   badge: Plugin
 - path: /products/android/
   icon: android
-  title: Remote access
-  body: The mobile-bridge plugin plus the Android app — scan to reach your DSH and take over tasks from your phone.
+  title: Android app
+  body: The mobile-bridge plugin plus the Android app — scan to reach your DSH, take over tasks from your phone and get notified.
   shot: /img/shots/android-app.png
   badge: Plugin + client
+- path: /products/miniapp/
+  icon: wechat
+  title: WeChat Mini Program
+  body: "DSH Remote: nothing to install — scan in WeChat on iPhone or Android to reach your DSH."
+  shot: /img/dsh-remote-qr.jpg
+  shotFit: contain
+  badge: Plugin + mini program
 
 macos:
   eyebrow: macOS app · Built for Mac users
@@ -137,18 +149,20 @@ cu:
   toolsNote: Install KimiCU.app from Kimi's official channel first, keep it running, and grant it Accessibility and Screen Recording in System Settings. Settings → Computer use in the Mac app checks each step.
   install: dsh plugin --profile web add dsh-kimi-computer-use
 mobile:
-  eyebrow: Remote access · dsh-mobile-bridge plugin + Android app
+  eyebrow: Remote access · dsh-mobile-bridge plugin + Android app / WeChat mini program
   title: Step away without stalling your tasks
-  body: The plugin hands your DSH to paired phones over an end-to-end encrypted channel, and the Android app is DSH in your pocket.
+  body: "The plugin hands your DSH to paired phones over an end-to-end encrypted channel: the Android app is the native client in your pocket, and iPhone users can use the WeChat mini program DSH Remote."
   bullets:
   - '<strong>No open ports</strong>: your computer dials out to a public relay that only forwards ciphertext — it can''t read anything, and you can run your own.'
   - '<strong>Pair by QR code</strong>: codes last 5 minutes and work once; manage devices from the Mac app sidebar or the /mobileaccess page of dsh web.'
-  - '<strong>Take over from your phone</strong>: follow the conversation and changed files live, handle approvals and questions, add instructions, stop background tasks, get notified.'
+  - '<strong>Take over from your phone</strong>: follow the conversation and changed files live, handle approvals and questions, add instructions, stop background tasks; the Android app also pushes progress notifications.'
   - '<strong>Take it back any time</strong>: revoking a device drops it instantly, or cut off all phone access in one click.'
   shot: /img/shots/remote-pairing.jpg
   shotAlt: The Mobile Access page shows a pairing code while the phone answers the agent's question
   toolsNote: The plugin runs inside the dsh service, so any computer running dsh web can use it — not just the Mac app.
   install: dsh plugin --profile web add dsh-mobile-bridge
+  more2: WeChat Mini Program
+  more2Href: products/miniapp/
 
 setupTitle: Two ways to set it up
 setupSub: Turn everything on from the Mac app, or install piece by piece from the command line.
@@ -159,7 +173,7 @@ steps:
 - title: Turn on extensions in Settings
   body: The Browser and Computer use tabs install their plugins in one click and check connections and permissions; Mobile access in the sidebar shows a pairing code.
 - title: Add the other half
-  body: Add the extension from the Chrome Web Store, install KimiCU.app from Kimi's official channel, and scan with the Android app.
+  body: Add the extension from the Chrome Web Store, install KimiCU.app from Kimi's official channel, and scan with the Android app or the WeChat mini program DSH Remote.
 setupCliTitle: Command line only
 setupCliBody: Browser control and remote access are ordinary dsh plugins that install on dsh for macOS, Linux and Windows; computer use needs macOS.
 setupCli: |-

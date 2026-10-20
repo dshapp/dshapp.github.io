@@ -3,7 +3,8 @@ title: "Install the Chrome extension"
 linkTitle: "Install the Chrome extension"
 description: "Let DSH work in your signed-in Chrome: install the components from the Mac app's Settings in one click, then add the extension from the Chrome Web Store."
 group: "start"
-weight: 4
+platform: "chrome"
+weight: 3
 ---
 
 Browser control lets DSH's agent use **the Chrome you already use** — the same logins and the same open tabs. It has two parts: the `dsh-chrome-control` plugin and the Chrome extension; the extension alone also works as a DSH client in the side panel.

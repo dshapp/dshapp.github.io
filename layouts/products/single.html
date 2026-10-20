@@ -1,7 +1,7 @@
 {{- define "main" }}
 {{- $icon := .Params.icon | default "grid" -}}
-{{- /* 产品 → 下载平台：cu 运行在 Mac App 里，跟随 mac */ -}}
-{{- $dl := index (dict "macos" "mac" "android" "android" "chrome" "chrome" "cu" "mac") .File.ContentBaseName | default "mac" -}}
+{{- /* 产品 → 下载平台：cu 运行在 Mac App 里，跟随 mac；小程序没有安装包，主按钮去下载页扫码 */ -}}
+{{- $dl := index (dict "macos" "mac" "android" "android" "chrome" "chrome" "cu" "mac" "miniapp" "miniapp") .File.ContentBaseName | default "mac" -}}
 <article>
   <header class="page-hero">
     <div class="container-wide page-hero__inner">
@@ -11,7 +11,11 @@
       {{- with .Params.tagline }}<p class="body-large text-tertiary">{{ . }}</p>{{ end }}
       <div class="btn-row" style="margin-top:8px">
         <a class="btn btn--primary" href="{{ partial "dl/url.html" $dl }}"{{ if eq $dl "chrome" }} target="_blank" rel="noopener noreferrer"{{ end }}>
+          {{- if eq $dl "miniapp" }}
+          {{ partial "icon.html" "wechat" }}<span>{{ i18n "cta.openMiniapp" }}</span>
+          {{- else }}
           {{ partial "icon.html" "download" }}<span>{{ i18n "cta.download" }}</span>
+          {{- end }}
         </a>
         <a class="btn btn--secondary" href="{{ "" | relLangURL }}#products">
           <span>{{ i18n "product.backToProducts" }}</span>
@@ -56,7 +60,8 @@
 
         <div class="stack stack-32" style="position:sticky;top:calc(var(--header-height) + 24px)">
           {{- with .Params.shot2 }}
-          <figure class="shot-frame shot-frame--sm">
+          {{- /* shot2Qr：右栏放的是二维码（小程序码），限宽显示，不必铺满整栏 */}}
+          <figure class="shot-frame shot-frame--sm{{ if $.Params.shot2Qr }} shot-frame--qr{{ end }}">
             {{ partial "shot-img.html" (dict "src" . "alt" $.Params.shot2Alt) }}
           </figure>
           {{- end }}

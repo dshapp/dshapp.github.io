@@ -3,6 +3,7 @@ title: "Install the macOS app"
 linkTitle: "Install the macOS app"
 description: "Install the native macOS client for DSH: it attaches to the dsh already running on your Mac, or starts and installs one; then turn on extensions in Settings."
 group: "start"
+platform: "macos"
 weight: 2
 ---
 
@@ -39,7 +40,7 @@ All one-click, in the app:
 - **Settings → Browser**: install the browser control plugin and check the Chrome extension — see [Install the Chrome extension](/en/docs/install-chrome/).
 - **Settings → Computer use**: install the computer-use plugin and check KimiCU.app and its permissions — see [Computer use](/en/docs/computer-use/).
 - **Settings → Plugins**: enable, disable or remove plugins from the Marketplace and Built-in lists.
-- **Sidebar → Mobile access**: show a pairing QR code — see [Install the Android app](/en/docs/install-android/).
+- **Sidebar → Mobile access**: show a pairing QR code — see [Install the Android app](/en/docs/install-android/) or [Set up the WeChat mini program](/en/docs/install-miniapp/).
 
 ## Back to the web
 

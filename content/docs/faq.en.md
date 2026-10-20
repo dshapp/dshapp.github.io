@@ -24,7 +24,7 @@ No. The plugins and relay are MIT-licensed open source. Model costs are whatever
 
 ## Intel Macs or Windows
 
-The macOS app currently requires Apple Silicon (M1 or later) and macOS 15 or later. Browser control's background service ships for macOS, Linux and Windows. The phone app supports Android 8.0 and later.
+The macOS app currently requires Apple Silicon (M1 or later) and macOS 15 or later. Browser control's background service ships for macOS, Linux and Windows. On phones there are two clients: the Android app for Android 8.0 and later, and the WeChat mini program DSH Remote, which works in WeChat on both iPhone and Android.
 
 ## Will browser control mess with the Chrome I'm using
 
@@ -33,6 +33,10 @@ Cookies are never uploaded. The agent reuses pages you already have open, sends 
 ## Why does computer use need KimiCU.app
 
 KimiCU.app does the actual interface work; the `dsh-kimi-computer-use` plugin only connects it to DSH. Accessibility and Screen Recording are granted to KimiCU.app, not to DSH.
+
+## How does the Android app differ from the WeChat mini program
+
+Both talk to the same `dsh-mobile-bridge` plugin and scan the same QR code, with nearly the same features. The main difference: the mini program has no system push notifications and disconnects in the background, reconnecting when you come back; the Android app pushes notifications and stays connected in the background while tasks run. On an iPhone, use the mini program. See [Set up the WeChat mini program](/en/docs/install-miniapp/).
 
 ## Does the phone see the same sessions
 
@@ -48,7 +52,7 @@ No. Phone and computer speak Noise end-to-end; the relay reads only the routing 
 
 ## Can I run my own relay
 
-Yes. The relay `dsh-proxy` is a single-port Rust implementation; point `dsh-mobile-bridge`'s config at your own address.
+Yes. The relay `dsh-proxy` is a single-port Rust implementation; point `dsh-mobile-bridge`'s config at your own address. Note that the WeChat mini program can only reach relays registered in its domain allowlist, so a self-hosted relay currently works with the Android app only.
 
 ## What if I lose my phone
 

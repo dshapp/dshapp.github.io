@@ -113,6 +113,7 @@
   height: 32px;
   padding-inline: 12px;
   border-radius: var(--radius-6);
+  white-space: nowrap;
   font-size: 13px;
   font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
@@ -174,10 +175,20 @@
   background: var(--color-bg-tertiary);
 }
 
-/* 移动端菜单按钮：默认隐藏 */
+/* 窄一些的桌面宽度：导航项收紧内边距，9 个入口（英文标签更长）才放得下一行 */
+@media (min-width: 1281px) and (max-width: 1440px) {
+  .site-nav__link { padding-inline: 8px; }
+}
+
+/* 1025–1280：导航已收进抽屉，但屏幕仍宽，操作区靠右，不要挤在品牌旁边 */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .header-actions { margin-left: auto; }
+}
+
+/* 移动端菜单按钮：默认隐藏。导航入口多，≤1280px 就收进抽屉（main.js 的 matchMedia 与此同步） */
 .nav-toggle { display: none; }
 
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
   .site-nav {
     position: fixed;
     inset: var(--header-height) 0 auto 0;
@@ -216,11 +227,11 @@
   .js .nav-toggle { display: inline-flex; }
   .js .site-nav { display: flex; }
 }
-@media (min-width: 1025px) {
+@media (min-width: 1281px) {
   /* 无 JS 时导航始终可见 */
   .site-nav { display: flex; }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
   .no-js .site-nav { position: static; opacity: 1; visibility: visible; transform: none;
     flex-direction: row; flex-wrap: wrap; padding: 0; background: none; border: none; box-shadow: none; }
 }

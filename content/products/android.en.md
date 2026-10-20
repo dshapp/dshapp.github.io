@@ -1,6 +1,6 @@
 ---
-title: "Remote access"
-linkTitle: "Remote access"
+title: "Android app"
+linkTitle: "Android app"
 tagline: "The mobile-bridge plugin + Android app: take over DSH from your phone when you step away"
 description: "The dsh-mobile-bridge plugin hands the DSH on your computer to paired phones over an end-to-end encrypted channel, and the Android app is DSH in your pocket: follow progress, handle approvals and questions, add instructions, get notified. No open ports."
 icon: "android"
@@ -27,6 +27,9 @@ related:
   - path: "/products/macos/"
     title: "macOS app"
     body: "Mobile access in the sidebar is where pairing starts."
+  - path: "/products/miniapp/"
+    title: "WeChat Mini Program"
+    body: "No app to install, or on an iPhone: DSH Remote inside WeChat, same pairing."
   - path: "/opensource/"
     title: "Open source & security"
     body: "How remote access is encrypted, and the security review results."
@@ -47,6 +50,8 @@ related:
 | Android app | The DSH client on your phone | [Download](/en/download/#android) |
 
 The plugin runs inside the dsh service, so **any computer running dsh web can use it** — not just the Mac app.
+
+Rather not install an app, or on an iPhone? The same plugin also serves the WeChat mini program [DSH Remote](/en/products/miniapp/), which scans the very same QR code.
 
 ## What you can do from your phone
 

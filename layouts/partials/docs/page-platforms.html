@@ -1,0 +1,13 @@
+{{- /* docs/page-platforms.html —— 返回一篇文档所属的端列表（slice of string）。
+     front matter 的 platform 可以写成字符串（"android"）或列表（["android", "miniapp"]）；不写就是各端通用，返回空列表。
+     列表第一项是这页的「主端」：默认选中它，无 JS 时上下页也按它排。
+     用法：{{ $pf := partial "docs/page-platforms.html" $page }} */ -}}
+{{- $out := slice -}}
+{{- with .Params.platform -}}
+  {{- if reflect.IsSlice . -}}
+    {{- range . }}{{ $out = $out | append (string .) }}{{ end -}}
+  {{- else -}}
+    {{- $out = slice (string .) -}}
+  {{- end -}}
+{{- end -}}
+{{- return $out -}}

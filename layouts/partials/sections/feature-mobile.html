@@ -1,4 +1,4 @@
-{{- /* sections/feature-mobile.html —— dict: h。手机远程：mobile-bridge 插件 + Android App */ -}}
+{{- /* sections/feature-mobile.html —— dict: h。手机远程：mobile-bridge 插件 + Android App / 微信小程序（more2） */ -}}
 {{- $h := .h -}}
 {{- $c := $h.mobile -}}
 <section class="feature container-wide" id="mobile">
@@ -19,9 +19,16 @@
       <div class="feature__more feature__more--tight">
         <p class="micro text-quaternary">{{ $c.toolsNote }}</p>
         {{- with $c.install }}{{ partial "code.html" . }}{{ end }}
-        <a class="btn btn--secondary btn--sm" href="{{ "products/android/" | relLangURL }}">
-          {{ i18n "cta.learnMore" }}{{ partial "icon.html" "arrow-right" }}
-        </a>
+        <div class="btn-row">
+          <a class="btn btn--secondary btn--sm" href="{{ "products/android/" | relLangURL }}">
+            {{ i18n "cta.learnMore" }}{{ partial "icon.html" "arrow-right" }}
+          </a>
+          {{- with $c.more2 }}
+          <a class="btn btn--secondary btn--sm" href="{{ $c.more2Href | relLangURL }}">
+            {{ partial "icon.html" "wechat" }}{{ . }}
+          </a>
+          {{- end }}
+        </div>
       </div>
     </div>
   </div>

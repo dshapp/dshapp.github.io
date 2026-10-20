@@ -3,6 +3,7 @@ title: "模型、思考强度与权限"
 linkTitle: "模型与权限"
 description: "在 Mac App 里按会话切换模型、思考强度、权限模式与 Plan 模式，全部可以用键盘完成。"
 group: "use"
+platform: "macos"
 weight: 11
 ---
 

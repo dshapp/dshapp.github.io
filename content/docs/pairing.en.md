@@ -3,6 +3,7 @@ title: "Pairing and devices"
 linkTitle: "Pairing and devices"
 description: "How a phone pairs, where the online status comes from, and how to revoke a device."
 group: "mobile"
+platform: ["android", "miniapp"]
 weight: 30
 ---
 
@@ -15,6 +16,8 @@ A phone does not "log in" — it establishes its own encrypted channel to this M
 3. The phone scans it, generates a key pair, connects over Noise_IK and sends the token in its first message.
 4. The Mac verifies the token in constant time, consumes it, and adds the device's public key to the allowlist.
 5. The token is discarded; an unpaired device fails during the handshake itself.
+
+The Android app and the WeChat mini program DSH Remote follow **the same flow with the same QR code**. In the mini program, tap Scan QR Code inside it — WeChat's own Scan won't hand the pairing code over; without a camera, paste the pairing text starting with `dshm://`.
 
 ## Device management
 

@@ -3,6 +3,7 @@ title: "Browser tools"
 linkTitle: "Browser tools"
 description: "The 27 browser tools the Chrome extension and control capability expose to the agent, grouped by capability."
 group: "browser"
+platform: "chrome"
 weight: 21
 ---
 

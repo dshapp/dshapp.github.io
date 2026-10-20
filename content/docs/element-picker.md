@@ -3,6 +3,7 @@ title: "圈选网页元素"
 linkTitle: "圈选网页元素"
 description: "在 Chrome 侧栏里圈选页面元素并写下批注，把「就是这个」直接交给 DSH，省掉大段文字描述。"
 group: "browser"
+platform: "chrome"
 weight: 20
 ---
 

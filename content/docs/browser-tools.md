@@ -3,6 +3,7 @@ title: "浏览器工具"
 linkTitle: "浏览器工具"
 description: "Chrome 扩展与控制能力给 Agent 开放的 27 个浏览器工具，按能力分组。"
 group: "browser"
+platform: "chrome"
 weight: 21
 ---
 

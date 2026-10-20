@@ -3,6 +3,7 @@ title: "安装 macOS App"
 linkTitle: "安装 macOS App"
 description: "安装 DSH 的 macOS 原生客户端：接入本机已在运行的 dsh，或由 App 帮你启动和安装；再在设置里开启各个扩展。"
 group: "start"
+platform: "macos"
 weight: 2
 ---
 
@@ -39,7 +40,7 @@ macOS App 是 DSH 的原生桌面客户端，也是本机 dsh 服务的管家。
 - **设置 → 浏览器**：安装浏览器控制插件、检测 Chrome 扩展，见[安装 Chrome 扩展](/docs/install-chrome/)。
 - **设置 → 电脑操作**：安装电脑操作插件、检查 KimiCU.app 与授权，见[电脑操作](/docs/computer-use/)。
 - **设置 → 插件**：在「插件市场」与「内置插件」里启用、停用或移除插件。
-- **侧栏 → 移动端访问**：生成配对二维码，见[安装 Android App](/docs/install-android/)。
+- **侧栏 → 移动端访问**：生成配对二维码，见[安装 Android App](/docs/install-android/)或[安装微信小程序](/docs/install-miniapp/)。
 
 ## 回到 Web 端
 

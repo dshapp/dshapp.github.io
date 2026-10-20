@@ -24,7 +24,7 @@ weight: 60
 
 ## 支持 Intel Mac 或 Windows 吗
 
-macOS App 目前只支持 Apple Silicon（M1 及以上）、macOS 15 或更高。浏览器控制的后台服务提供 macOS、Linux 与 Windows 版本。手机端支持 Android 8.0 及以上。
+macOS App 目前只支持 Apple Silicon（M1 及以上）、macOS 15 或更高。浏览器控制的后台服务提供 macOS、Linux 与 Windows 版本。手机端有两种：Android 8.0 及以上的 Android App，以及 iPhone 和 Android 上都能用的微信小程序 DSH Remote。
 
 ## 浏览器控制会影响我正在用的 Chrome 吗
 
@@ -33,6 +33,10 @@ Cookie 不会被上传。Agent 优先复用你已打开的页面，真实输入�
 ## 电脑操作为什么要装 KimiCU.app
 
 真正执行界面操作的是 KimiCU.app，`dsh-kimi-computer-use` 插件只负责把它接入 DSH。辅助功能与屏幕录制权限也是授予 KimiCU.app，而不是 DSH。
+
+## Android App 和微信小程序有什么区别
+
+两者连的是同一个 `dsh-mobile-bridge` 插件、扫的是同一个二维码，功能基本一致。主要区别在于：小程序没有系统推送，切到后台后会断开、回到前台自动重连；Android App 能推送通知，任务运行时在后台保持连接。iPhone 用户请用小程序。详见[安装微信小程序](/docs/install-miniapp/)。
 
 ## 手机连上后看到的是同一批会话吗
 
@@ -48,7 +52,7 @@ Cookie 不会被上传。Agent 优先复用你已打开的页面，真实输入�
 
 ## 我能自己搭中转吗
 
-可以。中转 `dsh-proxy` 是单端口的 Rust 实现，在 `dsh-mobile-bridge` 的配置里指向你自己的地址即可。
+可以。中转 `dsh-proxy` 是单端口的 Rust 实现，在 `dsh-mobile-bridge` 的配置里指向你自己的地址即可。注意微信小程序只能连登记在它合法域名里的中转，自建中转目前只能配合 Android App 使用。
 
 ## 手机丢了怎么办
 

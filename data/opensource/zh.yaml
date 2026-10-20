@@ -1,6 +1,6 @@
 title: "开源与安全"
 subtitle: "插件与中转开源，远程访问端到端加密，安全评审结果公开。"
-intro: "这些扩展让 DSH 碰到了你的浏览器、桌面和手机，所以值得你先看清它们怎么工作。浏览器控制、远程连接、中转与电脑操作插件都已开源，可以阅读、自行编译和部署；macOS、Android 客户端与 Chrome 扩展的源码将陆续公开。手机远程访问唯一的公网组件是中转服务器，它不持有任何用户数据。我们还对远程访问做了一次对抗性安全评审，结论与修复细节都在下面。"
+intro: "这些扩展让 DSH 碰到了你的浏览器、桌面和手机，所以值得你先看清它们怎么工作。浏览器控制、远程连接、中转与电脑操作插件都已开源，可以阅读、自行编译和部署；macOS、Android 客户端、微信小程序与 Chrome 扩展的源码将陆续公开。手机远程访问唯一的公网组件是中转服务器，它不持有任何用户数据。我们还对远程访问做了一次对抗性安全评审，结论与修复细节都在下面。"
 
 pillars:
   - icon: "github"
@@ -150,6 +150,12 @@ repos:
     url: "https://github.com/dshapp/dsh-androidapp"
     desc: "原生 Android 客户端（Kotlin + Compose）"
     lang: "Kotlin"
+    tag: "待公开"
+    public: false
+  - name: "dsh-miniapp"
+    url: "https://github.com/dshapp/dsh-miniapp"
+    desc: "微信小程序客户端 DSH Remote（Taro + React + TypeScript）"
+    lang: "TypeScript"
     tag: "待公开"
     public: false
   - name: "dsh-chrome-extension"

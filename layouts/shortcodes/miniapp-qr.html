@@ -1,0 +1,6 @@
+{{- /* miniapp-qr —— 文档里的 DSH Remote 小程序码（assets/img/dsh-remote-qr.jpg），带说明文字。
+     用法：{{< miniapp-qr alt="DSH Remote 小程序码" caption="用微信扫一扫…" >}} */ -}}
+<figure class="docs-qr">
+  {{ partial "shot-img.html" (dict "src" "/img/dsh-remote-qr.jpg" "alt" (.Get "alt" | default "DSH Remote")) }}
+  {{- with .Get "caption" }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>

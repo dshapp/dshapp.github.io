@@ -1,6 +1,6 @@
 title: "Open source & security"
 subtitle: "Open-source plugins and relay, end-to-end encrypted remote access, and a published security review."
-intro: "These extensions put DSH in your browser, on your desktop and on your phone, so they deserve a close look at how they work. The browser control, remote connection, relay and computer-use plugins are open source — read them, build them, deploy them yourself; source for the macOS and Android clients and the Chrome extension will follow. The only public component of mobile access is the relay, and it holds none of your data. We also ran an adversarial security review of remote access; the conclusions and fix details are below."
+intro: "These extensions put DSH in your browser, on your desktop and on your phone, so they deserve a close look at how they work. The browser control, remote connection, relay and computer-use plugins are open source — read them, build them, deploy them yourself; source for the macOS and Android clients, the WeChat mini program and the Chrome extension will follow. The only public component of mobile access is the relay, and it holds none of your data. We also ran an adversarial security review of remote access; the conclusions and fix details are below."
 
 pillars:
   - icon: "github"
@@ -150,6 +150,12 @@ repos:
     url: "https://github.com/dshapp/dsh-androidapp"
     desc: "Native Android client (Kotlin + Compose)"
     lang: "Kotlin"
+    tag: "Soon"
+    public: false
+  - name: "dsh-miniapp"
+    url: "https://github.com/dshapp/dsh-miniapp"
+    desc: "WeChat mini program client DSH Remote (Taro + React + TypeScript)"
+    lang: "TypeScript"
     tag: "Soon"
     public: false
   - name: "dsh-chrome-extension"

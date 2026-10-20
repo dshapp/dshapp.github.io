@@ -3,7 +3,8 @@ title: "安装 Android App"
 linkTitle: "安装 Android App"
 description: "安装 DSH 的 Android 客户端，扫码连上你的 Mac，在手机上看进度、批准操作、追加要求。"
 group: "start"
-weight: 3
+platform: "android"
+weight: 4
 ---
 
 Android App 是你电脑上 DSH 的手机客户端：手机上看到的是同一批会话，任务仍在电脑上运行。它通过 `dsh-mobile-bridge` 插件连回来，电脑不需要开放任何端口。
@@ -39,3 +40,4 @@ Android App 是你电脑上 DSH 的手机客户端：手机上看到的是同一
 
 - [配对与设备管理](/docs/pairing/) —— 有效期、在线状态与吊销。
 - [加密与安全模型](/docs/crypto/) —— 这条通道为什么安全。
+- 用 iPhone，或者不想装 App？试试[微信小程序 DSH Remote](/docs/install-miniapp/)。

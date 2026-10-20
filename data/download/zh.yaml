@@ -29,6 +29,18 @@ platforms:
       - 用手机浏览器打开本页并下载 .apk（或在电脑下载后传到手机）。
       - 首次安装时按提示允许浏览器或文件管理器「安装未知应用」。
       - 电脑上需要安装 dsh-mobile-bridge 插件：在 Mac App 侧栏点「移动端访问」，或打开 dsh web 的 /mobileaccess 页面，用手机扫码即可连上。
+  - key: miniapp
+    icon: wechat
+    name: 微信小程序
+    requirements: iPhone 或 Android 上的微信
+    qr: /img/dsh-remote-qr.jpg
+    qrAlt: DSH Remote 小程序码
+    qrCaption: 微信扫码，或在微信里搜索「DSH Remote」
+    docs: docs/install-miniapp/
+    steps:
+      - 用微信扫描上面的小程序码，或在微信里搜索「DSH Remote」打开，无需安装。
+      - 电脑上需要安装 dsh-mobile-bridge 插件：在 Mac App 侧栏点「移动端访问」，或打开 dsh web 的 /mobileaccess 页面。
+      - 在小程序里点「扫描二维码」扫配对码（不是微信主界面的「扫一扫」），确认电脑名称后连接。
   - key: chrome
     icon: chrome
     name: Chrome 扩展

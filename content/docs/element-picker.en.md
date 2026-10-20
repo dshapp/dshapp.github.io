@@ -3,6 +3,7 @@ title: "Picking elements"
 linkTitle: "Picking elements"
 description: "Select an element on the page and hand the agent the exact one, instead of writing a paragraph describing it."
 group: "browser"
+platform: "chrome"
 weight: 20
 ---
 

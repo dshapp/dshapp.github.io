@@ -3,6 +3,7 @@ title: "Keyboard shortcuts"
 linkTitle: "Keyboard shortcuts"
 description: "The macOS client's shortcut system, and how to see every binding at once."
 group: "use"
+platform: "macos"
 weight: 12
 ---
 

@@ -138,7 +138,18 @@ layouts/index.html         首页编排（只调用 sections/* 分片）
 | `security` | `docs.group.security` |
 | `reference` | `docs.group.reference` |
 
-加一页文档：在 `content/docs/` 放 `slug.md` 和 `slug.en.md`，写好 `group` 与 `weight` 即可自动进目录。**新分组**要同时改 `docs-nav.html` 的 `$groups` 和两个 `i18n/*.toml` 的 `docs.group.<key>`。
+加一页文档：在 `content/docs/` 放 `slug.md` 和 `slug.en.md`，写好 `group` 与 `weight`（只属于某个端的再写 `platform`，见下）即可自动进目录。**新分组**要同时改 `docs-nav.html` 的 `$groups` 和两个 `i18n/*.toml` 的 `docs.group.<key>`。
+
+### 按端区分（顶部选择器）
+
+文档顶部有「全部 / macOS App / Chrome 扩展 / Android App / 微信小程序」选择器，左侧目录与上下页按所选的端筛选，并与 URL 双向同步。
+
+- 页面属于哪个端写在 front matter 的 `platform`（`macos` / `chrome` / `android` / `miniapp`）；**不写 = 各端通用**（权限、可审核性、FAQ、排错、概览）。电脑操作归在 `macos`。
+- 一页同时属于几个端时写成列表，第一项是主端：配对与加密是 `platform: ["android", "miniapp"]`，默认按 Android 显示，在小程序视图里带 `?platform=miniapp` 留在本页。解析统一走 `layouts/partials/docs/page-platforms.html`。
+- 当前端 = URL 的 `?platform=` → 页面自己的 `platform` → `all`。专属页的 URL 本身就代表端（`/docs/install-chrome/` 即 Chrome），通用页用 `?platform=chrome` 记住端。
+- 在通用页上切端：不刷新，`pushState` 改 `?platform=`，前进后退可用；在专属页上切到别的端：跳到那个端的第一页（按 `weight`，即它的安装页）。`?platform=` 指向与专属页冲突的端时，同样直接跳过去。
+- 站内指向通用页的文档链接（目录、正文、上下页、顶部「文档」、语言切换）会自动带上当前端，所以从 macOS 的页面点进「权限分级」仍停在 macOS 视图。
+- 实现：选择器在 `layouts/partials/docs-platforms.html`（都是真链接，无 JS 也能用）；端列表在 `docs-shell.html` 的 `$platforms`；目录条目/分组上的 `data-for-platform` 由 `docs-nav.html` 生成，`docs.css` 按 `.docs-shell[data-platform]` 隐藏；`docs-shell.html` 里一段内联脚本在首屏前读 `?platform=`，避免目录闪一下；其余逻辑在 `main.js`「文档：按端筛选」。**新增一个端**要改 `$platforms`、两个 `i18n/*.toml` 的 `docs.platform.<key>` 和 `docs.css` 里按端筛选的规则。
 
 ### 版式
 

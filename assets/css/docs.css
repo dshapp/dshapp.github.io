@@ -6,10 +6,67 @@
 .docs-shell {
   display: grid;
   grid-template-columns: 240px minmax(0, 1fr);
-  gap: 56px;
+  gap: 32px 56px;
   align-items: start;
-  padding-block: 48px 96px;
+  padding-block: 32px 96px;
 }
+
+/* ------------------------------------------------ 顶部「端」选择器 */
+.docs-platforms {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--color-border-translucent);
+}
+.docs-platforms__tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 4px;
+  min-width: 0;
+  padding: 5px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  border-radius: var(--radius-12);
+  background: var(--color-bg-level-1);
+  border: 1px solid var(--color-border-translucent);
+}
+.docs-platforms__tabs::-webkit-scrollbar { display: none; }
+.docs-platforms__tab {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 7px;
+  height: 32px;
+  padding-inline: 12px;
+  border-radius: var(--radius-8);
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-tertiary);
+  transition: color var(--speed-quickTransition) var(--ease-out-quad),
+              background var(--speed-quickTransition) var(--ease-out-quad);
+}
+.docs-platforms__tab svg { width: 14px; height: 14px; }
+.docs-platforms__tab:hover { color: var(--color-text-primary); background: var(--color-bg-translucent); }
+/* 选中态跟着 .docs-shell[data-platform] 走（首屏内联脚本就会写好），不等 main.js */
+.docs-shell[data-platform="all"]     [data-platform-tab="all"],
+.docs-shell[data-platform="macos"]   [data-platform-tab="macos"],
+.docs-shell[data-platform="chrome"]  [data-platform-tab="chrome"],
+.docs-shell[data-platform="android"] [data-platform-tab="android"],
+.docs-shell[data-platform="miniapp"] [data-platform-tab="miniapp"] {
+  color: var(--color-text-primary);
+  background: var(--color-bg-tertiary);
+}
+
+/* 按端筛目录：不属于当前端的条目与整组隐藏（「全部」不筛） */
+.docs-shell[data-platform="macos"]   [data-for-platform]:not([data-for-platform~="macos"]),
+.docs-shell[data-platform="chrome"]  [data-for-platform]:not([data-for-platform~="chrome"]),
+.docs-shell[data-platform="android"] [data-for-platform]:not([data-for-platform~="android"]),
+.docs-shell[data-platform="miniapp"] [data-for-platform]:not([data-for-platform~="miniapp"]) { display: none; }
 
 /* ------------------------------------------------ 左侧目录 */
 /* 宽屏：<details> 恒定展开，summary 隐藏（没有可点的东西） */
@@ -103,6 +160,10 @@
 .docs-prose ul, .docs-prose ol { margin: 0 0 16px; padding-left: 22px; }
 .docs-prose li { margin-bottom: 8px; }
 .docs-prose li::marker { color: var(--color-text-quaternary); }
+/* 小程序码：白底圆角，深色主题下也能扫 */
+.docs-qr { display: grid; justify-items: start; gap: 10px; margin: 0 0 20px; }
+.docs-qr img { width: 180px; height: 180px; padding: 10px; border-radius: var(--radius-12); background: #fff; }
+.docs-qr figcaption { font-size: 13px; color: var(--color-text-tertiary); }
 .docs-prose a { color: var(--color-accent-hover); text-decoration: none; border-bottom: 1px solid transparent; }
 .docs-prose a:hover { border-bottom-color: currentColor; }
 .docs-prose strong { color: var(--color-text-primary); font-weight: var(--font-weight-semibold); }
@@ -197,13 +258,14 @@
 
 /* ------------------------------------------------ 响应式 */
 @media (max-width: 1180px) {
-  .docs-shell { grid-template-columns: 220px minmax(0, 1fr); gap: 40px; }
+  .docs-shell { grid-template-columns: 220px minmax(0, 1fr); gap: 32px 40px; }
   .docs-main { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .docs-toc { display: none; }
   .docs-article { max-width: none; }
 }
 @media (max-width: 900px) {
-  .docs-shell { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-block: 32px 72px; }
+  .docs-shell { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-block: 24px 72px; }
+  .docs-platforms { padding-bottom: 0; border-bottom: 0; }
   .docs-aside {
     position: static;
     max-height: none;
@@ -258,6 +320,7 @@
   .docs-prose { font-size: 15px; }
 }
 @media (max-width: 560px) {
+  .docs-platforms__tab { padding-inline: 10px; }
   .docs-nav { grid-template-columns: minmax(0, 1fr); }
   .docs-head__title { font-size: 28px; }
   .docs-pager { grid-template-columns: minmax(0, 1fr); }

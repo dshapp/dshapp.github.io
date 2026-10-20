@@ -3,6 +3,7 @@ title: "在 Mac App 里工作"
 linkTitle: "在 Mac App 里工作"
 description: "macOS App 的日常用法：会话与工作区、输入框里的 / 命令与 @ 引用、附件与插话、改动文件卡片、轨迹检查器、内置终端与系统通知。"
 group: "use"
+platform: "macos"
 weight: 10
 ---
 

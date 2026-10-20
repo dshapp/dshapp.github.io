@@ -1,23 +1,28 @@
 # 首页文案（中文）。定位：DSH 的扩展套件 —— 读者是已经在用 DSH（dsh web）的人。
-# 顺序见 layouts/index.html：hero → 痛点（装之前/装之后）→ 四个扩展 → 深挖×4 → 接入方式 → 边界与安全 → 常见问题 → 更多插件 → CTA
+# 顺序见 layouts/index.html：hero → 痛点（装之前/装之后）→ 五个扩展 → 深挖×4 → 接入方式 → 边界与安全 → 常见问题 → 更多插件 → CTA
 title: 把 DSH 带到桌面、浏览器和手机上
-subtitle: 一套为 DSH 打造的扩展：专为 Mac 打造的原生桌面端和 Android 客户端，让 Agent 操作你已登录的 Chrome 和 Mac 应用，离开电脑也能在手机上接管任务。直接接入你已有的 dsh，会话、配置、插件都是同一份。
+subtitle: 一套为 DSH 打造的扩展：专为 Mac 打造的原生桌面端、Android 客户端和微信小程序，让 Agent 操作你已登录的 Chrome 和 Mac 应用，离开电脑也能在手机上接管任务。直接接入你已有的 dsh，会话、配置、插件都是同一份。
 ctaPrimary: 下载 macOS App
 ctaPrimaryHref: ''
-ctaSecondary: 只用命令行？一行装插件
-ctaSecondaryHref: '#setup'
+ctaChrome: 在 Chrome 中使用
+ctaMobile: 在手机上使用
+ctaMobileHref: download/#android
 heroShot: /img/shots/macos-app.jpg
 heroShotAlt: DSH macOS App：左侧会话列表，右侧是 Agent 用浏览器工具完成任务的每一步
 heroCaption: 演示：DSH 通过浏览器控制读取你已登录的工单后台，写好周报
 platforms:
-- icon: terminal
-  label: 接入已有的 dsh web
 - icon: apple
   label: macOS 15+ · Apple Silicon
+  href: products/macos/
 - icon: android
   label: Android 8.0+
+  href: products/android/
+- icon: wechat
+  label: 微信小程序
+  href: products/miniapp/
 - icon: chrome
   label: Chrome 120+
+  href: products/chrome/
 
 painsTitle: DSH 原来够不着的，现在够得着了
 painsSub: 每个扩展解决一个具体的麻烦。
@@ -55,7 +60,7 @@ pains:
   before: 长任务卡在一个审批上，你却不在电脑前；跑完没有、失败没有，全不知道。
   after: 手机收到通知，直接处理审批和提问、追加指令、停止后台任务。
 
-productsTitle: 四个扩展，接入同一个 DSH
+productsTitle: 五个扩展，接入同一个 DSH
 productsSub: 都连到你自己电脑上的 dsh 服务，共享同一套会话、模型配置与插件。按需安装，互不依赖。
 products:
 - path: /products/macos/
@@ -78,10 +83,17 @@ products:
   badge: 插件
 - path: /products/android/
   icon: android
-  title: 手机远程
-  body: mobile-bridge 插件加 Android App：扫码连回你的 DSH，在手机上接管任务。
+  title: Android App
+  body: mobile-bridge 插件加 Android App：扫码连回你的 DSH，在手机上接管任务，进展推送通知。
   shot: /img/shots/android-app.png
   badge: 插件 + 客户端
+- path: /products/miniapp/
+  icon: wechat
+  title: 微信小程序
+  body: DSH Remote：不用装 App，iPhone 和 Android 上的微信扫码就能连回你的 DSH。
+  shot: /img/dsh-remote-qr.jpg
+  shotFit: contain
+  badge: 插件 + 小程序
 
 macos:
   eyebrow: macOS App · 为 Mac 用户打造
@@ -138,18 +150,20 @@ cu:
   toolsNote: 需要先从 Kimi 官方渠道安装 KimiCU.app 并保持运行，在系统设置里给它授予「辅助功能」与「屏幕录制」。Mac App 的「设置 → 电脑操作」会逐项检查。
   install: dsh plugin --profile web add dsh-kimi-computer-use
 mobile:
-  eyebrow: 手机远程 · dsh-mobile-bridge 插件 + Android App
+  eyebrow: 手机远程 · dsh-mobile-bridge 插件 + Android App / 微信小程序
   title: 离开电脑，任务也不会卡住
-  body: 插件把你的 DSH 经端到端加密通道交给已配对的手机，Android App 就是口袋里的 DSH 客户端。
+  body: 插件把你的 DSH 经端到端加密通道交给已配对的手机：Android App 是口袋里的原生客户端，iPhone 用户用微信小程序 DSH Remote。
   bullets:
   - <strong>不开端口</strong>：电脑主动连到公网中转，中转只转发加密数据、读不到内容，也可以自己部署。
   - <strong>扫码配对</strong>：配对码 5 分钟有效、只能用一次；在 Mac App 侧栏或 dsh web 的 /mobileaccess 页面管理设备。
-  - <strong>手机上接管任务</strong>：实时看对话和改动文件，处理审批与提问，追加指令、停止后台任务，进展推送通知。
+  - <strong>手机上接管任务</strong>：实时看对话和改动文件，处理审批与提问，追加指令、停止后台任务；Android App 还会推送进展通知。
   - <strong>随时收回</strong>：吊销设备立即断开；也可以一键临时切断所有手机访问。
   shot: /img/shots/remote-pairing.jpg
   shotAlt: 电脑上的移动端访问页生成配对码，手机上直接回答 Agent 的提问
   toolsNote: 插件随 dsh 服务一起运行，任何跑着 dsh web 的电脑都能用，不限于 Mac App。
   install: dsh plugin --profile web add dsh-mobile-bridge
+  more2: 微信小程序
+  more2Href: products/miniapp/
 
 setupTitle: 两种接入方式
 setupSub: 用 Mac App 一站式开启，或者在命令行里按需安装。
@@ -160,7 +174,7 @@ steps:
 - title: 在设置里开启扩展
   body: 「浏览器」「电脑操作」分页一键安装插件，逐项检查连接与授权；侧栏「移动端访问」生成配对码。
 - title: 装好另一半
-  body: 从 Chrome 应用商店添加扩展；从 Kimi 官方渠道安装 KimiCU.app；用 Android App 扫码。
+  body: 从 Chrome 应用商店添加扩展；从 Kimi 官方渠道安装 KimiCU.app；用 Android App 或微信小程序 DSH Remote 扫码。
 setupCliTitle: 只用命令行
 setupCliBody: 浏览器控制与手机远程是普通的 dsh 插件，macOS、Linux、Windows 上的 dsh 都能装；电脑操作需要 macOS。
 setupCli: |-

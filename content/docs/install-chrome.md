@@ -3,7 +3,8 @@ title: "安装 Chrome 扩展"
 linkTitle: "安装 Chrome 扩展"
 description: "让 DSH 用你已登录的 Chrome 处理网页：在 Mac App 设置里一键安装组件，再从 Chrome 应用商店添加扩展。"
 group: "start"
-weight: 4
+platform: "chrome"
+weight: 3
 ---
 
 浏览器控制让 DSH 的 Agent 直接使用**你日常在用的那个 Chrome** —— 同样的登录态、同样的已打开标签页。它由 `dsh-chrome-control` 插件与 Chrome 扩展两部分组成；只装扩展的话，也可以把它的侧栏当作 DSH 客户端使用。

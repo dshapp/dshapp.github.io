@@ -29,6 +29,18 @@ platforms:
       - Open this page in your phone’s browser and download the .apk (or copy it over from your computer).
       - When prompted, allow your browser or file manager to install unknown apps.
       - Your computer needs the dsh-mobile-bridge plugin: click Mobile access in the Mac app sidebar, or open /mobileaccess in dsh web, and scan the QR code with your phone.
+  - key: miniapp
+    icon: wechat
+    name: WeChat Mini Program
+    requirements: WeChat on iPhone or Android
+    qr: /img/dsh-remote-qr.jpg
+    qrAlt: DSH Remote mini program code
+    qrCaption: Scan with WeChat, or search for “DSH Remote” in WeChat
+    docs: docs/install-miniapp/
+    steps:
+      - Scan the mini program code above with WeChat, or search for “DSH Remote” in WeChat — nothing to install.
+      - Your computer needs the dsh-mobile-bridge plugin: click Mobile access in the Mac app sidebar, or open /mobileaccess in dsh web.
+      - In the mini program, tap Scan QR Code to scan the pairing code (not WeChat’s own Scan), confirm the computer name and connect.
   - key: chrome
     icon: chrome
     name: Chrome extension

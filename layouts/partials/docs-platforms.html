@@ -1,0 +1,41 @@
+{{- /* docs-platforms.html —— 文档顶部的「端」选择器：全部 / macOS / Chrome / Android / 微信小程序。
+     当前端 = URL 里的 ?platform=，没有就用页面的主端（front matter platform 的第一项），再没有就是「全部」。
+     每个选项都是真链接，无 JS 也能用：
+       - 当前页属于某些端：选主端 = 本页；选本页所属的其它端 = 本页?platform=<端>；
+         选不相干的端 = 那个端的第一页（按 weight）；选「全部」= 本页?platform=all
+       - 当前页各端通用：本页?platform=<端>，「全部」= 本页
+     有 JS 时，同一页内切换不刷新，只改 URL（pushState）并筛目录；见 assets/js/main.js「文档：按端筛选」。
+     传入：dict "page" 当前页 "platforms" 端列表 "pages" 全部文档页（按 weight） */ -}}
+{{- $page := .page -}}
+{{- $own := partial "docs/page-platforms.html" $page -}}
+{{- $main := "" -}}{{- with $own }}{{ $main = index . 0 }}{{ end -}}
+{{- $self := $page.RelPermalink -}}
+{{- $sel := $main | default "all" -}}
+<nav class="docs-platforms" aria-label="{{ i18n "docs.platform.label" }}">
+  <div class="docs-platforms__tabs">
+    {{- $href := $self }}
+    {{- if $main }}{{ $href = printf "%s?platform=all" $self }}{{ end }}
+    <a class="docs-platforms__tab" href="{{ $href }}" data-platform-tab="all"
+       {{- if eq $sel "all" }} aria-current="true"{{ end }}>
+      {{ partial "icon.html" "grid" }}<span>{{ i18n "docs.platform.all" }}</span>
+    </a>
+    {{- range .platforms }}
+      {{- $key := .key }}
+      {{- $href := printf "%s?platform=%s" $self $key }}
+      {{- if eq $main $key }}
+        {{- $href = $self }}
+      {{- else if in $own $key }}
+        {{- /* 本页也属于这个端：留在本页，带上 ?platform= */}}
+      {{- else if $main }}
+        {{- $found := false }}
+        {{- range $.pages }}
+          {{- if and (not $found) (in (partial "docs/page-platforms.html" .) $key) }}{{ $href = .RelPermalink }}{{ $found = true }}{{ end }}
+        {{- end }}
+      {{- end }}
+      <a class="docs-platforms__tab" href="{{ $href }}" data-platform-tab="{{ $key }}"
+         {{- if eq $sel $key }} aria-current="true"{{ end }}>
+        {{ partial "icon.html" .icon }}<span>{{ i18n (printf "docs.platform.%s" $key) }}</span>
+      </a>
+    {{- end }}
+  </div>
+</nav>

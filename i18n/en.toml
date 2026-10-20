@@ -20,7 +20,10 @@ other = "View this component's source on GitHub"
 other = "macOS App"
 
 [nav.android]
-other = "Remote Access"
+other = "Android"
+
+[nav.miniapp]
+other = "Mini Program"
 
 [nav.chrome]
 other = "Chrome Extension"
@@ -39,6 +42,9 @@ other = "Download"
 
 [cta.learnMore]
 other = "Learn more"
+
+[cta.openMiniapp]
+other = "Open in WeChat"
 
 [cta.setup]
 other = "Setup guide"
@@ -124,6 +130,9 @@ other = "Download for macOS"
 [footer.downloadAndroid]
 other = "Download for Android"
 
+[footer.openMiniapp]
+other = "Open the WeChat mini program"
+
 [footer.chromeWebStore]
 other = "Install the Chrome extension"
 
@@ -175,6 +184,24 @@ other = "All documentation"
 
 [docs.updatedOn]
 other = "Last updated"
+
+[docs.platform.label]
+other = "Platform"
+
+[docs.platform.all]
+other = "All"
+
+[docs.platform.macos]
+other = "macOS app"
+
+[docs.platform.chrome]
+other = "Chrome extension"
+
+[docs.platform.android]
+other = "Android app"
+
+[docs.platform.miniapp]
+other = "WeChat mini program"
 
 
 [download.latest]

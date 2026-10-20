@@ -31,6 +31,16 @@ The app needs network access to install Node.js and the DSH service. Make sure n
 | Pairing fails | phone and Mac must be on the same version; the token is single-use |
 | It used to work | the device may have expired (180 days by default) — pair again |
 
+## The WeChat mini program will not connect
+
+| Symptom | Check |
+| --- | --- |
+| WeChat's own Scan does nothing with the pairing code | scan inside the mini program: open DSH Remote and tap Scan QR Code |
+| “That is not a DeepSeek Harness pairing code” | you scanned something other than the pairing page's code, or the pasted text is incomplete — mint a new code and retry |
+| Camera unavailable | allow the camera for the mini program in WeChat settings, or tap Paste pairing text and paste the text starting with `dshm://` |
+| “Connecting…” after switching back to WeChat | expected: the mini program doesn't stay connected in the background and reconnects and catches up when you return |
+| Fails after changing the relay address | the mini program can only reach the official relay; use the Android app with a self-hosted relay |
+
 ## Computer use cannot hit a control
 
 1. Make sure **KimiCU.app** is installed from Kimi's official channel and running; the agent also reminds you of this when the tools are unavailable.

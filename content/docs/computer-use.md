@@ -3,6 +3,7 @@ title: "电脑操作"
 linkTitle: "电脑操作"
 description: "让 DSH 操作没有 API 的 Mac 应用：通过辅助功能树与截图理解界面，再用后台键鼠完成操作。"
 group: "cu"
+platform: "macos"
 weight: 40
 ---
 
