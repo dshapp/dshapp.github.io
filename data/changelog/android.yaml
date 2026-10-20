@@ -1,5 +1,14 @@
 # Android App 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "1.0.17"
+    date: "2026-10-20"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "压缩会话页纵向空间"
+    changes:
+      - type: new
+        zh: "压缩会话页纵向空间：运行状态条只在显示时占位，排队/目标/提问条行高 44→32dp，标题栏 64→52dp，输入卡片与上下留白收紧。"
   - version: "1.0.16"
     date: "2026-10-20"
     status: released
