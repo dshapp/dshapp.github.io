@@ -1,5 +1,14 @@
 # Android App 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "1.0.15"
+    date: "2026-10-20"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "去掉插件管理"
+    changes:
+      - type: new
+        zh: "去掉插件管理，自动化任务页改成原生写法，已归档会话入口移入视图菜单。"
   - version: "1.0.14"
     date: "2026-10-20"
     status: released
