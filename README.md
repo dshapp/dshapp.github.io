@@ -64,6 +64,11 @@ pages.yml
 顶栏「更新日志 / What's new」进入 `/whatsnew/`，汇总各模块最近的版本更新，可按模块筛选（`#mac`、`#android` 等 hash 直达某个模块，`#mac-0-1-64` 直达某个版本）。
 
 - 数据：`data/changelog/<模块>.yaml`（mac / android / chrome / browser / bridge / cu），每个版本含 `version`、`date`、`status`（upcoming / released）、`title.{zh,en}`、`changes[].{type,zh,en}`，`type` 取 new / improved / fixed。内容由各仓库的 tag 与提交历史整理，只写用户可感知的变化。
+- **自动同步**：`.github/workflows/changelog-sync.yml` 每 15 分钟（以及 build-apps 跑完后）运行 `scripts/sync-changelog.py`，有变化就提交 `data/changelog/` 并重新部署：
+  - 已标 `upcoming` 的版本一旦发布（mac/android 看本仓库的 `mac-v*`/`android-v*` Release，Chrome 扩展看 `v<版本>-build.<N>` 标签，浏览器控制/远程连接/电脑操作看各仓库的 `v<版本>` 标签），自动改成 `released`，日期改为真实发布日期。所以提前写好的条目放心标 `upcoming`，不用回来改。
+  - 文件里还没有的新版本按两次发布之间的 feat/fix/perf 提交生成条目，带 `generated: true`；配置了 `DEEPSEEK_API_KEY` secret 时由模型改写成面向用户的中英文案。人工润色后删掉 `generated` 那一行即可，同步不会覆盖已有条目。
+  - 读私有源码：mac/android 用已有的 `APP_SOURCE_TOKEN`；Chrome 扩展用 `CHROME_EXTENSION_DEPLOY_KEY`（dsh-chrome-extension 上的只读 deploy key）。
+  - 本地预览：`GH_TOKEN=$(gh auth token -h github.com) LOCAL_SOURCES=~/dshapp python3 scripts/sync-changelog.py --dry-run`
 - 模块名、图标、顺序与标签文案：`data/whatsnew/{zh,en}.yaml`；新增模块时在这里加一项并放一个同名 yaml。
 - 模板 `layouts/_default/whatsnew.html`，筛选逻辑在 `assets/js/main.js`。某版本号与当前可下载的安装包一致时，会显示「下载此版本」。
 

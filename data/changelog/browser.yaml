@@ -1,8 +1,34 @@
 # dsh-chrome 浏览器控制 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.3.14"
+    date: "2026-10-19"
+    status: released
+    title:
+      zh: 支持 Windows 与 Linux
+      en: Windows and Linux support
+    changes:
+      - type: new
+        zh: 支持 Windows 10 及以上：自动注册浏览器连接、提供启动器，并能读取剪贴板里的文件路径。
+        en: Windows 10 and later are supported, with automatic browser registration, a launcher, and reading file paths from the clipboard.
+      - type: improved
+        zh: 完善 Linux 支持：遵循 XDG 目录、支持更多浏览器，并能通过 wl-paste 或 xclip 读取剪贴板里的文件路径。
+        en: Better Linux support, following XDG directories, working with more browsers, and reading clipboard file paths via wl-paste or xclip.
+  - version: "0.3.13"
+    date: "2026-10-19"
+    status: released
+    title:
+      zh: 修复浏览器控制卡在未连接
+      en: Fixes browser control getting stuck disconnected
+    changes:
+      - type: fixed
+        zh: 修复 dsh web 重启后，浏览器控制可能一直显示未连接、所有网页操作超时，只能手动结束后台进程的问题。
+        en: Fixed browser control staying disconnected after dsh web restarted, which made every browser action time out until the background process was killed by hand.
+      - type: improved
+        zh: 后台服务的日志改为写到 DSH 目录下的 logs/chrome-daemon.log，排查问题更方便。
+        en: The background service now writes its log to logs/chrome-daemon.log in the DSH folder, making problems easier to diagnose.
   - version: "0.3.12"
     date: "2026-10-15"
-    status: upcoming
+    status: released
     title:
       zh: 正确报告正在运行的 DSH 版本
       en: Reports the DSH version that is actually running

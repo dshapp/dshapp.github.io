@@ -1,8 +1,34 @@
 # Chrome 扩展 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.3.12"
+    date: "2026-10-19"
+    status: released
+    title:
+      zh: 没装好 DSH 时给出安装引导，路径支持 Windows
+      en: A setup guide when DSH is missing, and Windows paths
+    changes:
+      - type: new
+        zh: 本机还没装好 DSH 时，侧栏不再只显示一句看不懂的报错，而是给出安装引导和一键检查/安装命令，装好后自动重新连接。
+        en: When DSH isn't set up on this computer, the side panel shows a setup guide with a one-line check/install command instead of a cryptic error, and reconnects automatically once it's ready.
+      - type: new
+        zh: 首次安装扩展时如果本机还没准备好，会打开欢迎页给出同一份引导；设置的 DSH Server 页也加了「安装引导」入口。
+        en: If your computer isn't ready when you first install the extension, a welcome page opens with the same guide, and Settings → DSH Server gains a “Setup guide” entry.
+      - type: improved
+        zh: 文件夹路径和日志路径支持 Windows，「查看主目录」按钮按系统显示为资源管理器或文件夹。
+        en: Folder and log paths work on Windows, and the “Show home folder” button follows the system's naming, such as File Explorer.
+  - version: "0.3.11"
+    date: "2026-10-19"
+    status: released
+    title:
+      zh: 换上新图标
+      en: A new icon
+    changes:
+      - type: improved
+        zh: 扩展换上新图标：黑色圆角底配白色标志，在亮色和暗色工具栏上都清晰可见。
+        en: The extension has a new icon, a white logo on a black rounded square that stays clear on both light and dark toolbars.
   - version: "0.3.10"
     date: "2026-10-15"
-    status: upcoming
+    status: released
     title:
       zh: 重试与思考状态显示更准确
       en: More accurate retries and thinking state

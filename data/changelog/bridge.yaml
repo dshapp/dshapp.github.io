@@ -2,7 +2,7 @@
 entries:
   - version: "0.3.6"
     date: "2026-10-15"
-    status: upcoming
+    status: released
     title:
       zh: 适配 DSH 0.2
       en: DSH 0.2 support
