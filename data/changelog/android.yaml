@@ -1,5 +1,14 @@
 # Android App 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "1.0.16"
+    date: "2026-10-20"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "代码执行卡片只显示外层一行"
+    changes:
+      - type: new
+        zh: "代码执行卡片只显示外层一行，子调用移到详情里的「子调用(N)」列表、可逐个点开（对齐 Mac）；详情弹层铺满全屏，修复底部内容被截掉。"
   - version: "1.0.15"
     date: "2026-10-20"
     status: released
