@@ -1,5 +1,15 @@
 # Chrome 扩展 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.3.13"
+    date: "2026-10-20"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "新功能与改进"
+      en: "New features"
+    changes:
+      - type: new
+        zh: "卡片紧排与执行中呼吸、运行状态条移到输入框上方、轮次折叠头对齐 Mac。"
   - version: "0.3.12"
     date: "2026-10-19"
     status: released
