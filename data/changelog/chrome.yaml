@@ -1,5 +1,14 @@
 # Chrome 扩展 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.3.16"
+    date: "2026-10-20"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "用户发送与 Agent 回复里的图片点击放大查看"
+    changes:
+      - type: new
+        zh: "用户发送与 Agent 回复里的图片点击放大查看：全屏查看器支持滚轮/捏合缩放、双击放大、拖拽平移，同一消息多图左右切换，Esc/点空白关闭。"
   - version: "0.3.15"
     date: "2026-10-20"
     status: released
