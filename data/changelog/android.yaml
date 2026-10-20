@@ -1,5 +1,23 @@
 # Android App 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "1.0.11"
+    date: "2026-10-20"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "新功能与问题修复"
+      en: "New features and fixes"
+    changes:
+      - type: new
+        zh: "用户消息里的圈选元素 XML 渲染成键值卡片（对齐 Mac / Chrome 插件）。"
+      - type: new
+        zh: "Carry the tunnel over wss:///tunnel instead of bare TCP."
+        en: "Carry the tunnel over wss:///tunnel instead of bare TCP."
+      - type: fixed
+        zh: "图片语法指向无扩展名的附件对象时按内容识别，就地显示并可用系统查看器打开。"
+      - type: fixed
+        zh: "Verify the hostname on the tunnel's TLS socket."
+        en: "Verify the hostname on the tunnel's TLS socket."
   - version: "1.0.10"
     date: "2026-10-15"
     status: released
