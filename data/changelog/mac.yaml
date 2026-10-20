@@ -1,5 +1,25 @@
 # macOS App 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.1.73"
+    date: "2026-10-20"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "新功能与问题修复"
+      en: "New features and fixes"
+    changes:
+      - type: new
+        zh: "思考卡片思考中摘要按 Web 规则随段落前进（取最新一段已写完的首行），超长时右侧渐隐不显示省略号；思考结束显示首行，摘要去掉 ** 标记。"
+      - type: new
+        zh: "引导弹窗说明中的“DeepSeek 官方模型”改为原生 Link，点击在浏览器打开 DeepSeek 平台 API Key 申请页。"
+      - type: new
+        zh: "移动端访问、浏览器、电脑操作页缺依赖插件时一键安装：统一走 pluginManager 安装并启用，需重启时自动重启服务；浏览器页 Chrome 扩展未装时按钮直接在 Chrome 打开商店安装页；移除不再使用的 DshPluginRunner。"
+      - type: new
+        zh: "DSH Server 页新版本标题改为跳转 GitHub 发布日志的链接；更新按钮加加载动画；底部说明退出 App 后服务仍在后台运行。"
+      - type: fixed
+        zh: "输入法上屏途中嵌套 run loop 里 SwiftUI 刷新时跳过输入框同步，避免改字中途改文本/强制排版抛异常穿过视图更新，修复中文输入切换中英文后 Observation 访问野指针崩溃。"
+      - type: fixed
+        zh: "聊天记录面板宽度改由 GeometryReader 同步读取，图片加载占位使用最终缩略图尺寸，修复切换会话后最后一段消息偶发被裁切。"
   - version: "0.1.72"
     date: "2026-10-15"
     status: released

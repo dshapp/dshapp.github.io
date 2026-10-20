@@ -1,5 +1,14 @@
 # Chrome 扩展 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.3.15"
+    date: "2026-10-20"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "思考卡片思考中摘要随段落前进"
+    changes:
+      - type: new
+        zh: "思考卡片思考中摘要随段落前进，超长右侧渐隐不显示省略号，对齐 Web / Mac；修复流式中的 assistant 行引用不变导致侧栏正文/思考停在首帧不刷新。"
   - version: "0.3.13"
     date: "2026-10-20"
     status: released

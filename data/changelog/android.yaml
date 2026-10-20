@@ -1,5 +1,15 @@
 # Android App 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "1.0.13"
+    date: "2026-10-20"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "新功能与改进"
+      en: "New features"
+    changes:
+      - type: new
+        zh: "思考卡片思考中摘要随段落前进（最新一段已写完的首行），超长右侧渐隐不显示省略号；结束后显示首行加省略号，对齐 Web / Mac。"
   - version: "1.0.12"
     date: "2026-10-20"
     status: released
