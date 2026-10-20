@@ -21,15 +21,9 @@
 {{- $items = sort $items "k" "desc" -}}
 
 <article class="whatsnew-page" data-whatsnew>
-  <header class="page-hero">
-    <div class="container-wide page-hero__inner">
-      <span class="page-hero__icon" aria-hidden="true">{{ partial "icon.html" "sparkles" }}</span>
-      <h1 class="display-2">{{ .Title }}</h1>
-      {{- with .Params.tagline }}<p class="body-large text-tertiary text-balance">{{ . }}</p>{{ end }}
-    </div>
-  </header>
-
   <section class="section container-wide wn">
+    {{- /* 不放大标题区：标题只给读屏与搜索引擎，页面直接从模块标签开始 */}}
+    <h1 class="wn-title">{{ .Title }}</h1>
     <div class="wn-tabs" role="tablist" aria-label="{{ .Title }}">
       <button class="wn-tab" type="button" role="tab" data-wn-tab="all" aria-selected="true">
         <span>{{ $d.all }}</span><span class="wn-tab__count">{{ len $items }}</span>
