@@ -1,5 +1,14 @@
 # Android App 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "1.0.18"
+    date: "2026-10-21"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "定时任务触发的消息复用用户气泡显示任务内容"
+    changes:
+      - type: new
+        zh: "定时任务触发的消息复用用户气泡显示任务内容，气泡上方「自动化任务」标签点开弹层查看任务名称、计划时间、运行时间、内容与任务 ID（对齐 Mac）。"
   - version: "1.0.17"
     date: "2026-10-20"
     status: released
