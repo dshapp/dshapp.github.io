@@ -1,5 +1,17 @@
 # Android App 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "1.0.19"
+    date: "2026-10-21"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "新功能与问题修复"
+      en: "New features and fixes"
+    changes:
+      - type: new
+        zh: "计划模式提交的计划在该轮结束后于轮尾显示计划卡片（标题、「计划 · Markdown」、打开），点开弹层查看完整计划并可复制（对齐 Web/Mac）。"
+      - type: fixed
+        zh: "单独成段的 Markdown 图片加载失败显示「图片无法预览 · alt」，不可点、不重试，alt 为空时用原始地址（对齐 Web/Mac）。"
   - version: "1.0.18"
     date: "2026-10-21"
     status: released
