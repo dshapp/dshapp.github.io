@@ -1,5 +1,17 @@
 # Android App 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "1.0.20"
+    date: "2026-10-21"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "新功能与改进"
+      en: "New features"
+    changes:
+      - type: new
+        zh: "平板与横屏等宽屏（≥600dp）下会话列表与会话详情并排在同一页，点列表只切换右栏，转屏时带着当前会话切换布局（对齐 Mac）。"
+      - type: new
+        zh: "修改文件卡片点开二进制图片直接显示图片，文件已被移动或删除时显示「文件已不存在」占位（对齐 Mac）。"
   - version: "1.0.19"
     date: "2026-10-21"
     status: released
