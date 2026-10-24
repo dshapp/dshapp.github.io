@@ -1,6 +1,19 @@
-# DSH 站点
+<p align="center">
+  <img src="assets/img/logo-mark.png" width="96" alt="DSH">
+</p>
 
-DSH 产品家族的静态宣传站，用 Hugo 构建。视觉语言对齐 [linear.app](https://linear.app/)：深色单色调、Inter Variable 字体、克制的描边与层次，无主题切换、无 npm 构建链。
+<h1 align="center">DSH App 产品站</h1>
+
+<p align="center">
+  <b><a href="https://dshapp.github.io/">dshapp.github.io</a> —— DSH 家族的门面：下载、文档、更新日志、开源与安全</b><br>
+  <a href="https://dshapp.github.io/download/">下载</a> ·
+  <a href="https://dshapp.github.io/docs/">文档</a> ·
+  <a href="https://dshapp.github.io/whatsnew/">更新日志</a> ·
+  <a href="https://dshapp.github.io/opensource/">开源与安全</a> ·
+  <a href="https://dshapp.github.io/en/">English</a>
+</p>
+
+DSH 产品家族（各端客户端与插件见文末「[DSH App 家族](#dsh-app-家族)」）的静态宣传站，用 Hugo 构建。视觉语言对齐 [linear.app](https://linear.app/)：深色单色调、Inter Variable 字体、克制的描边与层次，无主题切换、无 npm 构建链。
 
 ## 运行
 
@@ -267,3 +280,37 @@ layouts/index.html         首页编排（只调用 sections/* 分片）
 - 复用现有类名（`card` / `grid grid-3` / `section` / `feature__list` / `shot-frame`）组合新板块，不重复造轮子。
 - 字体只内置 Inter Variable（OFL 许可）。Linear 自有的 Berkeley Mono 是商业字体，未随仓库分发，等宽字体回退到系统。
 - 未引用 Linear 的专有插画或素材，只对齐了数值与版式。
+
+<!-- dsh-family:start -->
+## DSH App 家族
+
+**DSH App** 是为 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)（`dsh`）打造的一组客户端与插件。它们都接入你电脑上**同一个** dsh——会话、模型与插件处处互通，按需组合即可。下载与文档见 **[dshapp.github.io](https://dshapp.github.io/)**。
+
+```mermaid
+flowchart LR
+  subgraph pc["你的电脑"]
+    mac["macOS App"] --> dsh(["dsh"])
+    cc["dsh-chrome-control"] --- dsh
+    mb["dsh-mobile-bridge"] --- dsh
+    cu["dsh-kimi-computer-use"] --- dsh
+    cs["dsh-claude-subscription"] --- dsh
+    ext["Chrome 扩展"] <--> cc
+  end
+  android["Android App"] --> proxy["dsh-proxy"]
+  mini["微信小程序"] --> proxy
+  proxy <--> mb
+```
+
+| | 项目 | 做什么 | 链接 |
+| --- | --- | --- | --- |
+| 客户端 | **macOS App**<br>`dsh-macapp` | 原生 SwiftUI 客户端，托管本机 dsh，一站式开启各个扩展 | [介绍](https://dshapp.github.io/products/macos/) · 源码待公开 |
+|  | **Android App**<br>`dsh-androidapp` | 口袋里的 DSH：审批、提问、通知，端到端加密连回电脑 | [介绍](https://dshapp.github.io/products/android/) · 源码待公开 |
+|  | **微信小程序 DSH Remote**<br>`dsh-miniapp` | 免安装，iPhone / Android 的微信里扫码接管 DSH | [介绍](https://dshapp.github.io/products/miniapp/) · 源码待公开 |
+|  | **Chrome 扩展**<br>`dsh-chrome-extension` | 浏览器侧栏里的 DSH 客户端，也是浏览器控制的执行端 | [介绍](https://dshapp.github.io/products/chrome/) · 源码待公开 |
+| dsh 插件 | **浏览器控制**<br>`dsh-chrome-control` | 把你已登录的 Chrome 作为 `mcp__chrome__*` 工具交给 Agent | [介绍](https://dshapp.github.io/products/chrome/) · [源码](https://github.com/dshapp/dsh-chrome-control) |
+|  | **移动端桥接**<br>`dsh-mobile-bridge` | 经 Noise 加密隧道把 dsh 交给已配对的手机，不开端口 | [介绍](https://dshapp.github.io/products/android/) · [源码](https://github.com/dshapp/dsh-mobile-bridge) |
+|  | **电脑操作**<br>`dsh-kimi-computer-use` | 让 Agent 在后台操作没有 API 的 Mac 应用 | [介绍](https://dshapp.github.io/products/cu/) · [源码](https://github.com/dshapp/dsh-kimi-computer-use) |
+|  | **Claude 订阅**<br>`dsh-claude-subscription` | 用 Claude Code 订阅在 DSH 里跑 Claude 模型，不用另买 API Key | [源码](https://github.com/dshapp/dsh-claude-subscription) |
+| 基础设施 | **中转服务**<br>`dsh-proxy` | 手机远程唯一的公网组件：单端口、只转发密文、无状态 | [介绍](https://dshapp.github.io/docs/crypto/) · [源码](https://github.com/dshapp/dsh-proxy) |
+|  | **产品站** ← 你在这里<br>`dshapp.github.io` | 下载、文档与更新日志 | [介绍](https://dshapp.github.io/) |
+<!-- dsh-family:end -->
