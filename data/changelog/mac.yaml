@@ -1,5 +1,19 @@
 # macOS App 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.1.75"
+    date: "2026-10-24"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "新功能与改进"
+      en: "New features"
+    changes:
+      - type: new
+        zh: "修改文件卡片点开二进制图片直接显示图片，文件已被移动或删除时显示「文件已不存在」占位。"
+      - type: new
+        zh: "计划模式提交的计划在该轮结束后于轮尾显示计划卡片（标题、「计划 · Markdown」、打开），点开弹窗查看完整计划并可复制（对齐 Web）。"
+      - type: new
+        zh: "定时任务触发的消息复用用户气泡显示任务内容，气泡上方「自动化任务」标签点开弹窗查看任务名称、计划时间、运行时间、内容与任务 ID；其它触发改为固定高度卡片、点开弹窗查看通知原文，不再原地展开收起。"
   - version: "0.1.74"
     date: "2026-10-20"
     status: released
