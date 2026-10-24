@@ -43,7 +43,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager
 
 - 只想检查、不安装：macOS / Linux 在命令末尾加 `-s -- --check`（即 `… | bash -s -- --check`）；Windows 先执行 `set DSH_CHECK_ONLY=1`（PowerShell 中为 `$env:DSH_CHECK_ONLY='1'`）。
 - 需要安装 Node.js 时：macOS 有 Homebrew 就用 Homebrew，否则从 nodejs.org 下载官方 LTS 安装包、校验 SHA-256 后用系统安装器安装（会要求输入开机密码）；Windows 优先用 winget，没有则下载官方 MSI（会弹出管理员授权）；Linux 请先用包管理器或 nvm 自行安装。
-- 如果 `dsh web` 在装插件之前就已经在运行，脚本不会替你结束它，会提示你关掉后重新运行。
+- Windows 需要 dsh-chrome-control 0.3.14 及以上（更早的版本在 Windows 上不注册本地启动器），脚本发现旧版本会自动升级；插件在设置里被停用时会提示你先启用。
+- 如果 `dsh web` 在装插件之前就已经在运行，脚本不会替你结束它，会提示你关掉后重新运行（Windows 上会给出占用端口的 PID）。脚本自己在后台启动的 `dsh web` 没注册成功时会被自动结束，并给出日志里找到的原因。
 
 也可以手动执行同样的步骤：
 

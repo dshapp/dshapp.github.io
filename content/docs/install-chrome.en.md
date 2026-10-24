@@ -43,7 +43,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager
 
 - Check only, install nothing: on macOS / Linux append `-s -- --check` (`… | bash -s -- --check`); on Windows run `set DSH_CHECK_ONLY=1` first (`$env:DSH_CHECK_ONLY='1'` in PowerShell).
 - When Node.js is missing: macOS uses Homebrew if present, otherwise the official LTS package from nodejs.org, verified by SHA-256 and installed with Apple's installer (asks for your password); Windows prefers winget and falls back to the official MSI (shows an admin prompt); on Linux install it with your package manager or nvm first.
-- If `dsh web` was already running before the plugin was installed, the script won't stop it for you; it tells you to stop it and run the script again.
+- Windows needs dsh-chrome-control 0.3.14 or later (earlier releases do not register the local launcher on Windows); the script upgrades an older one, and asks you to enable the plugin if it is disabled in Settings.
+- If `dsh web` was already running before the plugin was installed, the script won't stop it for you; it tells you to stop it and run the script again (on Windows it names the PID holding the port). A `dsh web` the script itself started in the background is stopped automatically when registration fails, along with the reason found in its log.
 
 Or run the same steps by hand:
 
