@@ -1,5 +1,19 @@
 # Chrome 扩展 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.3.18"
+    date: "2026-10-23"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "新功能与问题修复"
+      en: "New features and fixes"
+    changes:
+      - type: new
+        zh: "新用户首次使用、没有任何可用模型提供方时弹「添加一个 API Key 开始使用」引导，对齐 Mac DeepSeekOnboardingDialog——判定与 web onboardingReadiness 同口径（任一提供方可用即不弹；官方 DeepSeek 路由缺席/未启用/凭证只读时也不弹），填 key 写入官方凭证引用并刷新模型菜单，「配置其他模型提供商」/Esc 跳到设置 → 模型。"
+      - type: fixed
+        zh: "「启用完全访问?」确认框补回视口居中——全局 * { margin:0 } 盖掉了 UA 的 margin:auto，弹窗贴在左上角；加测试守住侧栏所有 <dialog> 都写回居中。"
+      - type: fixed
+        zh: "「想手动一步步安装?」展开后不再被 3s 轮询自动收起——重绘时保留用户的展开/收起状态，后台检测结果未变时不重绘。"
   - version: "0.3.17"
     date: "2026-10-20"
     status: released
