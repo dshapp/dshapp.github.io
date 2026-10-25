@@ -1,5 +1,15 @@
 # Chrome 扩展 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.3.19"
+    date: "2026-10-25"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "问题修复"
+      en: "Bug fixes"
+    changes:
+      - type: fixed
+        zh: "插件「更新」在开着 HMR 的 dsh web 上报 already-installed——宿主 HMR 下不许原地换版本，改按宿主给的路先 removeBundle 再装（与 web 插件页的更新一致，当场生效不必重启），新版装不上就把原版本装回去；卸载前宿主会先停用插件，停不下来（bundle-in-use / stop-profile，典型是启动后 profile 依赖又变过、只能重启才能换代码）时宿主会把它留在停用状态，这里把开关拨回去，并改成「重启服务并更新」：确认后重启 dsh web、重读清单再走一遍，重启不了就请用户手动重启；加测试守住。"
   - version: "0.3.18"
     date: "2026-10-23"
     status: released
