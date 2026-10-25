@@ -1,5 +1,14 @@
 # dsh-chrome 浏览器控制 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.3.15"
+    date: "2026-10-25"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "新增 chrome-web-search 插件"
+    changes:
+      - type: new
+        zh: "新增 chrome-web-search 插件，让内置 web_search 改走用户真实 Chrome 搜索——注册 chrome-browser 搜索后端，经 chrome-daemon 的 MCP 端点每个查询开独立标签组、读结果页后关闭；支持谷歌（默认）/必应/百度/搜狗/头条搜索，engine 为 volatile 设置即改即生效；默认关闭，web.searchProvider 选中 chrome-browser 才启用；验证码时报 WEB_SEARCH_CAPTCHA 并保留标签页，结果页自跳转导致的调试器断开自动重试；daemon 地址常量抽到 daemon.ts；加测试守住。"
   - version: "0.3.14"
     date: "2026-10-19"
     status: released

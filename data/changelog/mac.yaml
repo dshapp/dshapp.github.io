@@ -1,5 +1,17 @@
 # macOS App 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.1.77"
+    date: "2026-10-25"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "新功能与改进"
+      en: "New features"
+    changes:
+      - type: new
+        zh: "「浏览器」「移动端访问」页检测 dsh-chrome-control / dsh-mobile-bridge 插件更新并一键更新：已装版本取服务端插件清单，最新版本直接问 npm registry 的 latest（官方源不通换 npmmirror），只检查从 registry 安装的插件（本地链接等开发版不提示），按语义版本比较不提示降级；有新版时显示「可更新 · 当前版本 → 最新版本」与「更新」按钮，每次进入页面检查一次；更新保留插件启停，需要时自动重启服务，重启不了提示重启后生效，失败原样显示原因可重试；更新期间移动端访问的配对区只显示进度（与 Chrome 扩展设置页一致）。"
+      - type: new
+        zh: "设置「浏览器」页新增「网页搜索」：开关即服务的 web.searchProvider 是否选中 dsh-chrome-control 注册的 chrome-browser（关闭时删掉覆盖回到默认后端），可选谷歌/必应/百度/搜狗/头条搜索引擎；写完重读服务端设置，只读时控件禁用，插件太旧时提示更新插件并重启服务，Chrome 未连接时提示连上后才能搜索。"
   - version: "0.1.76"
     date: "2026-10-24"
     status: released
