@@ -1,5 +1,16 @@
 # dsh-mobile-bridge 手机桥接 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.3.7"
+    date: "2026-10-26"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "新功能与改进"
+      en: "New features"
+    changes:
+      - type: new
+        zh: "Default to the public dshproxy.wuhaolin.cn relay with its key pinned."
+        en: "Default to the public dshproxy.wuhaolin.cn relay with its key pinned."
   - version: "0.3.6"
     date: "2026-10-15"
     status: released
