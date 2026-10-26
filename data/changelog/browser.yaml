@@ -1,5 +1,15 @@
 # dsh-chrome 浏览器控制 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.3.16"
+    date: "2026-10-26"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "问题修复"
+      en: "Bug fixes"
+    changes:
+      - type: fixed
+        zh: "Windows 上 /host/git 一律 400 \"cannot determine HOME\"，扩展聊天区顶部的 Git 入口（分支 + 改动统计）永远不出现——dirs_home 只认 $HOME，而 Windows 原生不设 HOME、dsh 拉起 daemon 时也不补；改为 HOME 优先，Windows 上回退 %USERPROFILE%，再回退 %HOMEDRIVE%%HOMEPATH%，Windows 进程里漏进来的 Unix 风格 HOME（/c/Users/x）不认；validate_cwd 在 Windows 上 canonicalize 得到 \\\\?\\C:\\… 的 verbatim 形式，包含检查照旧用它，交给 git 作工作目录前还原成普通 C:\\… / \\\\server\\share 写法，过长、分量以点或空格结尾、DOS 设备名（CON/NUL/COM1…）等还原后会变义的保留原样；加测试守住。"
   - version: "0.3.15"
     date: "2026-10-25"
     status: released

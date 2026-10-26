@@ -1,5 +1,24 @@
 # Chrome 扩展 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.3.21"
+    date: "2026-10-26"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "问题修复"
+      en: "Bug fixes"
+    changes:
+      - type: fixed
+        zh: "daemon 拒绝执行 git（HTTP 4xx/5xx）时不再毫无痕迹——Windows 上 daemon 只认 $HOME，每条 /host/git 都被 400 \"cannot determine HOME\" 拒掉，摘要被当成「不是仓库」、聊天区顶部 Git 入口永远不出现且控制台什么都没有；入口照旧隐藏，但按宿主原因在控制台 warn 一次（git 自己非零退出不算）；worktree 占用表把 git 输出的 C:/… 与会话 cwd 的 C:\\… 认作同一目录（分隔符归一、盘符路径不区分大小写），展示名认反斜杠；根因修在 dsh-chrome-control daemon（dshapp/dsh-chrome-control#28）；加测试守住。"
+  - version: "0.3.20"
+    date: "2026-10-26"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "聊天记录尾部跟随对齐 DSH Web"
+    changes:
+      - type: new
+        zh: "聊天记录尾部跟随对齐 DSH Web，新增「滚动到底部」按钮——停在底部就随流式内容钉底，读者上滚离开底部即放手（向上滚轮/触控板意图立即释放，内层代码块自己能滚时不算；拖滚动条期间不重钉），自己滚回底部或点右下角的箭头按钮即落底并恢复跟随，turn 轨道 active 同步回最新一轮；轮次结束不再释放跟随，原 stop 静默确认逻辑移除；跟随中关闭 overflow-anchor，避免滚动锚定的位移被误判成上滚；ResizeObserver 让图片/公式异步落地、输入框长高时照样钉底，刚点过消息区（展开卡片）造成的增长归读者不钉；点轮次刻度先放手，避免平滑滚动被 pin 拽回；切会话回到落底跟随；加测试守住。"
   - version: "0.3.19"
     date: "2026-10-25"
     status: released
