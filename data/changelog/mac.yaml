@@ -1,5 +1,17 @@
 # macOS App 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.1.78"
+    date: "2026-10-26"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "问题修复"
+      en: "Bug fixes"
+    changes:
+      - type: fixed
+        zh: "插件「重启服务并更新」重启失败时显示服务端给出的原因（如新服务没能启动），不再一律提示「无法从这里重启」（与 Chrome 扩展设置页一致）。"
+      - type: fixed
+        zh: "插件「更新」在开着 HMR 的 dsh 服务上失败（already-installed）——改为先卸载再安装（与 Web 插件页一致，当场生效不必重启），新版装不上时装回原版本；插件运行中无法卸载（bundle-in-use / stop-profile）时恢复插件启用状态，按钮改为「重启服务并更新」：重启服务、重新检查后再更新，无法重启时提示手动重启（与 Chrome 扩展设置页一致）。"
   - version: "0.1.77"
     date: "2026-10-25"
     status: released
