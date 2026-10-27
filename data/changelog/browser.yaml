@@ -1,5 +1,15 @@
 # dsh-chrome 浏览器控制 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.3.17"
+    date: "2026-10-27"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "新功能与改进"
+      en: "New features"
+    changes:
+      - type: new
+        zh: "新增 restart 命令——按端口找到 dsh web,SIGTERM→超时 SIGKILL,确认退出后用正在跑的那份 dsh 在同一地址重新拉起(对齐 Mac ServerTermination);不是 dsh web 的监听者一律不动;status 声明 commands 供扩展判断。"
   - version: "0.3.16"
     date: "2026-10-26"
     status: released
