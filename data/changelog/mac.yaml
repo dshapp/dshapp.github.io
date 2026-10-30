@@ -1,5 +1,19 @@
 # macOS App 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.1.79"
+    date: "2026-10-30"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "新功能与问题修复"
+      en: "New features and fixes"
+    changes:
+      - type: new
+        zh: "适配 dsh 0.2.2-alpha.2，并跟进 Web 新功能。"
+      - type: new
+        zh: "工作区右键菜单新增「复制工作区路径」，把工作区绝对路径复制到剪贴板。"
+      - type: fixed
+        zh: "聊天记录每个会话用独立的列表——之前切换会话时原地复用同一张 NSTableView，停在预估行高的行（消息卡片只显示一半）切走再切回来也恢复不了；切换会话即重建，查找栏随离开聊天记录关闭，删去手动重置状态的代码。"
   - version: "0.1.78"
     date: "2026-10-26"
     status: released

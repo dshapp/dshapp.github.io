@@ -1,5 +1,14 @@
 # Chrome 扩展 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.3.23"
+    date: "2026-10-30"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "适配 dsh 0.2.2-alpha.2"
+    changes:
+      - type: new
+        zh: "适配 dsh 0.2.2-alpha.2，插件更新改用宿主内置接口。"
   - version: "0.3.21"
     date: "2026-10-26"
     status: released
