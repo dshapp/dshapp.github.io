@@ -1,5 +1,15 @@
 # dsh-chrome 浏览器控制 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.3.19"
+    date: "2026-10-30"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "问题修复"
+      en: "Bug fixes"
+    changes:
+      - type: fixed
+        zh: "macOS 上经 launchd 拉起 dsh web，不再落进 Chrome 的文件隔离进程树。"
   - version: "0.3.17"
     date: "2026-10-27"
     status: released
