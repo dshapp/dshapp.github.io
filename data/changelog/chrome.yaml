@@ -1,5 +1,25 @@
 # Chrome 扩展 更新日志 —— 由 git 历史整理，供 /whatsnew/ 页面使用
 entries:
+  - version: "0.3.24"
+    date: "2026-10-31"
+    status: released
+    generated: true  # 由 scripts/sync-changelog.py 自动生成，人工润色后删掉这一行
+    title:
+      zh: "新功能与问题修复"
+      en: "New features and fixes"
+    changes:
+      - type: new
+        zh: "图标栏「最近会话」弹层每行显示运行状态与行尾标签,与左侧会话列表行一致——行首状态灯(在跑 / 失败 / 跑完未读 / 置顶图钉),行尾待审批 / 待回答 / 草稿徽章或相对时间,只是不带行操作按钮。判定不另写:session-drawer-view 把行状态计算抽成 rowState,抽屉行与新导出的 sessionRowDecorHtml 共用同一份 statusHtml / trailingHtml;样式不复制:foundation.css 里 .h-state / .h-badge / .h-when 选择器改为同时认 .rail-recent-item,只补单行排版(不换行、标题省略、当前会话不再打勾而靠底色)。renderMenuItems 支持条目 leadingHtml / trailingHtml。弹层开着时随 listStore / pinnedStore 变化就地重画,并按 id 还原键盘焦点。加单测守住弹层与抽屉行输出一致。"
+      - type: new
+        zh: "左侧会话列表展开时支持拖拽调宽——抽屉右缘加一条 8px 竖向把手(role=separator),按住左右拖改宽度、双击恢复默认、聚焦后 ←/→ 每次 16px、Home 复位。宽度只写 :root 的 --sidebar-w-pref,上下限全在 foundation.css 的 clamp():挤出栏(中/宽档)200px ~ max(288px, min(560px, 100vw−360px)),给聊天区留够宽且默认 288px 不被压小;窄档浮层不低于 200px、右侧至少留 48px 遮罩,未拖过时保持 min(88%, 340px)。拖动时指针位置直接写进变量由 CSS 夹住,松手按实际渲染宽度存 localStorage(同步读,首帧即为用户宽度不闪),storage 事件跨实例同步;拖动期间关过渡、全页 col-resize、禁选中文字。aria-valuenow/valuemax 按实际宽度与 CSS 上限同步。加 sidebar-resize 单测。"
+      - type: new
+        zh: "左侧会话栏按侧栏总宽度分三档——窄(<640px)保持现状的浮层抽屉;中(640–767px)左侧常驻 44px 图标栏(缩小版:展开/新建/搜索/最近会话/插件/自动化/设置),展开后为 288px 挤出栏;宽(≥768px)默认展开、可收起成图标栏。档位与形态全部由 foundation.css 的 @media 决定,JS 不挂 resize/matchMedia,只在 body 上记用户意图(sidebar-expanded 本页临时、sidebar-collapsed 宽档收起持久化到 localStorage 以免首帧闪出、storage 事件跨实例同步);抽屉可见性变化经 CSS animationstart 通知补画列表。挤出档下打开会话/新建/进设置不再收起左栏,设置页让出左栏宽度;键盘导航只在焦点在抽屉内时接管,不再劫持输入框方向键。「最近会话」弹层参考 codemax-chrome rail-recents,悬停/点击弹出、CSS 锚点定位。renderMenuItems 改为直接从 menu-items.js 导入。加 sidebar-state / sidebar-rail 单测。"
+      - type: improved
+        zh: "打开会话与发送消息提速，对齐 DSH Web——切会话 458–640ms → 117–280ms，发送后用户气泡 ~300ms → 41ms。"
+      - type: fixed
+        zh: "手动排序下新建 / 正在跑的会话不再从左侧列表消失,对齐 Mac / DSH Web 能看到的会话——单列表 manual 档第一次拖动会把当时整个可见子集(实测 1220 条)写进本地账本,之后新会话按时间倒序追加在账本行之后,落在 FLAT_ROW_LIMIT(500)渲染上限之外:新建并已在跑的会话排第 1220/1225 位、整行不画。改为没摆过位置的会话按时间倒序排在账本行之前(拖过后才有手动位置);单列表上限只截闲置行,当前会话、空白、运行中、有子代理在跑的行即便在上限之后也照画、保持原顺序。加 session-order-store 单测与 sidebar-sections 上限放行活行的测试。"
+      - type: fixed
+        zh: "会话列表归档先弹窗确认、归档后列表不收起——行尾归档按钮紧挨置顶/分叉/重命名，误点一下会话就没了：改为先弹侧栏风格的确认框（标题带会话名，说明归档不删除、可在「视图选项 → 筛选会话」取消归档），取消 / Esc / 点 backdrop 都不归档，确认期间整行按钮禁用防连点；有活在跑时的「停止并归档」也从 window.confirm 换成同一个确认框。确认框（confirm-dialog.js）挂在抽屉里，点它不会触发抽屉的点外关闭，开着时抽屉的方向键/回车/Esc 让给它。归档当前会话后原本先 hide() 再新建会话，列表跟着收起；newSession/openSession 加 keepDrawer，归档接替新会话时抽屉留着，只是那一行消失。加单测守住。"
   - version: "0.3.23"
     date: "2026-10-30"
     status: released
